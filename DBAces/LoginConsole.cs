@@ -17,6 +17,7 @@ namespace DBAces
         String sqlcon = "Data Source=.\\SQLEXPRESS;Initial Catalog=DBAces;Integrated Security=True;Trust Server Certificate=True";
         String LoginPage = "LoginPagePanel";
         String RegisterPage = "RegisterPagePanel";
+        String CurrentHost = "";
 
         // ROLE
         String RolePatient = "Patient";
@@ -78,24 +79,50 @@ namespace DBAces
             return false;
         }
 
+        private bool ToVerifyUserLogin() {
+            using (SqlConnection con = new SqlConnection(sqlcon))
+            {
+                con.Open();
+                string UserRolePatient = "Patient";
+                string sql = "SELECT Role FROM Users WHERE Username = @Username AND Password = @Password";
+                using (SqlCommand cmd = new SqlCommand(sql, con))
+                {
+                    cmd.Parameters.AddWithValue("@UserName", UsernameLoginInput.Text);
+                    cmd.Parameters.AddWithValue("@Password", PasswordLoginInput.Text);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            if (reader["Role"] != DBNull.Value)
+                            {
+                                string hostName = reader["Role"].ToString();
+                                if (hostName == UserRolePatient)
+                                {
+                                    CurrentHost = hostName;
+                                    return true;
+                                }
+                                else
+                                {
+                                    MessageBox.Show("This user has a different role: " + hostName);
+                                    return false;
+                                }
+                            }
+                            else {
+                                MessageBox.Show("The Role column is NULL.");
+                            }
+                            
+                        }
+                    }
+                }
+            }
+            return false;
+        }
         private void LoginBTN_Click(object sender, EventArgs e)
         {
             if (!String.IsNullOrEmpty(UsernameLoginInput.Text) && !String.IsNullOrEmpty(PasswordLoginInput.Text))
             {
-                using (SqlConnection con = new SqlConnection(sqlcon))
-                {
-                    con.Open();
-                    string sql = "SELECT Role FROM Users WHERE Username = @Username AND Password = @Password";
-                    using (SqlCommand cmd = new SqlCommand(sqlcon, con))
-                    {
-                        cmd.Parameters.AddWithValue("@UserName", UsernameLoginInput.Text);
-                        cmd.Parameters.AddWithValue("@Password", PasswordLoginInput.Text);
-                        using (SqlDataReader reader = cmd.ExecuteReader()) {
-                            if (reader.Read()) { 
-                                
-                            }
-                        }
-                    }
+                if (ToVerifyUserLogin()) { 
+                
                 }
             }
             else

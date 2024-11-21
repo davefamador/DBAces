@@ -395,8 +395,8 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(823, 524);
-            Controls.Add(UserSetting);
             Controls.Add(AddBalancePanel);
+            Controls.Add(UserSetting);
             Controls.Add(HistoryPanel);
             Controls.Add(AppointmentPanel);
             Controls.Add(panel1);
