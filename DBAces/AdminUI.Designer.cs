@@ -29,26 +29,47 @@
         private void InitializeComponent()
         {
             TopbarPanel = new Panel();
-            button2 = new Button();
+            AppointmentBTN = new Button();
+            TopBar_DashboardBTN = new Button();
             TopBar_PaymentHistoryBTN = new Button();
             TopBar_UserBTN = new Button();
             UserPanel = new Panel();
             panel1 = new Panel();
+            AddDoctorBTN = new Button();
             DoctorDisplayFlowLayout = new FlowLayoutPanel();
             PatientDisplayFlowLayout = new FlowLayoutPanel();
             label2 = new Label();
             label1 = new Label();
             AppointmentPanel = new Panel();
             PaymentHistoryPanel = new Panel();
+            DashboardPanel = new Panel();
+            AddUserPanel = new Panel();
+            ToRegisterDoctorBTN = new Button();
+            DoctorEmailTextBox = new TextBox();
+            label99 = new Label();
+            textBox3 = new TextBox();
+            label7 = new Label();
+            textBox4 = new TextBox();
+            DoctorSpecializationTextBox = new Label();
+            DoctorLastNameTextBox = new TextBox();
+            label5 = new Label();
+            DoctorFirstNameTextBox = new TextBox();
+            label6 = new Label();
+            DoctorPasswordTextBox = new TextBox();
+            label4 = new Label();
+            DoctorUserNameTextbox = new TextBox();
+            label3 = new Label();
             TopbarPanel.SuspendLayout();
             UserPanel.SuspendLayout();
             panel1.SuspendLayout();
+            AddUserPanel.SuspendLayout();
             SuspendLayout();
             // 
             // TopbarPanel
             // 
             TopbarPanel.BackColor = Color.Navy;
-            TopbarPanel.Controls.Add(button2);
+            TopbarPanel.Controls.Add(AppointmentBTN);
+            TopbarPanel.Controls.Add(TopBar_DashboardBTN);
             TopbarPanel.Controls.Add(TopBar_PaymentHistoryBTN);
             TopbarPanel.Controls.Add(TopBar_UserBTN);
             TopbarPanel.Dock = DockStyle.Top;
@@ -58,19 +79,35 @@
             TopbarPanel.TabIndex = 0;
             TopbarPanel.Paint += TopbarPanel_Paint;
             // 
-            // button2
+            // AppointmentBTN
             // 
-            button2.BackColor = Color.Transparent;
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button2.ForeColor = SystemColors.Control;
-            button2.Location = new Point(172, 12);
-            button2.Name = "button2";
-            button2.Size = new Size(142, 37);
-            button2.TabIndex = 8;
-            button2.Text = "Appointments";
-            button2.UseVisualStyleBackColor = false;
+            AppointmentBTN.BackColor = Color.Transparent;
+            AppointmentBTN.FlatAppearance.BorderSize = 0;
+            AppointmentBTN.FlatStyle = FlatStyle.Flat;
+            AppointmentBTN.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            AppointmentBTN.ForeColor = SystemColors.Control;
+            AppointmentBTN.Location = new Point(144, 12);
+            AppointmentBTN.Name = "AppointmentBTN";
+            AppointmentBTN.Size = new Size(142, 37);
+            AppointmentBTN.TabIndex = 9;
+            AppointmentBTN.Text = "Appointments";
+            AppointmentBTN.UseVisualStyleBackColor = false;
+            AppointmentBTN.Click += AppointmentBTN_Click;
+            // 
+            // TopBar_DashboardBTN
+            // 
+            TopBar_DashboardBTN.BackColor = Color.Transparent;
+            TopBar_DashboardBTN.FlatAppearance.BorderSize = 0;
+            TopBar_DashboardBTN.FlatStyle = FlatStyle.Flat;
+            TopBar_DashboardBTN.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            TopBar_DashboardBTN.ForeColor = SystemColors.Control;
+            TopBar_DashboardBTN.Location = new Point(615, 16);
+            TopBar_DashboardBTN.Name = "TopBar_DashboardBTN";
+            TopBar_DashboardBTN.Size = new Size(203, 37);
+            TopBar_DashboardBTN.TabIndex = 9;
+            TopBar_DashboardBTN.Text = "Dashboard";
+            TopBar_DashboardBTN.UseVisualStyleBackColor = false;
+            TopBar_DashboardBTN.Click += TopBar_DashboardBTN_Click;
             // 
             // TopBar_PaymentHistoryBTN
             // 
@@ -85,6 +122,7 @@
             TopBar_PaymentHistoryBTN.TabIndex = 7;
             TopBar_PaymentHistoryBTN.Text = "Payment History";
             TopBar_PaymentHistoryBTN.UseVisualStyleBackColor = false;
+            TopBar_PaymentHistoryBTN.Click += TopBar_PaymentHistoryBTN_Click;
             // 
             // TopBar_UserBTN
             // 
@@ -99,6 +137,7 @@
             TopBar_UserBTN.TabIndex = 6;
             TopBar_UserBTN.Text = "Users";
             TopBar_UserBTN.UseVisualStyleBackColor = false;
+            TopBar_UserBTN.Click += TopBar_UserBTN_Click;
             // 
             // UserPanel
             // 
@@ -113,6 +152,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(AddDoctorBTN);
             panel1.Controls.Add(DoctorDisplayFlowLayout);
             panel1.Controls.Add(PatientDisplayFlowLayout);
             panel1.Controls.Add(label2);
@@ -121,6 +161,16 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(804, 504);
             panel1.TabIndex = 14;
+            // 
+            // AddDoctorBTN
+            // 
+            AddDoctorBTN.Location = new Point(648, 21);
+            AddDoctorBTN.Name = "AddDoctorBTN";
+            AddDoctorBTN.Size = new Size(132, 29);
+            AddDoctorBTN.TabIndex = 14;
+            AddDoctorBTN.Text = "AddDoctor";
+            AddDoctorBTN.UseVisualStyleBackColor = true;
+            AddDoctorBTN.Click += AddDoctorBTN_Click;
             // 
             // DoctorDisplayFlowLayout
             // 
@@ -177,12 +227,176 @@
             PaymentHistoryPanel.Size = new Size(838, 423);
             PaymentHistoryPanel.TabIndex = 1;
             // 
+            // DashboardPanel
+            // 
+            DashboardPanel.Dock = DockStyle.Fill;
+            DashboardPanel.Location = new Point(0, 59);
+            DashboardPanel.Name = "DashboardPanel";
+            DashboardPanel.Size = new Size(838, 423);
+            DashboardPanel.TabIndex = 14;
+            // 
+            // AddUserPanel
+            // 
+            AddUserPanel.BackColor = SystemColors.ActiveCaption;
+            AddUserPanel.Controls.Add(ToRegisterDoctorBTN);
+            AddUserPanel.Controls.Add(DoctorEmailTextBox);
+            AddUserPanel.Controls.Add(label99);
+            AddUserPanel.Controls.Add(textBox3);
+            AddUserPanel.Controls.Add(label7);
+            AddUserPanel.Controls.Add(textBox4);
+            AddUserPanel.Controls.Add(DoctorSpecializationTextBox);
+            AddUserPanel.Controls.Add(DoctorLastNameTextBox);
+            AddUserPanel.Controls.Add(label5);
+            AddUserPanel.Controls.Add(DoctorFirstNameTextBox);
+            AddUserPanel.Controls.Add(label6);
+            AddUserPanel.Controls.Add(DoctorPasswordTextBox);
+            AddUserPanel.Controls.Add(label4);
+            AddUserPanel.Controls.Add(DoctorUserNameTextbox);
+            AddUserPanel.Controls.Add(label3);
+            AddUserPanel.Dock = DockStyle.Fill;
+            AddUserPanel.Location = new Point(0, 59);
+            AddUserPanel.Name = "AddUserPanel";
+            AddUserPanel.Size = new Size(838, 423);
+            AddUserPanel.TabIndex = 15;
+            AddUserPanel.Paint += AddUserPanel_Paint;
+            // 
+            // ToRegisterDoctorBTN
+            // 
+            ToRegisterDoctorBTN.Location = new Point(549, 287);
+            ToRegisterDoctorBTN.Name = "ToRegisterDoctorBTN";
+            ToRegisterDoctorBTN.Size = new Size(269, 52);
+            ToRegisterDoctorBTN.TabIndex = 14;
+            ToRegisterDoctorBTN.Text = "REGISTER DOCTOR";
+            ToRegisterDoctorBTN.UseVisualStyleBackColor = true;
+            ToRegisterDoctorBTN.Click += ToRegisterDoctorBTN_Click;
+            // 
+            // DoctorEmailTextBox
+            // 
+            DoctorEmailTextBox.Location = new Point(456, 203);
+            DoctorEmailTextBox.Name = "DoctorEmailTextBox";
+            DoctorEmailTextBox.Size = new Size(182, 23);
+            DoctorEmailTextBox.TabIndex = 13;
+            // 
+            // label99
+            // 
+            label99.AutoSize = true;
+            label99.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label99.Location = new Point(511, 179);
+            label99.Name = "label99";
+            label99.Size = new Size(53, 21);
+            label99.TabIndex = 12;
+            label99.Text = "Email";
+            // 
+            // textBox3
+            // 
+            textBox3.Location = new Point(566, 143);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(182, 23);
+            textBox3.TabIndex = 11;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label7.Location = new Point(579, 119);
+            label7.Name = "label7";
+            label7.Size = new Size(126, 21);
+            label7.TabIndex = 10;
+            label7.Text = "Phone Number";
+            // 
+            // textBox4
+            // 
+            textBox4.Location = new Point(328, 143);
+            textBox4.Name = "textBox4";
+            textBox4.Size = new Size(182, 23);
+            textBox4.TabIndex = 9;
+            // 
+            // DoctorSpecializationTextBox
+            // 
+            DoctorSpecializationTextBox.AutoSize = true;
+            DoctorSpecializationTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            DoctorSpecializationTextBox.Location = new Point(345, 119);
+            DoctorSpecializationTextBox.Name = "DoctorSpecializationTextBox";
+            DoctorSpecializationTextBox.Size = new Size(118, 21);
+            DoctorSpecializationTextBox.TabIndex = 8;
+            DoctorSpecializationTextBox.Text = "Specialization";
+            // 
+            // DoctorLastNameTextBox
+            // 
+            DoctorLastNameTextBox.Location = new Point(566, 53);
+            DoctorLastNameTextBox.Name = "DoctorLastNameTextBox";
+            DoctorLastNameTextBox.Size = new Size(182, 23);
+            DoctorLastNameTextBox.TabIndex = 7;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label5.Location = new Point(579, 29);
+            label5.Name = "label5";
+            label5.Size = new Size(142, 21);
+            label5.TabIndex = 6;
+            label5.Text = "Doctor LastName";
+            // 
+            // DoctorFirstNameTextBox
+            // 
+            DoctorFirstNameTextBox.Location = new Point(328, 53);
+            DoctorFirstNameTextBox.Name = "DoctorFirstNameTextBox";
+            DoctorFirstNameTextBox.Size = new Size(182, 23);
+            DoctorFirstNameTextBox.TabIndex = 5;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label6.Location = new Point(345, 29);
+            label6.Name = "label6";
+            label6.Size = new Size(144, 21);
+            label6.TabIndex = 4;
+            label6.Text = "Doctor FirstName";
+            // 
+            // DoctorPasswordTextBox
+            // 
+            DoctorPasswordTextBox.Location = new Point(49, 113);
+            DoctorPasswordTextBox.Name = "DoctorPasswordTextBox";
+            DoctorPasswordTextBox.Size = new Size(182, 23);
+            DoctorPasswordTextBox.TabIndex = 3;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label4.Location = new Point(51, 89);
+            label4.Name = "label4";
+            label4.Size = new Size(138, 21);
+            label4.TabIndex = 2;
+            label4.Text = "Doctor Password";
+            // 
+            // DoctorUserNameTextbox
+            // 
+            DoctorUserNameTextbox.Location = new Point(49, 51);
+            DoctorUserNameTextbox.Name = "DoctorUserNameTextbox";
+            DoctorUserNameTextbox.Size = new Size(182, 23);
+            DoctorUserNameTextbox.TabIndex = 1;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label3.Location = new Point(51, 27);
+            label3.Name = "label3";
+            label3.Size = new Size(143, 21);
+            label3.TabIndex = 0;
+            label3.Text = "Doctor Username";
+            // 
             // AdminUI
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(838, 482);
+            Controls.Add(AddUserPanel);
             Controls.Add(UserPanel);
+            Controls.Add(DashboardPanel);
             Controls.Add(AppointmentPanel);
             Controls.Add(PaymentHistoryPanel);
             Controls.Add(TopbarPanel);
@@ -194,6 +408,8 @@
             UserPanel.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            AddUserPanel.ResumeLayout(false);
+            AddUserPanel.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -203,7 +419,6 @@
         private Button TopBar_UserBTN;
         private Panel UserPanel;
         private Button TopBar_PaymentHistoryBTN;
-        private Button button2;
         private Panel AppointmentPanel;
         private Panel PaymentHistoryPanel;
         private Label label1;
@@ -211,5 +426,25 @@
         private FlowLayoutPanel DoctorDisplayFlowLayout;
         private Label label2;
         private Panel panel1;
+        private Button TopBar_DashboardBTN;
+        private Panel DashboardPanel;
+        private Button AppointmentBTN;
+        private Button AddDoctorBTN;
+        private Panel AddUserPanel;
+        private TextBox textBox3;
+        private Label label7;
+        private TextBox textBox4;
+        private Label DoctorSpecializationTextBox;
+        private TextBox DoctorLastNameTextBox;
+        private Label label5;
+        private TextBox DoctorFirstNameTextBox;
+        private Label label6;
+        private TextBox DoctorPasswordTextBox;
+        private Label label4;
+        private TextBox DoctorUserNameTextbox;
+        private Label label3;
+        private TextBox DoctorEmailTextBox;
+        private Label label99;
+        private Button ToRegisterDoctorBTN;
     }
 }

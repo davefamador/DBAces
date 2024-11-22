@@ -22,6 +22,8 @@ namespace DBAces
         String RegisterPage = "RegisterPagePanel";
         String CurrentHost = "";
         String CurrentHostID = "";
+
+       
         // ROLE
         String RolePatient = "Patient";
         public LoginConsole()
@@ -107,7 +109,6 @@ namespace DBAces
                             }
                             else
                             {
-
                                 MessageBox.Show("The Role column is NULL.");
                                 return false;
                             }
@@ -150,28 +151,47 @@ namespace DBAces
         }
         private void toRegisterCustomer()
         {
-            string sql = "INSERT INTO Users (Username, Password, Role) VALUES (@Username, @Password, @Role)";
-            string sql1 = "";
+            bool iteration1sql = false, iteration2sql = false;
+            string userName = UserNameRegisterInput.Text.ToString();
+            string passWord = PasswordRegisterInput.Text.ToString();
+            string sql = "INSERT INTO Users (Username, Password, Role) OUTPUT INSERTED.UserID VALUES (@Username, @Password, @Role)";
+            string sql1 = "INSERT INTO Patients (UserID) VALUES (@UserID)";
 
             using (SqlConnection con = new SqlConnection(sqlcon))
             {
                 con.Open();
                 try
                 {
+                    int newUserID = 0;
                     using (SqlCommand cmd = new SqlCommand(sql, con))
                     {
-                        cmd.Parameters.Add("@Username", SqlDbType.NVarChar).Value = UserNameRegisterInput.Text.ToString();
-                        cmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = PasswordRegisterInput.Text.ToString();
+                        cmd.Parameters.Add("@Username", SqlDbType.NVarChar).Value = userName;
+                        cmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = passWord;
                         cmd.Parameters.Add("@Role", SqlDbType.NVarChar).Value = RolePatient;
-                        cmd.ExecuteNonQuery();
+                        newUserID = (int)cmd.ExecuteScalar();
+                        iteration1sql = true;
+                    }
+
+                    if (iteration1sql)
+                    {
+                        using (SqlCommand cmd = new SqlCommand(sql1, con))
+                        {
+                            cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = newUserID;
+                            cmd.ExecuteNonQuery();
+                            iteration2sql = true;
+                        }
+                    }
+                    if (iteration1sql == true && iteration2sql == true)
+                    {
                         MessageBox.Show("Your account is added. Please click the login button.");
                     }
-
-
-                    using (SqlCommand cmd = new SqlCommand(sql1, con))
-                    {
-
+                    else if (iteration1sql == true && iteration2sql == false) {
+                        MessageBox.Show("There was an issue on Patient DB");
                     }
+                    else {
+                        MessageBox.Show("The account didn't create");
+                    }
+
                 }
                 catch (Exception e)
                 {
@@ -187,6 +207,8 @@ namespace DBAces
                 if (ToFindUserNamesql(UserNameRegisterInput.Text))
                 {
                     toRegisterCustomer();
+                    UsernameLoginInput.Text = "";
+                    PasswordRegisterInput.Text = "";
                 }
                 else if (!ToFindUserNamesql(UserNameRegisterInput.Text))
                 {
@@ -197,6 +219,7 @@ namespace DBAces
             {
                 MessageBox.Show("Please input another username & Password");
             }
+
         }
 
         private void ToLoginPanel_Paint(object sender, PaintEventArgs e)

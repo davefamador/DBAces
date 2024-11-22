@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Text;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DBAces
 {
@@ -29,7 +30,50 @@ namespace DBAces
             toLoadDoctorInformation();
         }
 
+        private void toLoadPanels(String s)
+        {
+            switch (s)
+            {
+                case "User":
+                    DashboardPanel.Hide();
+                    AppointmentPanel.Hide();
+                    PaymentHistoryPanel.Hide();
+                    AddUserPanel.Hide();
+                    UserPanel.Show();
+                    break;
+                case "Appointment":
+                    DashboardPanel.Hide();
+                    UserPanel.Hide();
+                    PaymentHistoryPanel.Hide();
+                    AddUserPanel.Hide();
+                    AppointmentPanel.Show();
+                    break;
+                case "PaymentHistory":
+                    DashboardPanel.Hide();
+                    AppointmentPanel.Hide();
+                    UserPanel.Hide();
+                    AddUserPanel.Hide();
+                    PaymentHistoryPanel.Show();
+                    break;
+                case "Dashboard":
+                    AppointmentPanel.Hide();
+                    PaymentHistoryPanel.Hide();
+                    UserPanel.Hide();
+                    AddUserPanel.Hide();
+                    DashboardPanel.Show();
+                    break;
+                case "AddDoctor":
+                    AppointmentPanel.Hide();
+                    PaymentHistoryPanel.Hide();
+                    UserPanel.Hide();
+                    DashboardPanel.Hide();
+                    AddUserPanel.Show();
+                    break;
+            }
+        }
 
+
+        // [ USER PANEL ] = = = = = = = = == = = [ ENTRY ] = = = = = = = = 
         private void toLoadPatientInformation()
         {
             AdminPatientConfiguration adminPatientConfiguration = new AdminPatientConfiguration();
@@ -57,8 +101,6 @@ namespace DBAces
                 {
                 }
             }
-
-
         }
         private void toLoadDoctorInformation()
         {
@@ -74,7 +116,6 @@ namespace DBAces
                     {
                         while (reader.Read())
                         {
-                            MessageBox.Show("Thread Reached Here");
                             adminconfiguration.toGetDatasDoctor(reader["Username"].ToString(), reader["Password"].ToString(), Convert.ToInt32(reader["UserID"]), reader["FirstName"].ToString() + ", " + reader["LastName"].ToString(), reader["Specialization"].ToString(), reader["PhoneNum"].ToString(), reader["Email"].ToString());
                             DoctorDisplayFlowLayout.Controls.Add(adminconfiguration);
                             adminconfiguration = new AdminDoctorConfiguration();
@@ -87,6 +128,53 @@ namespace DBAces
                 }
             }
         }
+
+        // [ USER PANEL ] = = = = = = = = == = = [ END ] = = = = = = = = 
+
+
+        // [ ADD DOCTOR PANEL ] = = = = = = = = == = = [ ENTRY ] = = = = = = = = 
+        private string ErrorMessage() {
+            string messageresult = "";
+
+            if (DoctorFirstNameTextBox.Text.Length > 3) {
+                messageresult += "FirstName Must Above 3 Length \n";
+            }
+            if (DoctorLastNameTextBox.Text.Length > 3) {
+                messageresult += "LastName Must above 3 Length\n";
+            }
+            if (DoctorUserNameTextbox.Text.Length > 3) {
+                messageresult += "Username Must above 3 Length \n";
+            }
+            if (DoctorPasswordTextBox.Text.Length > 3) {
+                messageresult += "Password Must above 3 Length\n";
+            }
+            return messageresult;
+        }
+        private bool toCheckInputTextbox()
+        {
+            bool isnull = false;
+            if (!String.IsNullOrEmpty(DoctorUserNameTextbox.Text) && !String.IsNullOrEmpty(DoctorPasswordTextBox.Text) && !String.IsNullOrEmpty(DoctorFirstNameTextBox.Text) && !String.IsNullOrEmpty(DoctorLastNameTextBox.Text))
+            {
+                MessageBox.Show("You must input values in Textbox");
+                isnull = true;
+            }
+            if (isnull)
+            {
+                if (ErrorMessage().Length > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void ToRegisterDoctorBTN_Click(object sender, EventArgs e)
+        {
+            if (!toCheckInputTextbox()) { 
+                
+            }
+        }
+        // [ ADD DOCTOR PANEL ] = = = = = = = = == = = [ END ] = = = = = = = = =
         private void UserPanel_Paint(object sender, PaintEventArgs e)
         {
 
@@ -96,5 +184,37 @@ namespace DBAces
         {
 
         }
+
+        private void TopBar_UserBTN_Click(object sender, EventArgs e)
+        {
+            toLoadPanels("User");
+        }
+
+        private void AppointmentBTN_Click(object sender, EventArgs e)
+        {
+            toLoadPanels("Appointment");
+        }
+
+        private void TopBar_PaymentHistoryBTN_Click(object sender, EventArgs e)
+        {
+            toLoadPanels("PaymentHistory");
+        }
+
+        private void TopBar_DashboardBTN_Click(object sender, EventArgs e)
+        {
+            toLoadPanels("Dashboard");
+        }
+
+        private void AddDoctorBTN_Click(object sender, EventArgs e)
+        {
+            toLoadPanels("AddDoctor");
+        }
+
+        private void AddUserPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+      
     }
 }
