@@ -82,6 +82,7 @@
             UsernameLoginInput.Name = "UsernameLoginInput";
             UsernameLoginInput.Size = new Size(221, 23);
             UsernameLoginInput.TabIndex = 0;
+            UsernameLoginInput.Text = "doctor";
             // 
             // UserLabel
             // 
@@ -109,6 +110,7 @@
             PasswordLoginInput.Name = "PasswordLoginInput";
             PasswordLoginInput.Size = new Size(221, 23);
             PasswordLoginInput.TabIndex = 4;
+            PasswordLoginInput.Text = "123";
             // 
             // CreateAccountBTN
             // 
@@ -235,6 +237,7 @@
             Controls.Add(ToRegisterPanel);
             Name = "LoginConsole";
             Text = "LoginConsole";
+            Load += LoginConsole_Load;
             ToLoginPanel.ResumeLayout(false);
             ToLoginPanel.PerformLayout();
             ToRegisterPanel.ResumeLayout(false);

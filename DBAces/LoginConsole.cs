@@ -98,15 +98,15 @@ namespace DBAces
                             {
                                 string hostName = reader["Role"].ToString();
                                 string UserID = reader["UserID"].ToString();
-                               
-                                    CurrentHost = hostName;
-                                    CurrentHostID = UserID;
-                                    return true;
-                          
+
+                                CurrentHost = hostName;
+                                CurrentHostID = UserID;
+                                return true;
+
                             }
                             else
                             {
-                                
+
                                 MessageBox.Show("The Role column is NULL.");
                                 return false;
                             }
@@ -131,7 +131,6 @@ namespace DBAces
                             Users.Show();
                             break;
                         case "Doctor":
-                            MessageBox.Show("case Doctor meet here");
                             doctorui.getValues(UsersID);
                             this.Hide();
                             doctorui.Show();
@@ -190,6 +189,11 @@ namespace DBAces
         }
 
         private void ToLoginPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void LoginConsole_Load(object sender, EventArgs e)
         {
 
         }
