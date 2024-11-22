@@ -136,42 +136,43 @@ namespace DBAces
         private string ErrorMessage() {
             string messageresult = "";
 
-            if (DoctorFirstNameTextBox.Text.Length > 3) {
+            if (DoctorFirstNameTextBox.Text.Length > 100) {
                 messageresult += "FirstName Must Above 3 Length \n";
             }
-            if (DoctorLastNameTextBox.Text.Length > 3) {
+            if (DoctorLastNameTextBox.Text.Length > 100) {
                 messageresult += "LastName Must above 3 Length\n";
             }
-            if (DoctorUserNameTextbox.Text.Length > 3) {
+            if (DoctorUserNameTextbox.Text.Length > 100) {
                 messageresult += "Username Must above 3 Length \n";
             }
-            if (DoctorPasswordTextBox.Text.Length > 3) {
+            if (DoctorPasswordTextBox.Text.Length > 100) {
                 messageresult += "Password Must above 3 Length\n";
             }
             return messageresult;
         }
         private bool toCheckInputTextbox()
         {
-            bool isnull = false;
             if (!String.IsNullOrEmpty(DoctorUserNameTextbox.Text) && !String.IsNullOrEmpty(DoctorPasswordTextBox.Text) && !String.IsNullOrEmpty(DoctorFirstNameTextBox.Text) && !String.IsNullOrEmpty(DoctorLastNameTextBox.Text))
             {
-                MessageBox.Show("You must input values in Textbox");
-                isnull = true;
+                return true;
             }
-            if (isnull)
-            {
-                if (ErrorMessage().Length > 0)
-                {
-                    return true;
-                }
-            }
+           
+            
             return false;
         }
 
         private void ToRegisterDoctorBTN_Click(object sender, EventArgs e)
         {
-            if (!toCheckInputTextbox()) { 
-                
+            if (toCheckInputTextbox())
+            {
+
+            }
+            else if (!toCheckInputTextbox())
+            {
+                MessageBox.Show("You must fill out all the textbox");
+            }
+             if (ErrorMessage().Length > 0) {
+                MessageBox.Show("" + ErrorMessage().ToString());
             }
         }
         // [ ADD DOCTOR PANEL ] = = = = = = = = == = = [ END ] = = = = = = = = =
