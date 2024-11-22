@@ -16,7 +16,7 @@ namespace DBAces
     {
         DoctorUI doctorui = new DoctorUI();
         User Users = new User();
-        AdminUI adminui = new AdminUI();    
+        AdminUI adminui = new AdminUI();
         String sqlcon = "Data Source=.\\SQLEXPRESS;Initial Catalog=DBAces;Integrated Security=True;Trust Server Certificate=True";
         String LoginPage = "LoginPagePanel";
         String RegisterPage = "RegisterPagePanel";
@@ -151,7 +151,7 @@ namespace DBAces
         private void toRegisterCustomer()
         {
             string sql = "INSERT INTO Users (Username, Password, Role) VALUES (@Username, @Password, @Role)";
-
+            string sql1 = "";
 
             using (SqlConnection con = new SqlConnection(sqlcon))
             {
@@ -165,6 +165,12 @@ namespace DBAces
                         cmd.Parameters.Add("@Role", SqlDbType.NVarChar).Value = RolePatient;
                         cmd.ExecuteNonQuery();
                         MessageBox.Show("Your account is added. Please click the login button.");
+                    }
+
+
+                    using (SqlCommand cmd = new SqlCommand(sql1, con))
+                    {
+
                     }
                 }
                 catch (Exception e)
@@ -199,6 +205,11 @@ namespace DBAces
         }
 
         private void LoginConsole_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void UsernameLoginInput_TextChanged(object sender, EventArgs e)
         {
 
         }

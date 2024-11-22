@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             button1 = new Button();
-            label1 = new Label();
+            DoctorIDLabel = new Label();
             label2 = new Label();
             DoctorUsernameLabel = new Label();
             DoctorPasswordLabel = new Label();
@@ -54,14 +54,14 @@
             button1.Text = "Change Doctor Information";
             button1.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // DoctorIDLabel
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(0, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(54, 15);
-            label1.TabIndex = 1;
-            label1.Text = "DoctorID";
+            DoctorIDLabel.AutoSize = true;
+            DoctorIDLabel.Location = new Point(0, 0);
+            DoctorIDLabel.Name = "DoctorIDLabel";
+            DoctorIDLabel.Size = new Size(54, 15);
+            DoctorIDLabel.TabIndex = 1;
+            DoctorIDLabel.Text = "DoctorID";
             // 
             // label2
             // 
@@ -204,7 +204,7 @@
             Controls.Add(label5);
             Controls.Add(DoctorUsernameLabel);
             Controls.Add(label2);
-            Controls.Add(label1);
+            Controls.Add(DoctorIDLabel);
             Controls.Add(button1);
             Name = "AdminDoctorConfiguration";
             Size = new Size(744, 116);
@@ -216,7 +216,7 @@
         #endregion
 
         private Button button1;
-        private Label label1;
+        private Label DoctorIDLabel;
         private Label label2;
         private Label DoctorUsernameLabel;
         private Label DoctorPasswordLabel;

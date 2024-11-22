@@ -11,11 +11,7 @@ using System.Windows.Forms;
 namespace DBAces
 {
     public partial class AdminDoctorConfiguration : UserControl
-    {
-        string userPatientUsername, userPatientPassword, PatientFirstname, PatientLastname, gender;
-        DateTime DateofBrith;
-        int userPatientID, userDoctorID;
-        string userDoctorUsername, userDoctorPassword, DoctorFirstname, DoctorLastname, DoctorSpecialization, DoctorPhoneNumber, DoctorEmail;
+    {  
 
         public AdminDoctorConfiguration()
         {
@@ -25,18 +21,17 @@ namespace DBAces
         {
 
         }
-       
-       
 
-       
-        // string sql1 = "SELECT u.Username,u.Password,p.UserID,p.FirstName,p.Lastname,p.DateofBirth,p.Gender FROM Users u JOIN Patients ON u.UserID = p.UserID;";
-  
-        public void ToGetDatasPatient(string userPatientUsername,string userPatientPassword, int userPatientID,string PatientName,string DateofBrith,string gender) { 
-           
-        }
+        public void toGetDatasDoctor(string DoctorUsername, string DoctorPassword, int DoctorID, string DoctorName, string DoctorSpecialization, string DoctorPhoneNumber, string DoctorEmail)
+        {
+          DoctorIDLabel.Text = DoctorID.ToString();
+          DoctorUsernameLabel.Text = DoctorUsername;
+          DoctorPasswordLabel.Text = DoctorPassword;
+          DoctorNameLabel.Text = DoctorName;
+          DoctorSpecializationLabel.Text = DoctorSpecialization;
+          DoctorPhoneNumberLabel.Text = DoctorPhoneNumber;
+          DoctorEmailLabel.Text = DoctorEmail;
 
-        public void toGetDatasDoctor(string DoctorUsername, string DoctorPassword, int DoctorID, string DoctorName, string DoctorSpecialization, string DoctorPhoneNumber, string DoctorEmail) { 
-            
         }
 
     }

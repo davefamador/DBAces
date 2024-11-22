@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             TopbarPanel = new Panel();
+            button2 = new Button();
+            TopBar_PaymentHistoryBTN = new Button();
             TopBar_UserBTN = new Button();
             UserPanel = new Panel();
-            TopBar_PaymentHistoryBTN = new Button();
-            button2 = new Button();
-            AppointmentPanel = new Panel();
-            PaymentHistoryPanel = new Panel();
+            panel1 = new Panel();
             DoctorDisplayFlowLayout = new FlowLayoutPanel();
             PatientDisplayFlowLayout = new FlowLayoutPanel();
-            label1 = new Label();
             label2 = new Label();
-            panel1 = new Panel();
+            label1 = new Label();
+            AppointmentPanel = new Panel();
+            PaymentHistoryPanel = new Panel();
             TopbarPanel.SuspendLayout();
             UserPanel.SuspendLayout();
             panel1.SuspendLayout();
@@ -56,6 +56,35 @@
             TopbarPanel.Name = "TopbarPanel";
             TopbarPanel.Size = new Size(838, 59);
             TopbarPanel.TabIndex = 0;
+            TopbarPanel.Paint += TopbarPanel_Paint;
+            // 
+            // button2
+            // 
+            button2.BackColor = Color.Transparent;
+            button2.FlatAppearance.BorderSize = 0;
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button2.ForeColor = SystemColors.Control;
+            button2.Location = new Point(172, 12);
+            button2.Name = "button2";
+            button2.Size = new Size(142, 37);
+            button2.TabIndex = 8;
+            button2.Text = "Appointments";
+            button2.UseVisualStyleBackColor = false;
+            // 
+            // TopBar_PaymentHistoryBTN
+            // 
+            TopBar_PaymentHistoryBTN.BackColor = Color.Transparent;
+            TopBar_PaymentHistoryBTN.FlatAppearance.BorderSize = 0;
+            TopBar_PaymentHistoryBTN.FlatStyle = FlatStyle.Flat;
+            TopBar_PaymentHistoryBTN.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            TopBar_PaymentHistoryBTN.ForeColor = SystemColors.Control;
+            TopBar_PaymentHistoryBTN.Location = new Point(306, 12);
+            TopBar_PaymentHistoryBTN.Name = "TopBar_PaymentHistoryBTN";
+            TopBar_PaymentHistoryBTN.Size = new Size(203, 37);
+            TopBar_PaymentHistoryBTN.TabIndex = 7;
+            TopBar_PaymentHistoryBTN.Text = "Payment History";
+            TopBar_PaymentHistoryBTN.UseVisualStyleBackColor = false;
             // 
             // TopBar_UserBTN
             // 
@@ -82,33 +111,55 @@
             UserPanel.TabIndex = 0;
             UserPanel.Paint += UserPanel_Paint;
             // 
-            // TopBar_PaymentHistoryBTN
+            // panel1
             // 
-            TopBar_PaymentHistoryBTN.BackColor = Color.Transparent;
-            TopBar_PaymentHistoryBTN.FlatAppearance.BorderSize = 0;
-            TopBar_PaymentHistoryBTN.FlatStyle = FlatStyle.Flat;
-            TopBar_PaymentHistoryBTN.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            TopBar_PaymentHistoryBTN.ForeColor = SystemColors.Control;
-            TopBar_PaymentHistoryBTN.Location = new Point(306, 12);
-            TopBar_PaymentHistoryBTN.Name = "TopBar_PaymentHistoryBTN";
-            TopBar_PaymentHistoryBTN.Size = new Size(203, 37);
-            TopBar_PaymentHistoryBTN.TabIndex = 7;
-            TopBar_PaymentHistoryBTN.Text = "Payment History";
-            TopBar_PaymentHistoryBTN.UseVisualStyleBackColor = false;
+            panel1.Controls.Add(DoctorDisplayFlowLayout);
+            panel1.Controls.Add(PatientDisplayFlowLayout);
+            panel1.Controls.Add(label2);
+            panel1.Controls.Add(label1);
+            panel1.Location = new Point(3, 6);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(804, 504);
+            panel1.TabIndex = 14;
             // 
-            // button2
+            // DoctorDisplayFlowLayout
             // 
-            button2.BackColor = Color.Transparent;
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button2.ForeColor = SystemColors.Control;
-            button2.Location = new Point(172, 12);
-            button2.Name = "button2";
-            button2.Size = new Size(142, 37);
-            button2.TabIndex = 8;
-            button2.Text = "Appointments";
-            button2.UseVisualStyleBackColor = false;
+            DoctorDisplayFlowLayout.AutoScroll = true;
+            DoctorDisplayFlowLayout.Location = new Point(36, 56);
+            DoctorDisplayFlowLayout.Name = "DoctorDisplayFlowLayout";
+            DoctorDisplayFlowLayout.Size = new Size(744, 148);
+            DoctorDisplayFlowLayout.TabIndex = 1;
+            // 
+            // PatientDisplayFlowLayout
+            // 
+            PatientDisplayFlowLayout.AutoScroll = true;
+            PatientDisplayFlowLayout.AutoSize = true;
+            PatientDisplayFlowLayout.Location = new Point(36, 262);
+            PatientDisplayFlowLayout.MinimumSize = new Size(744, 148);
+            PatientDisplayFlowLayout.Name = "PatientDisplayFlowLayout";
+            PatientDisplayFlowLayout.Padding = new Padding(5);
+            PatientDisplayFlowLayout.Size = new Size(744, 148);
+            PatientDisplayFlowLayout.TabIndex = 10;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Location = new Point(48, 229);
+            label2.Name = "label2";
+            label2.Size = new Size(82, 30);
+            label2.TabIndex = 13;
+            label2.Text = "Patient";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(46, 21);
+            label1.Name = "label1";
+            label1.Size = new Size(80, 30);
+            label1.TabIndex = 12;
+            label1.Text = "Doctor";
             // 
             // AppointmentPanel
             // 
@@ -126,54 +177,6 @@
             PaymentHistoryPanel.Size = new Size(838, 423);
             PaymentHistoryPanel.TabIndex = 1;
             // 
-            // DoctorDisplayFlowLayout
-            // 
-            DoctorDisplayFlowLayout.AutoScroll = true;
-            DoctorDisplayFlowLayout.Location = new Point(36, 56);
-            DoctorDisplayFlowLayout.Name = "DoctorDisplayFlowLayout";
-            DoctorDisplayFlowLayout.Size = new Size(744, 148);
-            DoctorDisplayFlowLayout.TabIndex = 1;
-            // 
-            // PatientDisplayFlowLayout
-            // 
-            PatientDisplayFlowLayout.AutoScroll = true;
-            PatientDisplayFlowLayout.Location = new Point(36, 262);
-            PatientDisplayFlowLayout.Name = "PatientDisplayFlowLayout";
-            PatientDisplayFlowLayout.Size = new Size(744, 148);
-            PatientDisplayFlowLayout.TabIndex = 10;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(46, 21);
-            label1.Name = "label1";
-            label1.Size = new Size(80, 30);
-            label1.TabIndex = 12;
-            label1.Text = "Doctor";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(48, 229);
-            label2.Name = "label2";
-            label2.Size = new Size(82, 30);
-            label2.TabIndex = 13;
-            label2.Text = "Patient";
-            // 
-            // panel1
-            // 
-            panel1.AutoScroll = true;
-            panel1.Controls.Add(DoctorDisplayFlowLayout);
-            panel1.Controls.Add(PatientDisplayFlowLayout);
-            panel1.Controls.Add(label2);
-            panel1.Controls.Add(label1);
-            panel1.Location = new Point(3, 6);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(804, 504);
-            panel1.TabIndex = 14;
-            // 
             // AdminUI
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -183,6 +186,7 @@
             Controls.Add(AppointmentPanel);
             Controls.Add(PaymentHistoryPanel);
             Controls.Add(TopbarPanel);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "AdminUI";
             Text = "AdminUI";
             Load += AdminUI_Load;
