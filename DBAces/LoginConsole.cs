@@ -16,6 +16,7 @@ namespace DBAces
     {
         DoctorUI doctorui = new DoctorUI();
         User Users = new User();
+        AdminUI adminui = new AdminUI();    
         String sqlcon = "Data Source=.\\SQLEXPRESS;Initial Catalog=DBAces;Integrated Security=True;Trust Server Certificate=True";
         String LoginPage = "LoginPagePanel";
         String RegisterPage = "RegisterPagePanel";
@@ -134,6 +135,10 @@ namespace DBAces
                             doctorui.getValues(UsersID);
                             this.Hide();
                             doctorui.Show();
+                            break;
+                        case "Admin":
+                            this.Hide();
+                            adminui.Show();
                             break;
                     }
                 }

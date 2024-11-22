@@ -30,7 +30,6 @@ namespace DBAces
         {
             TogetDoctorAttribute();
             DoctorID.Text = UserID.ToString();
-
             DoctorNameLabel.Text = FullName;
             UserDoctorSpecializationLabel.Text = UserSpecialization;
             DoctorPhoneNumberLabel.Text = UserPhoneNumber;

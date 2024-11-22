@@ -65,7 +65,7 @@
             // 
             DoctorNameLabel.AutoSize = true;
             DoctorNameLabel.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            DoctorNameLabel.Location = new Point(133, 123);
+            DoctorNameLabel.Location = new Point(135, 152);
             DoctorNameLabel.Name = "DoctorNameLabel";
             DoctorNameLabel.Size = new Size(132, 37);
             DoctorNameLabel.TabIndex = 2;
@@ -75,7 +75,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(26, 86);
+            label3.Location = new Point(28, 115);
             label3.Name = "label3";
             label3.Size = new Size(189, 37);
             label3.TabIndex = 3;
@@ -85,7 +85,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(26, 169);
+            label2.Location = new Point(28, 198);
             label2.Name = "label2";
             label2.Size = new Size(196, 37);
             label2.TabIndex = 5;
@@ -95,7 +95,7 @@
             // 
             UserDoctorSpecializationLabel.AutoSize = true;
             UserDoctorSpecializationLabel.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            UserDoctorSpecializationLabel.Location = new Point(133, 206);
+            UserDoctorSpecializationLabel.Location = new Point(135, 235);
             UserDoctorSpecializationLabel.Name = "UserDoctorSpecializationLabel";
             UserDoctorSpecializationLabel.Size = new Size(132, 37);
             UserDoctorSpecializationLabel.TabIndex = 4;
@@ -105,7 +105,7 @@
             // 
             label100.AutoSize = true;
             label100.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label100.Location = new Point(406, 97);
+            label100.Location = new Point(408, 126);
             label100.Name = "label100";
             label100.Size = new Size(210, 37);
             label100.TabIndex = 7;
@@ -115,7 +115,7 @@
             // 
             DoctorPhoneNumberLabel.AutoSize = true;
             DoctorPhoneNumberLabel.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            DoctorPhoneNumberLabel.Location = new Point(513, 134);
+            DoctorPhoneNumberLabel.Location = new Point(515, 163);
             DoctorPhoneNumberLabel.Name = "DoctorPhoneNumberLabel";
             DoctorPhoneNumberLabel.Size = new Size(132, 37);
             DoctorPhoneNumberLabel.TabIndex = 6;
@@ -125,7 +125,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(436, 185);
+            label4.Location = new Point(438, 214);
             label4.Name = "label4";
             label4.Size = new Size(87, 37);
             label4.TabIndex = 9;
@@ -135,7 +135,7 @@
             // 
             DoctorEmailLabel.AutoSize = true;
             DoctorEmailLabel.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            DoctorEmailLabel.Location = new Point(502, 222);
+            DoctorEmailLabel.Location = new Point(504, 251);
             DoctorEmailLabel.Name = "DoctorEmailLabel";
             DoctorEmailLabel.Size = new Size(132, 37);
             DoctorEmailLabel.TabIndex = 8;
@@ -145,7 +145,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(752, 450);
             Controls.Add(label4);
             Controls.Add(DoctorEmailLabel);
             Controls.Add(label100);
