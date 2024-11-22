@@ -13,6 +13,7 @@ namespace DBAces
 {
     public partial class User : Form
     {
+
         static String CurrentPanels = "";
         static String Appointment_Panel = "Appoinment_Panel";
         static String History_Panel = "History_Panel";

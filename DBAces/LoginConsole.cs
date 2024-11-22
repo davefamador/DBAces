@@ -14,14 +14,15 @@ namespace DBAces
 
     public partial class LoginConsole : Form
     {
+        DoctorUI doctorui = new DoctorUI();
+        User Users = new User();
         String sqlcon = "Data Source=.\\SQLEXPRESS;Initial Catalog=DBAces;Integrated Security=True;Trust Server Certificate=True";
         String LoginPage = "LoginPagePanel";
         String RegisterPage = "RegisterPagePanel";
         String CurrentHost = "";
-
+        String CurrentHostID = "";
         // ROLE
         String RolePatient = "Patient";
-        String RoleDoctor = "Doctor";
         public LoginConsole()
         {
             InitializeComponent();
@@ -79,12 +80,12 @@ namespace DBAces
             return false;
         }
 
-        private bool ToVerifyUserLogin() {
+        private bool ToVerifyUserLogin()
+        {
             using (SqlConnection con = new SqlConnection(sqlcon))
             {
                 con.Open();
-                string UserRolePatient = "Patient";
-                string sql = "SELECT Role FROM Users WHERE Username = @Username AND Password = @Password";
+                string sql = "SELECT UserID,Role FROM Users WHERE Username = @Username AND Password = @Password";
                 using (SqlCommand cmd = new SqlCommand(sql, con))
                 {
                     cmd.Parameters.AddWithValue("@UserName", UsernameLoginInput.Text);
@@ -96,21 +97,20 @@ namespace DBAces
                             if (reader["Role"] != DBNull.Value)
                             {
                                 string hostName = reader["Role"].ToString();
-                                if (hostName == UserRolePatient)
-                                {
+                                string UserID = reader["UserID"].ToString();
+                               
                                     CurrentHost = hostName;
+                                    CurrentHostID = UserID;
                                     return true;
-                                }
-                                else
-                                {
-                                    MessageBox.Show("This user has a different role: " + hostName);
-                                    return false;
-                                }
+                          
                             }
-                            else {
+                            else
+                            {
+                                
                                 MessageBox.Show("The Role column is NULL.");
+                                return false;
                             }
-                            
+
                         }
                     }
                 }
@@ -121,8 +121,22 @@ namespace DBAces
         {
             if (!String.IsNullOrEmpty(UsernameLoginInput.Text) && !String.IsNullOrEmpty(PasswordLoginInput.Text))
             {
-                if (ToVerifyUserLogin()) { 
-                
+                if (ToVerifyUserLogin())
+                {
+                    int UsersID = int.Parse(CurrentHostID);
+                    switch (CurrentHost)
+                    {
+                        case "Patient":
+                            this.Hide();
+                            Users.Show();
+                            break;
+                        case "Doctor":
+                            MessageBox.Show("case Doctor meet here");
+                            doctorui.getValues(UsersID);
+                            this.Hide();
+                            doctorui.Show();
+                            break;
+                    }
                 }
             }
             else
@@ -134,10 +148,10 @@ namespace DBAces
         {
             string sql = "INSERT INTO Users (Username, Password, Role) VALUES (@Username, @Password, @Role)";
 
-            
+
             using (SqlConnection con = new SqlConnection(sqlcon))
             {
-                con.Open(); 
+                con.Open();
                 try
                 {
                     using (SqlCommand cmd = new SqlCommand(sql, con))
@@ -149,8 +163,9 @@ namespace DBAces
                         MessageBox.Show("Your account is added. Please click the login button.");
                     }
                 }
-                catch (Exception e) {
-                    MessageBox.Show("\n"+e);
+                catch (Exception e)
+                {
+                    MessageBox.Show("\n" + e);
                 }
             }
         }
@@ -163,7 +178,8 @@ namespace DBAces
                 {
                     toRegisterCustomer();
                 }
-                else if (!ToFindUserNamesql(UserNameRegisterInput.Text)){
+                else if (!ToFindUserNamesql(UserNameRegisterInput.Text))
+                {
                     MessageBox.Show("Please input another username. The username is already taken.");
                 }
             }
@@ -171,6 +187,11 @@ namespace DBAces
             {
                 MessageBox.Show("Please input another username & Password");
             }
+        }
+
+        private void ToLoginPanel_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 

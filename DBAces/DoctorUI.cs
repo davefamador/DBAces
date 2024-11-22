@@ -12,9 +12,23 @@ namespace DBAces
 {
     public partial class DoctorUI : Form
     {
+        int UserID;
         public DoctorUI()
         {
             InitializeComponent();
+        }
+        public void getValues(int ID)
+        {
+            UserID = ID;
+        }
+        private void DoctorUI_Load(object sender, EventArgs e)
+        {
+            DoctorID.Text = UserID.ToString();  
+        }
+
+        private void DoctorID_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

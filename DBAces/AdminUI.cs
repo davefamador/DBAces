@@ -16,5 +16,10 @@ namespace DBAces
         {
             InitializeComponent();
         }
+
+        private void AdminUI_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

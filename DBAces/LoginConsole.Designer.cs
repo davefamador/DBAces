@@ -63,6 +63,7 @@
             ToLoginPanel.Name = "ToLoginPanel";
             ToLoginPanel.Size = new Size(317, 299);
             ToLoginPanel.TabIndex = 9;
+            ToLoginPanel.Paint += ToLoginPanel_Paint;
             // 
             // LabelLogin
             // 
