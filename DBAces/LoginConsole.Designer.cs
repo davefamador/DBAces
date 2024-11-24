@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             ToLoginPanel = new Panel();
+            ForgetPasswordBTN = new Button();
             LabelLogin = new Label();
             UsernameLoginInput = new TextBox();
             UserLabel = new Label();
@@ -36,6 +37,13 @@
             PasswordLoginInput = new TextBox();
             CreateAccountBTN = new Button();
             LoginBTN = new Button();
+            FpasswordPanel = new Panel();
+            ChangeUserInformation = new Button();
+            FPasswordTextBox = new TextBox();
+            label5 = new Label();
+            label4 = new Label();
+            FPasswordUsernameBox = new TextBox();
+            GBackPanelBTN = new Button();
             ToRegisterPanel = new Panel();
             label1 = new Label();
             UserNameRegisterInput = new TextBox();
@@ -46,11 +54,13 @@
             ToLoginPagePanel = new Button();
             userHistory1 = new UserHistory();
             ToLoginPanel.SuspendLayout();
+            FpasswordPanel.SuspendLayout();
             ToRegisterPanel.SuspendLayout();
             SuspendLayout();
             // 
             // ToLoginPanel
             // 
+            ToLoginPanel.Controls.Add(ForgetPasswordBTN);
             ToLoginPanel.Controls.Add(LabelLogin);
             ToLoginPanel.Controls.Add(UsernameLoginInput);
             ToLoginPanel.Controls.Add(UserLabel);
@@ -64,6 +74,16 @@
             ToLoginPanel.Size = new Size(317, 299);
             ToLoginPanel.TabIndex = 9;
             ToLoginPanel.Paint += ToLoginPanel_Paint;
+            // 
+            // ForgetPasswordBTN
+            // 
+            ForgetPasswordBTN.Location = new Point(166, 214);
+            ForgetPasswordBTN.Name = "ForgetPasswordBTN";
+            ForgetPasswordBTN.Size = new Size(117, 23);
+            ForgetPasswordBTN.TabIndex = 10;
+            ForgetPasswordBTN.Text = "Forget Password";
+            ForgetPasswordBTN.UseVisualStyleBackColor = true;
+            ForgetPasswordBTN.Click += ForgetPasswordBTN_Click;
             // 
             // LabelLogin
             // 
@@ -82,7 +102,7 @@
             UsernameLoginInput.Name = "UsernameLoginInput";
             UsernameLoginInput.Size = new Size(221, 23);
             UsernameLoginInput.TabIndex = 0;
-            UsernameLoginInput.Text = "admin";
+            UsernameLoginInput.Text = "patient";
             UsernameLoginInput.TextChanged += UsernameLoginInput_TextChanged;
             // 
             // UserLabel
@@ -116,7 +136,7 @@
             // CreateAccountBTN
             // 
             CreateAccountBTN.ImeMode = ImeMode.NoControl;
-            CreateAccountBTN.Location = new Point(98, 214);
+            CreateAccountBTN.Location = new Point(37, 214);
             CreateAccountBTN.Name = "CreateAccountBTN";
             CreateAccountBTN.Size = new Size(106, 23);
             CreateAccountBTN.TabIndex = 6;
@@ -134,6 +154,76 @@
             LoginBTN.Text = "Login";
             LoginBTN.UseVisualStyleBackColor = true;
             LoginBTN.Click += LoginBTN_Click;
+            // 
+            // FpasswordPanel
+            // 
+            FpasswordPanel.Controls.Add(ChangeUserInformation);
+            FpasswordPanel.Controls.Add(FPasswordTextBox);
+            FpasswordPanel.Controls.Add(label5);
+            FpasswordPanel.Controls.Add(label4);
+            FpasswordPanel.Controls.Add(FPasswordUsernameBox);
+            FpasswordPanel.Controls.Add(GBackPanelBTN);
+            FpasswordPanel.Dock = DockStyle.Fill;
+            FpasswordPanel.Location = new Point(0, 0);
+            FpasswordPanel.Name = "FpasswordPanel";
+            FpasswordPanel.Size = new Size(317, 299);
+            FpasswordPanel.TabIndex = 11;
+            // 
+            // ChangeUserInformation
+            // 
+            ChangeUserInformation.Location = new Point(29, 229);
+            ChangeUserInformation.Name = "ChangeUserInformation";
+            ChangeUserInformation.Size = new Size(250, 34);
+            ChangeUserInformation.TabIndex = 5;
+            ChangeUserInformation.Text = "Change";
+            ChangeUserInformation.UseVisualStyleBackColor = true;
+            ChangeUserInformation.Click += ChangeUserInformation_Click;
+            // 
+            // FPasswordTextBox
+            // 
+            FPasswordTextBox.ForeColor = SystemColors.ScrollBar;
+            FPasswordTextBox.Location = new Point(29, 161);
+            FPasswordTextBox.Name = "FPasswordTextBox";
+            FPasswordTextBox.Size = new Size(241, 23);
+            FPasswordTextBox.TabIndex = 4;
+            FPasswordTextBox.Text = "Input New Password";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(29, 143);
+            label5.Name = "label5";
+            label5.Size = new Size(57, 15);
+            label5.TabIndex = 3;
+            label5.Text = "Password";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(33, 79);
+            label4.Name = "label4";
+            label4.Size = new Size(62, 15);
+            label4.TabIndex = 2;
+            label4.Text = "UserName";
+            // 
+            // FPasswordUsernameBox
+            // 
+            FPasswordUsernameBox.ForeColor = SystemColors.ScrollBar;
+            FPasswordUsernameBox.Location = new Point(29, 100);
+            FPasswordUsernameBox.Name = "FPasswordUsernameBox";
+            FPasswordUsernameBox.Size = new Size(241, 23);
+            FPasswordUsernameBox.TabIndex = 1;
+            FPasswordUsernameBox.Text = "Input Username";
+            // 
+            // GBackPanelBTN
+            // 
+            GBackPanelBTN.Location = new Point(11, 9);
+            GBackPanelBTN.Name = "GBackPanelBTN";
+            GBackPanelBTN.Size = new Size(75, 25);
+            GBackPanelBTN.TabIndex = 0;
+            GBackPanelBTN.Text = "Go Back";
+            GBackPanelBTN.UseVisualStyleBackColor = true;
+            GBackPanelBTN.Click += GBackPanelBTN_Click;
             // 
             // ToRegisterPanel
             // 
@@ -234,13 +324,16 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(317, 299);
-            Controls.Add(ToRegisterPanel);
+            Controls.Add(FpasswordPanel);
             Controls.Add(ToLoginPanel);
+            Controls.Add(ToRegisterPanel);
             Name = "LoginConsole";
             Text = "LoginConsole";
             Load += LoginConsole_Load;
             ToLoginPanel.ResumeLayout(false);
             ToLoginPanel.PerformLayout();
+            FpasswordPanel.ResumeLayout(false);
+            FpasswordPanel.PerformLayout();
             ToRegisterPanel.ResumeLayout(false);
             ToRegisterPanel.PerformLayout();
             ResumeLayout(false);
@@ -265,5 +358,13 @@
         private Button RegisterBTN;
         private Button ToLoginPagePanel;
         private UserHistory userHistory1;
+        private Button ForgetPasswordBTN;
+        private Panel FpasswordPanel;
+        private Button GBackPanelBTN;
+        private Button ChangeUserInformation;
+        private TextBox FPasswordTextBox;
+        private Label label5;
+        private Label label4;
+        private TextBox FPasswordUsernameBox;
     }
 }

@@ -1,0 +1,43 @@
+CREATE TABLE Appointments (
+    AppointmentID INT IDENTITY(1,1) PRIMARY KEY,
+    PatientID INT NOT NULL,
+    DoctorID INT NOT NULL,
+    Date DATE NOT NULL,
+	AppointmentStatus NVARCHAR(500),
+	CONSTRAINT AppointmentStatus CHECK (AppointmentStatus IN ('PENDING','CONFIRMED')),
+    Issue NVARCHAR(100) NOT NULL,
+    PaymentID INT NOT NULL,
+    FOREIGN KEY (PatientID) REFERENCES Patients(PatientID) ON DELETE CASCADE,
+    FOREIGN KEY (DoctorID) REFERENCES Doctors(DoctorID) ON DELETE CASCADE,
+
+	);
+CREATE TABLE MedicalDiagnosis (
+    MedHistID INT IDENTITY(1,1) PRIMARY KEY,
+    PatientID INT NOT NULL,
+    Conditions NVARCHAR(MAX) NOT NULL,
+    DiagnosisDates DATE NOT NULL,
+    Treatments NVARCHAR(MAX) NOT NULL,
+    FOREIGN KEY (PatientID) REFERENCES Patients(PatientID) ON DELETE CASCADE,
+	FOREIGN KEY (AppointmentStatus) REFERENCE MedicalDiagnosis() ON DELETE SET NULL
+);
+
+CREATE TABLE PaymentHistory (
+    PaymentID INT IDENTITY(1,1) PRIMARY KEY,
+	AppointmentID INT NOT NULL,
+    PatientID INT NOT NULL,
+    DoctorID INT NOT NULL,
+    Amount DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (PatientID) REFERENCES Patients(PatientID) ON DELETE CASCADE,
+    FOREIGN KEY (DoctorID) REFERENCES Doctors(DoctorID) ON DELETE CASCADE,
+	FOREIGN KEY (AppointmentID) REFERENCES Appointments(AppointmentID) ON DELETE SET NULL
+);
+
+
+
+CREATE TABLE CostPerDoctor(
+	CostDoctorID INT IDENTITY(1,1) PRIMARY KEY,
+	DoctorID INT NOT NULL,
+	Cost INT NOT NULL
+	FOREIGN KEY (DoctorID) REFERENCES Doctors(DoctorID) ON DELETE CASCADE
+);
+

@@ -128,9 +128,9 @@
             label3.ForeColor = Color.White;
             label3.Location = new Point(13, 18);
             label3.Name = "label3";
-            label3.Size = new Size(143, 21);
+            label3.Size = new Size(146, 21);
             label3.TabIndex = 8;
-            label3.Text = "Doctor Username";
+            label3.Text = "Patient Username";
             // 
             // PatientUsernameLabel
             // 
@@ -150,9 +150,9 @@
             label7.ForeColor = Color.White;
             label7.Location = new Point(13, 58);
             label7.Name = "label7";
-            label7.Size = new Size(149, 21);
+            label7.Size = new Size(141, 21);
             label7.TabIndex = 10;
-            label7.Text = "Doctor's Password";
+            label7.Text = "Patient Password";
             // 
             // PatientPasswordLabel
             // 

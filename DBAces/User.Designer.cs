@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            HomeBTN = new Button();
             UserBalanceLabel = new Label();
             BalanceLabel = new Label();
             SettingBTN = new Button();
@@ -38,6 +39,23 @@
             UserHistoryFlowPanel = new FlowLayoutPanel();
             label3 = new Label();
             AppointmentPanel = new Panel();
+            DoctorsCostLabel = new Label();
+            label25 = new Label();
+            DoctorsEmailLabel = new Label();
+            DoctorsPhoneNumberLabel = new Label();
+            label24 = new Label();
+            label23 = new Label();
+            SelectingSpecialistComboBox = new ComboBox();
+            label22 = new Label();
+            comboBox3 = new ComboBox();
+            dateTimePicker1 = new DateTimePicker();
+            label21 = new Label();
+            IsseRichTexBox = new RichTextBox();
+            label20 = new Label();
+            SelectingDoctorComboBox = new ComboBox();
+            label19 = new Label();
+            label18 = new Label();
+            button3 = new Button();
             UserSetting = new Panel();
             UserAddBalanceBTN = new Button();
             panel3 = new Panel();
@@ -58,16 +76,37 @@
             label2 = new Label();
             label1 = new Label();
             AddBalancePanel = new Panel();
+            AddBalanceWithdrawalBTN = new Button();
+            label13 = new Label();
+            PatientWithdrawalInput = new TextBox();
+            GoBackADDBALANCEBTN = new Button();
+            AddBalanceDepositBTN = new Button();
+            label12 = new Label();
+            PatientDepositInput = new TextBox();
+            UserHome = new Panel();
+            UserHomeLoad = new Panel();
+            label17 = new Label();
+            flowLayoutPanel2 = new FlowLayoutPanel();
+            label16 = new Label();
+            label14 = new Label();
+            UserFirstnameLabel = new Label();
+            flowLayoutPanel1 = new FlowLayoutPanel();
+            label15 = new Label();
             panel1.SuspendLayout();
             HistoryPanel.SuspendLayout();
+            AppointmentPanel.SuspendLayout();
             UserSetting.SuspendLayout();
             panel3.SuspendLayout();
             panel2.SuspendLayout();
+            AddBalancePanel.SuspendLayout();
+            UserHome.SuspendLayout();
+            UserHomeLoad.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.BackColor = Color.Brown;
+            panel1.Controls.Add(HomeBTN);
             panel1.Controls.Add(UserBalanceLabel);
             panel1.Controls.Add(BalanceLabel);
             panel1.Controls.Add(SettingBTN);
@@ -76,8 +115,23 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(823, 64);
+            panel1.Size = new Size(776, 64);
             panel1.TabIndex = 0;
+            // 
+            // HomeBTN
+            // 
+            HomeBTN.BackColor = Color.Transparent;
+            HomeBTN.FlatAppearance.BorderSize = 0;
+            HomeBTN.FlatStyle = FlatStyle.Flat;
+            HomeBTN.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            HomeBTN.ForeColor = SystemColors.Control;
+            HomeBTN.Location = new Point(420, 12);
+            HomeBTN.Name = "HomeBTN";
+            HomeBTN.Size = new Size(126, 37);
+            HomeBTN.TabIndex = 6;
+            HomeBTN.Text = "Home";
+            HomeBTN.UseVisualStyleBackColor = false;
+            HomeBTN.Click += HomeBTN_Click;
             // 
             // UserBalanceLabel
             // 
@@ -155,7 +209,7 @@
             HistoryPanel.Dock = DockStyle.Fill;
             HistoryPanel.Location = new Point(0, 64);
             HistoryPanel.Name = "HistoryPanel";
-            HistoryPanel.Size = new Size(823, 460);
+            HistoryPanel.Size = new Size(776, 685);
             HistoryPanel.TabIndex = 1;
             HistoryPanel.Paint += HistoryPanel_Paint;
             // 
@@ -178,11 +232,194 @@
             // 
             // AppointmentPanel
             // 
+            AppointmentPanel.Controls.Add(DoctorsCostLabel);
+            AppointmentPanel.Controls.Add(label25);
+            AppointmentPanel.Controls.Add(DoctorsEmailLabel);
+            AppointmentPanel.Controls.Add(DoctorsPhoneNumberLabel);
+            AppointmentPanel.Controls.Add(label24);
+            AppointmentPanel.Controls.Add(label23);
+            AppointmentPanel.Controls.Add(SelectingSpecialistComboBox);
+            AppointmentPanel.Controls.Add(label22);
+            AppointmentPanel.Controls.Add(comboBox3);
+            AppointmentPanel.Controls.Add(dateTimePicker1);
+            AppointmentPanel.Controls.Add(label21);
+            AppointmentPanel.Controls.Add(IsseRichTexBox);
+            AppointmentPanel.Controls.Add(label20);
+            AppointmentPanel.Controls.Add(SelectingDoctorComboBox);
+            AppointmentPanel.Controls.Add(label19);
+            AppointmentPanel.Controls.Add(label18);
+            AppointmentPanel.Controls.Add(button3);
             AppointmentPanel.Dock = DockStyle.Fill;
             AppointmentPanel.Location = new Point(0, 64);
             AppointmentPanel.Name = "AppointmentPanel";
-            AppointmentPanel.Size = new Size(823, 460);
+            AppointmentPanel.Size = new Size(776, 685);
             AppointmentPanel.TabIndex = 2;
+            // 
+            // DoctorsCostLabel
+            // 
+            DoctorsCostLabel.AutoSize = true;
+            DoctorsCostLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            DoctorsCostLabel.Location = new Point(352, 520);
+            DoctorsCostLabel.Name = "DoctorsCostLabel";
+            DoctorsCostLabel.Size = new Size(143, 21);
+            DoctorsCostLabel.TabIndex = 18;
+            DoctorsCostLabel.Text = "DoctorsCostLabel\r\n";
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label25.Location = new Point(295, 520);
+            label25.Name = "label25";
+            label25.Size = new Size(51, 21);
+            label25.TabIndex = 17;
+            label25.Text = "Cost :";
+            // 
+            // DoctorsEmailLabel
+            // 
+            DoctorsEmailLabel.AutoSize = true;
+            DoctorsEmailLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            DoctorsEmailLabel.Location = new Point(523, 250);
+            DoctorsEmailLabel.Name = "DoctorsEmailLabel";
+            DoctorsEmailLabel.Size = new Size(116, 21);
+            DoctorsEmailLabel.TabIndex = 16;
+            DoctorsEmailLabel.Text = "Doctors Email";
+            // 
+            // DoctorsPhoneNumberLabel
+            // 
+            DoctorsPhoneNumberLabel.AutoSize = true;
+            DoctorsPhoneNumberLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            DoctorsPhoneNumberLabel.Location = new Point(186, 250);
+            DoctorsPhoneNumberLabel.Name = "DoctorsPhoneNumberLabel";
+            DoctorsPhoneNumberLabel.Size = new Size(189, 21);
+            DoctorsPhoneNumberLabel.TabIndex = 15;
+            DoctorsPhoneNumberLabel.Text = "Doctors Phone Number";
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label24.Location = new Point(452, 250);
+            label24.Name = "label24";
+            label24.Size = new Size(65, 21);
+            label24.TabIndex = 14;
+            label24.Text = "Email : ";
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label23.Location = new Point(42, 250);
+            label23.Name = "label23";
+            label23.Size = new Size(138, 21);
+            label23.TabIndex = 13;
+            label23.Text = "Phone Number : ";
+            // 
+            // SelectingSpecialistComboBox
+            // 
+            SelectingSpecialistComboBox.Font = new Font("Segoe UI", 14F);
+            SelectingSpecialistComboBox.FormattingEnabled = true;
+            SelectingSpecialistComboBox.Location = new Point(212, 55);
+            SelectingSpecialistComboBox.Name = "SelectingSpecialistComboBox";
+            SelectingSpecialistComboBox.Size = new Size(352, 33);
+            SelectingSpecialistComboBox.TabIndex = 12;
+            SelectingSpecialistComboBox.SelectedIndexChanged += SelectingSpecialistComboBox_SelectedIndexChanged;
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label22.Location = new Point(465, 204);
+            label22.Name = "label22";
+            label22.Size = new Size(31, 13);
+            label22.TabIndex = 11;
+            label22.Text = "Date";
+            // 
+            // comboBox3
+            // 
+            comboBox3.Font = new Font("Segoe UI", 8F);
+            comboBox3.FormattingEnabled = true;
+            comboBox3.Location = new Point(523, 201);
+            comboBox3.Name = "comboBox3";
+            comboBox3.Size = new Size(228, 21);
+            comboBox3.TabIndex = 10;
+            // 
+            // dateTimePicker1
+            // 
+            dateTimePicker1.Font = new Font("Segoe UI", 10F);
+            dateTimePicker1.Location = new Point(452, 169);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new Size(298, 25);
+            dateTimePicker1.TabIndex = 9;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label21.Location = new Point(557, 121);
+            label21.Name = "label21";
+            label21.Size = new Size(78, 37);
+            label21.TabIndex = 8;
+            label21.Text = "Date";
+            // 
+            // IsseRichTexBox
+            // 
+            IsseRichTexBox.Location = new Point(27, 328);
+            IsseRichTexBox.Name = "IsseRichTexBox";
+            IsseRichTexBox.Size = new Size(724, 132);
+            IsseRichTexBox.TabIndex = 7;
+            IsseRichTexBox.Text = "";
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label20.Location = new Point(40, 288);
+            label20.Name = "label20";
+            label20.Size = new Size(81, 37);
+            label20.TabIndex = 5;
+            label20.Text = "Issue";
+            // 
+            // SelectingDoctorComboBox
+            // 
+            SelectingDoctorComboBox.Font = new Font("Segoe UI", 14F);
+            SelectingDoctorComboBox.FormattingEnabled = true;
+            SelectingDoctorComboBox.Location = new Point(26, 169);
+            SelectingDoctorComboBox.Name = "SelectingDoctorComboBox";
+            SelectingDoctorComboBox.Size = new Size(341, 33);
+            SelectingDoctorComboBox.TabIndex = 4;
+            SelectingDoctorComboBox.SelectedIndexChanged += SelectingDoctorComboBox_SelectedIndexChanged;
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label19.Location = new Point(137, 130);
+            label19.Name = "label19";
+            label19.Size = new Size(106, 37);
+            label19.TabIndex = 3;
+            label19.Text = "Doctor";
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label18.Location = new Point(324, 15);
+            label18.Name = "label18";
+            label18.Size = new Size(139, 37);
+            label18.TabIndex = 2;
+            label18.Text = "Specialist";
+            // 
+            // button3
+            // 
+            button3.BackColor = Color.IndianRed;
+            button3.ForeColor = Color.White;
+            button3.Location = new Point(39, 544);
+            button3.Name = "button3";
+            button3.Size = new Size(699, 59);
+            button3.TabIndex = 1;
+            button3.Text = "Appointment Now";
+            button3.UseVisualStyleBackColor = false;
             // 
             // UserSetting
             // 
@@ -193,7 +430,7 @@
             UserSetting.Dock = DockStyle.Fill;
             UserSetting.Location = new Point(0, 64);
             UserSetting.Name = "UserSetting";
-            UserSetting.Size = new Size(823, 460);
+            UserSetting.Size = new Size(776, 685);
             UserSetting.TabIndex = 0;
             UserSetting.Paint += UserSetting_Paint;
             // 
@@ -384,22 +621,198 @@
             // 
             // AddBalancePanel
             // 
+            AddBalancePanel.Controls.Add(AddBalanceWithdrawalBTN);
+            AddBalancePanel.Controls.Add(label13);
+            AddBalancePanel.Controls.Add(PatientWithdrawalInput);
+            AddBalancePanel.Controls.Add(GoBackADDBALANCEBTN);
+            AddBalancePanel.Controls.Add(AddBalanceDepositBTN);
+            AddBalancePanel.Controls.Add(label12);
+            AddBalancePanel.Controls.Add(PatientDepositInput);
             AddBalancePanel.Dock = DockStyle.Fill;
             AddBalancePanel.Location = new Point(0, 64);
             AddBalancePanel.Name = "AddBalancePanel";
-            AddBalancePanel.Size = new Size(823, 460);
+            AddBalancePanel.Size = new Size(776, 685);
             AddBalancePanel.TabIndex = 11;
+            // 
+            // AddBalanceWithdrawalBTN
+            // 
+            AddBalanceWithdrawalBTN.Location = new Point(574, 276);
+            AddBalanceWithdrawalBTN.Name = "AddBalanceWithdrawalBTN";
+            AddBalanceWithdrawalBTN.Size = new Size(176, 63);
+            AddBalanceWithdrawalBTN.TabIndex = 6;
+            AddBalanceWithdrawalBTN.Text = "Confirm Withdrawal";
+            AddBalanceWithdrawalBTN.UseVisualStyleBackColor = true;
+            AddBalanceWithdrawalBTN.Click += AddBalanceWithdrawalBTN_Click;
+            AddBalanceWithdrawalBTN.KeyPress += AddBalanceWithdrawalBTN_KeyPress;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label13.Location = new Point(45, 241);
+            label13.Name = "label13";
+            label13.Size = new Size(186, 37);
+            label13.TabIndex = 5;
+            label13.Text = "WIDTHRWAL";
+            // 
+            // PatientWithdrawalInput
+            // 
+            PatientWithdrawalInput.BackColor = Color.White;
+            PatientWithdrawalInput.BorderStyle = BorderStyle.FixedSingle;
+            PatientWithdrawalInput.Font = new Font("Segoe UI", 14F);
+            PatientWithdrawalInput.ForeColor = Color.Black;
+            PatientWithdrawalInput.Location = new Point(73, 290);
+            PatientWithdrawalInput.Name = "PatientWithdrawalInput";
+            PatientWithdrawalInput.Size = new Size(318, 32);
+            PatientWithdrawalInput.TabIndex = 4;
+            PatientWithdrawalInput.Text = "Input Number";
+            // 
+            // GoBackADDBALANCEBTN
+            // 
+            GoBackADDBALANCEBTN.FlatAppearance.BorderSize = 0;
+            GoBackADDBALANCEBTN.FlatStyle = FlatStyle.System;
+            GoBackADDBALANCEBTN.Location = new Point(12, 6);
+            GoBackADDBALANCEBTN.Name = "GoBackADDBALANCEBTN";
+            GoBackADDBALANCEBTN.Size = new Size(105, 41);
+            GoBackADDBALANCEBTN.TabIndex = 3;
+            GoBackADDBALANCEBTN.Text = "Go Back";
+            GoBackADDBALANCEBTN.UseVisualStyleBackColor = true;
+            // 
+            // AddBalanceDepositBTN
+            // 
+            AddBalanceDepositBTN.Location = new Point(575, 115);
+            AddBalanceDepositBTN.Name = "AddBalanceDepositBTN";
+            AddBalanceDepositBTN.Size = new Size(176, 63);
+            AddBalanceDepositBTN.TabIndex = 2;
+            AddBalanceDepositBTN.Text = "Confirm Deposit";
+            AddBalanceDepositBTN.UseVisualStyleBackColor = true;
+            AddBalanceDepositBTN.Click += AddBalanceDepositBTN_Click;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label12.Location = new Point(45, 95);
+            label12.Name = "label12";
+            label12.Size = new Size(128, 37);
+            label12.TabIndex = 1;
+            label12.Text = "DEPOSIT";
+            // 
+            // PatientDepositInput
+            // 
+            PatientDepositInput.BackColor = Color.White;
+            PatientDepositInput.BorderStyle = BorderStyle.FixedSingle;
+            PatientDepositInput.Font = new Font("Segoe UI", 14F);
+            PatientDepositInput.ForeColor = Color.Black;
+            PatientDepositInput.Location = new Point(73, 135);
+            PatientDepositInput.Name = "PatientDepositInput";
+            PatientDepositInput.Size = new Size(318, 32);
+            PatientDepositInput.TabIndex = 0;
+            PatientDepositInput.Text = "Input Number";
+            PatientDepositInput.KeyPress += PatientDepositPress;
+            // 
+            // UserHome
+            // 
+            UserHome.Controls.Add(UserHomeLoad);
+            UserHome.Dock = DockStyle.Fill;
+            UserHome.Location = new Point(0, 64);
+            UserHome.Name = "UserHome";
+            UserHome.Size = new Size(776, 685);
+            UserHome.TabIndex = 7;
+            // 
+            // UserHomeLoad
+            // 
+            UserHomeLoad.AutoScroll = true;
+            UserHomeLoad.Controls.Add(label17);
+            UserHomeLoad.Controls.Add(flowLayoutPanel2);
+            UserHomeLoad.Controls.Add(label16);
+            UserHomeLoad.Controls.Add(label14);
+            UserHomeLoad.Controls.Add(UserFirstnameLabel);
+            UserHomeLoad.Controls.Add(flowLayoutPanel1);
+            UserHomeLoad.Controls.Add(label15);
+            UserHomeLoad.Location = new Point(3, 3);
+            UserHomeLoad.Name = "UserHomeLoad";
+            UserHomeLoad.Size = new Size(772, 682);
+            UserHomeLoad.TabIndex = 4;
+            UserHomeLoad.Paint += UserHomeLoad_Paint;
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label17.Location = new Point(283, 83);
+            label17.Name = "label17";
+            label17.Size = new Size(163, 21);
+            label17.TabIndex = 6;
+            label17.Text = "Appointment Status";
+            // 
+            // flowLayoutPanel2
+            // 
+            flowLayoutPanel2.Location = new Point(48, 342);
+            flowLayoutPanel2.Name = "flowLayoutPanel2";
+            flowLayoutPanel2.Size = new Size(663, 295);
+            flowLayoutPanel2.TabIndex = 4;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label16.Location = new Point(48, 517);
+            label16.Name = "label16";
+            label16.Size = new Size(163, 21);
+            label16.TabIndex = 5;
+            label16.Text = "Appointment Status";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label14.Location = new Point(12, 19);
+            label14.Name = "label14";
+            label14.Size = new Size(89, 40);
+            label14.TabIndex = 0;
+            label14.Text = "Hello";
+            // 
+            // UserFirstnameLabel
+            // 
+            UserFirstnameLabel.AutoSize = true;
+            UserFirstnameLabel.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            UserFirstnameLabel.Location = new Point(100, 16);
+            UserFirstnameLabel.MinimumSize = new Size(288, 40);
+            UserFirstnameLabel.Name = "UserFirstnameLabel";
+            UserFirstnameLabel.Size = new Size(288, 40);
+            UserFirstnameLabel.TabIndex = 1;
+            UserFirstnameLabel.Text = "UserFirstnameLabel";
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.Location = new Point(48, 107);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(663, 189);
+            flowLayoutPanel1.TabIndex = 2;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label15.Location = new Point(283, 318);
+            label15.Name = "label15";
+            label15.Size = new Size(210, 21);
+            label15.TabIndex = 3;
+            label15.Text = "Medical Diagnosis History";
             // 
             // User
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(823, 524);
+            ClientSize = new Size(776, 749);
+            Controls.Add(AppointmentPanel);
+            Controls.Add(UserHome);
             Controls.Add(AddBalancePanel);
             Controls.Add(UserSetting);
             Controls.Add(HistoryPanel);
-            Controls.Add(AppointmentPanel);
             Controls.Add(panel1);
+            MinimumSize = new Size(792, 516);
             Name = "User";
             Text = "University Of Cebu Health Appointment";
             Load += User_Load;
@@ -407,12 +820,19 @@
             panel1.PerformLayout();
             HistoryPanel.ResumeLayout(false);
             HistoryPanel.PerformLayout();
+            AppointmentPanel.ResumeLayout(false);
+            AppointmentPanel.PerformLayout();
             UserSetting.ResumeLayout(false);
             UserSetting.PerformLayout();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
+            AddBalancePanel.ResumeLayout(false);
+            AddBalancePanel.PerformLayout();
+            UserHome.ResumeLayout(false);
+            UserHomeLoad.ResumeLayout(false);
+            UserHomeLoad.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -448,5 +868,39 @@
         private Label BalanceLabel;
         private Button UserAddBalanceBTN;
         private Panel AddBalancePanel;
+        private Button AddBalanceDepositBTN;
+        private Label label12;
+        private TextBox PatientDepositInput;
+        private Button AddBalanceWithdrawalBTN;
+        private Label label13;
+        private TextBox PatientWithdrawalInput;
+        private Button GoBackADDBALANCEBTN;
+        private Button HomeBTN;
+        private Panel UserHome;
+        private Label label15;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private Label UserFirstnameLabel;
+        private Label label14;
+        private Panel UserHomeLoad;
+        private FlowLayoutPanel flowLayoutPanel2;
+        private Label label16;
+        private Label label17;
+        private Label label18;
+        private Button button3;
+        private DateTimePicker dateTimePicker1;
+        private Label label21;
+        private RichTextBox IsseRichTexBox;
+        private Label label20;
+        private ComboBox SelectingDoctorComboBox;
+        private Label label19;
+        private Label label22;
+        private ComboBox comboBox3;
+        private ComboBox SelectingSpecialistComboBox;
+        private Label DoctorsEmailLabel;
+        private Label DoctorsPhoneNumberLabel;
+        private Label label24;
+        private Label label23;
+        private Label DoctorsCostLabel;
+        private Label label25;
     }
 }

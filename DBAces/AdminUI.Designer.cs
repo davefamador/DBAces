@@ -45,11 +45,7 @@
             DashboardPanel = new Panel();
             AddUserPanel = new Panel();
             ToRegisterDoctorBTN = new Button();
-            DoctorEmailTextBox = new TextBox();
-            label99 = new Label();
-            textBox3 = new TextBox();
-            label7 = new Label();
-            textBox4 = new TextBox();
+            SpecializationTextBox = new TextBox();
             DoctorSpecializationTextBox = new Label();
             DoctorLastNameTextBox = new TextBox();
             label5 = new Label();
@@ -239,11 +235,7 @@
             // 
             AddUserPanel.BackColor = SystemColors.ActiveCaption;
             AddUserPanel.Controls.Add(ToRegisterDoctorBTN);
-            AddUserPanel.Controls.Add(DoctorEmailTextBox);
-            AddUserPanel.Controls.Add(label99);
-            AddUserPanel.Controls.Add(textBox3);
-            AddUserPanel.Controls.Add(label7);
-            AddUserPanel.Controls.Add(textBox4);
+            AddUserPanel.Controls.Add(SpecializationTextBox);
             AddUserPanel.Controls.Add(DoctorSpecializationTextBox);
             AddUserPanel.Controls.Add(DoctorLastNameTextBox);
             AddUserPanel.Controls.Add(label5);
@@ -270,52 +262,18 @@
             ToRegisterDoctorBTN.UseVisualStyleBackColor = true;
             ToRegisterDoctorBTN.Click += ToRegisterDoctorBTN_Click;
             // 
-            // DoctorEmailTextBox
+            // SpecializationTextBox
             // 
-            DoctorEmailTextBox.Location = new Point(456, 203);
-            DoctorEmailTextBox.Name = "DoctorEmailTextBox";
-            DoctorEmailTextBox.Size = new Size(182, 23);
-            DoctorEmailTextBox.TabIndex = 13;
-            // 
-            // label99
-            // 
-            label99.AutoSize = true;
-            label99.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label99.Location = new Point(511, 179);
-            label99.Name = "label99";
-            label99.Size = new Size(53, 21);
-            label99.TabIndex = 12;
-            label99.Text = "Email";
-            // 
-            // textBox3
-            // 
-            textBox3.Location = new Point(566, 143);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(182, 23);
-            textBox3.TabIndex = 11;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label7.Location = new Point(579, 119);
-            label7.Name = "label7";
-            label7.Size = new Size(126, 21);
-            label7.TabIndex = 10;
-            label7.Text = "Phone Number";
-            // 
-            // textBox4
-            // 
-            textBox4.Location = new Point(328, 143);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(182, 23);
-            textBox4.TabIndex = 9;
+            SpecializationTextBox.Location = new Point(444, 141);
+            SpecializationTextBox.Name = "SpecializationTextBox";
+            SpecializationTextBox.Size = new Size(182, 23);
+            SpecializationTextBox.TabIndex = 9;
             // 
             // DoctorSpecializationTextBox
             // 
             DoctorSpecializationTextBox.AutoSize = true;
             DoctorSpecializationTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            DoctorSpecializationTextBox.Location = new Point(345, 119);
+            DoctorSpecializationTextBox.Location = new Point(474, 117);
             DoctorSpecializationTextBox.Name = "DoctorSpecializationTextBox";
             DoctorSpecializationTextBox.Size = new Size(118, 21);
             DoctorSpecializationTextBox.TabIndex = 8;
@@ -431,9 +389,7 @@
         private Button AppointmentBTN;
         private Button AddDoctorBTN;
         private Panel AddUserPanel;
-        private TextBox textBox3;
-        private Label label7;
-        private TextBox textBox4;
+        private TextBox SpecializationTextBox;
         private Label DoctorSpecializationTextBox;
         private TextBox DoctorLastNameTextBox;
         private Label label5;
@@ -443,8 +399,6 @@
         private Label label4;
         private TextBox DoctorUserNameTextbox;
         private Label label3;
-        private TextBox DoctorEmailTextBox;
-        private Label label99;
         private Button ToRegisterDoctorBTN;
     }
 }

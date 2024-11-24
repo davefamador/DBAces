@@ -20,10 +20,11 @@ namespace DBAces
         String sqlcon = "Data Source=.\\SQLEXPRESS;Initial Catalog=DBAces;Integrated Security=True;Trust Server Certificate=True";
         String LoginPage = "LoginPagePanel";
         String RegisterPage = "RegisterPagePanel";
+        String ForgetPasswordPanel = "ForgetPasswordPanel";
         String CurrentHost = "";
         String CurrentHostID = "";
 
-       
+
         // ROLE
         String RolePatient = "Patient";
         public LoginConsole()
@@ -37,12 +38,19 @@ namespace DBAces
             {
                 case "LoginPagePanel":
                     ToRegisterPanel.Hide();
+                    FpasswordPanel.Hide();
                     ToLoginPanel.Show();
 
                     break;
                 case "RegisterPagePanel":
                     ToLoginPanel.Hide();
+                    FpasswordPanel.Hide();
                     ToRegisterPanel.Show();
+                    break;
+                case "ForgetPasswordPanel":
+                    ToLoginPanel.Hide();
+                    ToRegisterPanel.Hide();
+                    FpasswordPanel.Show();
                     break;
             }
         }
@@ -74,6 +82,8 @@ namespace DBAces
                             return !reader.HasRows;
                         }
                     }
+                    con.Close();
+
                 }
             }
             catch (Exception ex)
@@ -107,18 +117,21 @@ namespace DBAces
                                 return true;
 
                             }
-                            else
-                            {
-                                MessageBox.Show("The Role column is NULL.");
-                                return false;
-                            }
 
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("Please Re-Enter your User & Password. User Could not be Found");
+                            return false;
                         }
                     }
                 }
+                con.Close();
             }
             return false;
         }
+
         private void LoginBTN_Click(object sender, EventArgs e)
         {
             if (!String.IsNullOrEmpty(UsernameLoginInput.Text) && !String.IsNullOrEmpty(PasswordLoginInput.Text))
@@ -129,6 +142,7 @@ namespace DBAces
                     switch (CurrentHost)
                     {
                         case "Patient":
+                            Users.getDatas(UsersID);
                             this.Hide();
                             Users.Show();
                             break;
@@ -156,6 +170,7 @@ namespace DBAces
             string passWord = PasswordRegisterInput.Text.ToString();
             string sql = "INSERT INTO Users (Username, Password, Role) OUTPUT INSERTED.UserID VALUES (@Username, @Password, @Role)";
             string sql1 = "INSERT INTO Patients (UserID) VALUES (@UserID)";
+            string sql2 = "INESRT INTO UserBalance (UserID,BALANCE) VALUES (@UserID,@BALANCE)";
 
             using (SqlConnection con = new SqlConnection(sqlcon))
             {
@@ -163,6 +178,8 @@ namespace DBAces
                 try
                 {
                     int newUserID = 0;
+
+                    // USERS SQL
                     using (SqlCommand cmd = new SqlCommand(sql, con))
                     {
                         cmd.Parameters.Add("@Username", SqlDbType.NVarChar).Value = userName;
@@ -171,9 +188,16 @@ namespace DBAces
                         newUserID = (int)cmd.ExecuteScalar();
                         iteration1sql = true;
                     }
-
+                    // User BALANCE SQL
+                    using (SqlCommand cmd = new SqlCommand(sql2, con))
+                    {
+                        cmd.Parameters.Add("UserID", SqlDbType.Int).Value = newUserID;
+                        cmd.Parameters.Add("BALANCE", SqlDbType.Int).Value = 0;
+                    }
                     if (iteration1sql)
                     {
+
+                        // PATIENTS SQL
                         using (SqlCommand cmd = new SqlCommand(sql1, con))
                         {
                             cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = newUserID;
@@ -185,10 +209,12 @@ namespace DBAces
                     {
                         MessageBox.Show("Your account is added. Please click the login button.");
                     }
-                    else if (iteration1sql == true && iteration2sql == false) {
+                    else if (iteration1sql == true && iteration2sql == false)
+                    {
                         MessageBox.Show("There was an issue on Patient DB");
                     }
-                    else {
+                    else
+                    {
                         MessageBox.Show("The account didn't create");
                     }
 
@@ -236,6 +262,52 @@ namespace DBAces
         {
 
         }
+
+
+        private void ForgetPasswordBTN_Click(object sender, EventArgs e)
+        {
+            ToLoadPanel(ForgetPasswordPanel);
+        }
+
+        private void GBackPanelBTN_Click(object sender, EventArgs e)
+        {
+            ToLoadPanel(LoginPage);
+        }
+
+        private void ChangeUserInformation_Click(object sender, EventArgs e)
+        {
+            // Correct SQL query to update the password for a specific user based on the username
+            string sql = "UPDATE Users SET Password = @Password WHERE Username = @Username;";
+
+            using (SqlConnection con = new SqlConnection(sqlcon))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand(sql, con))
+                {
+                    // Add parameters for Username and Password
+                    cmd.Parameters.Add("@Username", SqlDbType.NVarChar).Value = FPasswordUsernameBox.Text;
+                    cmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = FPasswordTextBox.Text;
+
+                    // Execute the update command
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("The account's password has been changed.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Username not found or no changes made.");
+                    }
+                }
+                con.Close();
+
+               
+                FPasswordUsernameBox.Text = "";
+                FPasswordTextBox.Text = "Input New Password";
+            }
+        }
+
     }
 
 

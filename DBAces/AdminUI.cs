@@ -10,12 +10,20 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Text;
 using Microsoft.IdentityModel.Tokens;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace DBAces
 {
 
     public partial class AdminUI : Form
     {
+
+        // Variables : 
+
+        int MaxErrorMessage = 50;
+        String DoctorRole = "Doctor";
+
+
 
         String sqlcon = "Data Source=.\\SQLEXPRESS;Initial Catalog=DBAces;Integrated Security=True;Trust Server Certificate=True";
 
@@ -133,19 +141,60 @@ namespace DBAces
 
 
         // [ ADD DOCTOR PANEL ] = = = = = = = = == = = [ ENTRY ] = = = = = = = = 
+
+
+        private void ToCreateDoctor() {
+            string sql = "INSERT INTO Users (Username, Password, Role) OUTPUT INSERTED.UserID VALUES (@Username, @Password, @Role)";
+            string sql1 = "INSERT INTO Doctors (UserID,FirstName,LastName) VALUES (@UserID,@FirstName,@LastName)";
+            string sql2 = "INSERT INTO DoctorSpecialization (DoctorID,Specialization) VALUES (@DoctorID,@Specialization)";
+
+            string userName = DoctorUserNameTextbox.Text.ToString();
+            string passWord = DoctorPasswordTextBox.Text.ToString();
+            using (SqlConnection con = new SqlConnection(sqlcon)) {
+                int newUserID = 0;
+                con.Open();
+                try {
+                    using (SqlCommand cmd = new SqlCommand(sql, con)){
+                        cmd.Parameters.Add("@Username", SqlDbType.NVarChar).Value = userName;
+                        cmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = passWord;
+                        cmd.Parameters.Add("@Role", SqlDbType.NVarChar).Value = DoctorRole;
+                        newUserID = (int)cmd.ExecuteScalar();
+                    }
+                    using (SqlCommand cmd = new SqlCommand(sql1, con)) {
+                        cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = newUserID;
+                        cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar).Value = DoctorFirstNameTextBox.Text;
+                        cmd.Parameters.Add("@LastName", SqlDbType.NVarChar).Value = DoctorLastNameTextBox.Text;
+                        cmd.ExecuteNonQuery();
+                     
+                    }
+                    using (SqlCommand cmd = new SqlCommand(sql2, con)) {
+                        cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = newUserID;
+                        cmd.Parameters.Add("@Specialization", SqlDbType.NVarChar).Value = SpecializationTextBox.Text;
+                        cmd.ExecuteNonQuery();
+                    }
+                    MessageBox.Show("Doctor Account is Created");
+
+                }
+                catch (Exception aa){
+                    MessageBox.Show(" " + aa);
+                }
+                con.Close();
+            }
+
+        }
         private string ErrorMessage() {
             string messageresult = "";
 
-            if (DoctorFirstNameTextBox.Text.Length > 100) {
+            if (DoctorFirstNameTextBox.Text.Length < 3) {
                 messageresult += "FirstName Must Above 3 Length \n";
             }
-            if (DoctorLastNameTextBox.Text.Length > 100) {
+            if (DoctorLastNameTextBox.Text.Length < 3) {
                 messageresult += "LastName Must above 3 Length\n";
             }
-            if (DoctorUserNameTextbox.Text.Length > 100) {
+            if (DoctorUserNameTextbox.Text.Length < 3) {
                 messageresult += "Username Must above 3 Length \n";
             }
-            if (DoctorPasswordTextBox.Text.Length > 100) {
+            if (DoctorPasswordTextBox.Text.Length < 3) {
                 messageresult += "Password Must above 3 Length\n";
             }
             return messageresult;
@@ -165,15 +214,13 @@ namespace DBAces
         {
             if (toCheckInputTextbox())
             {
-
+                ToCreateDoctor();
             }
             else if (!toCheckInputTextbox())
             {
                 MessageBox.Show("You must fill out all the textbox");
             }
-             if (ErrorMessage().Length > 0) {
-                MessageBox.Show("" + ErrorMessage().ToString());
-            }
+           
         }
         // [ ADD DOCTOR PANEL ] = = = = = = = = == = = [ END ] = = = = = = = = =
         private void UserPanel_Paint(object sender, PaintEventArgs e)
