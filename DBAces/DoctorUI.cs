@@ -16,7 +16,7 @@ namespace DBAces
     {
         String sqlcon = "Data Source=.\\SQLEXPRESS;Initial Catalog=DBAces;Integrated Security=True;Trust Server Certificate=True";
         int UserID;
-        String DoctorFirstname, DoctorLastname, UserSpecialization, UserPhoneNumber, UserEmail;
+        String DoctorFirstname, DoctorLastname, UserPhoneNumber, UserEmail;
         String FullName;
         public DoctorUI()
         {
@@ -29,24 +29,81 @@ namespace DBAces
         private void DoctorUI_Load(object sender, EventArgs e)
         {
             TogetDoctorAttribute();
+            toGetSpecialistDoctorValue();
             DoctorID.Text = UserID.ToString();
-            DoctorNameLabel.Text = FullName;
-            UserDoctorSpecializationLabel.Text = UserSpecialization;
             DoctorPhoneNumberLabel.Text = UserPhoneNumber;
             DoctorEmailLabel.Text = UserEmail;
+            UserDoctorSpecializationLabel.Text = DoctorLastname + ", " + DoctorFirstname;
+        }
+        private void toLoadPanel(string s)
+        {
+            switch (s)
+            {
+                case "Dashboard":
+                    Appointment.Hide();
+                    HistorySale.Hide();
+                    Setting.Hide();
+                    Dashboard.Show();
+                    break;
+                case "Appointments":
+                    HistorySale.Hide();
+                    Setting.Hide();
+                    Dashboard.Hide();
+                    Appointment.Show();
+                    break;
+                case "HistorySale":
+                    Appointment.Hide();
+                    Setting.Hide();
+                    Dashboard.Hide();
+                    HistorySale.Show();
+                    break;
+                case "Setting":
+                    Appointment.Hide();
+                    HistorySale.Hide();
+                    Dashboard.Hide();
+                    Setting.Show();
+                    break;
+
+            }
+        }
+        private void toGetSpecialistDoctorValue()
+        {
+            string sql = "SELECT s.Specialization FROM DoctorSpecialization s JOIN Doctors d ON s.DoctorID = d.DoctorID JOIN Users u ON u.UserID = d.UserID WHERE u.UserID = @UserID;";
+
+            using (SqlConnection con = new SqlConnection(sqlcon))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand(sql, con))
+                {
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = UserID;
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            DoctorSpecializationLabel.Text = reader["Specialization"].ToString();
+                        }
+                    }
+                }
+                con.Close();
+            }
         }
 
-        private void TogetDoctorAttribute() {
-            string sql = "SELECT FirstName,LastName,Specialization,PhoneNum,Email FROM Doctors WHERE UserID = @UserID";
-            using (SqlConnection con = new SqlConnection(sqlcon)) { 
+
+        private void TogetDoctorAttribute()
+        {
+            string sql = "SELECT FirstName,LastName,PhoneNum,Email FROM Doctors WHERE UserID = @UserID";
+            using (SqlConnection con = new SqlConnection(sqlcon))
+            {
                 con.Open();
-                using (SqlCommand cmd = new SqlCommand(sql, con)) {
-                    cmd.Parameters.AddWithValue("@UserID",UserID);
-                    using (SqlDataReader reader = cmd.ExecuteReader()) {
-                        if (reader.Read()) {
+                using (SqlCommand cmd = new SqlCommand(sql, con))
+                {
+                    cmd.Parameters.AddWithValue("@UserID", UserID);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
                             DoctorFirstname = reader["FirstName"].ToString();
                             DoctorLastname = reader["LastName"].ToString();
-                            UserSpecialization  = reader["Specialization"].ToString();
                             UserPhoneNumber = reader["PhoneNum"].ToString();
                             UserEmail = reader["Email"].ToString();
                         }
@@ -58,6 +115,26 @@ namespace DBAces
         private void DoctorID_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void DashboardPanelBTN_Click(object sender, EventArgs e)
+        {
+            toLoadPanel("Dashboard");
+        }
+
+        private void AppointmentBTN_Click(object sender, EventArgs e)
+        {
+            toLoadPanel("Appointments");
+        }
+
+        private void HistorySalePanelBTN_Click(object sender, EventArgs e)
+        {
+            toLoadPanel("HistorySale");
+        }
+
+        private void SettingPanelBTN_Click(object sender, EventArgs e)
+        {
+            toLoadPanel("Setting");
         }
     }
 }

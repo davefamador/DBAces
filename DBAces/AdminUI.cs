@@ -11,6 +11,9 @@ using System.Windows.Forms;
 using System.Drawing.Text;
 using Microsoft.IdentityModel.Tokens;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using Microsoft.VisualBasic.ApplicationServices;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace DBAces
 {
@@ -34,8 +37,10 @@ namespace DBAces
 
         private void AdminUI_Load(object sender, EventArgs e)
         {
-            toLoadPatientInformation();
             toLoadDoctorInformation();
+            toLoadPatientInformation();
+            
+            DoctorDisplayFlowLayout.Show();
         }
 
         private void toLoadPanels(String s)
@@ -113,7 +118,8 @@ namespace DBAces
         private void toLoadDoctorInformation()
         {
             AdminDoctorConfiguration adminconfiguration = new AdminDoctorConfiguration();
-            string sql1 = @"SELECT u.Username, u.Password, d.UserID, d.FirstName, d.LastName,d.Specialization,d.PhoneNum,d.Email FROM Users u JOIN Doctors d ON u.UserID = d.UserID";
+            string sql1 = "SELECT u.Username, u.Password, d.UserID, d.FirstName, d.LastName,d.PhoneNum,d.Email FROM Users u JOIN Doctors d ON u.UserID = d.UserID";
+            bool checkread = false;
             using (SqlConnection con = new SqlConnection(sqlcon))
             {
                 con.Open();
@@ -124,15 +130,18 @@ namespace DBAces
                     {
                         while (reader.Read())
                         {
-                            adminconfiguration.toGetDatasDoctor(reader["Username"].ToString(), reader["Password"].ToString(), Convert.ToInt32(reader["UserID"]), reader["FirstName"].ToString() + ", " + reader["LastName"].ToString(), reader["Specialization"].ToString(), reader["PhoneNum"].ToString(), reader["Email"].ToString());
+                            adminconfiguration.toGetDatasDoctor(reader["Username"].ToString(), reader["Password"].ToString(), Convert.ToInt32(reader["UserID"]), reader["FirstName"].ToString() + ", " + reader["LastName"].ToString(), reader["PhoneNum"].ToString(), reader["Email"].ToString());
                             DoctorDisplayFlowLayout.Controls.Add(adminconfiguration);
                             adminconfiguration = new AdminDoctorConfiguration();
+                           
                         }
+                       
                     }
                     con.Close();
                 }
                 catch (Exception ex)
                 {
+                    MessageBox.Show("" + ex);
                 }
             }
         }
