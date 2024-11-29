@@ -102,7 +102,7 @@
             UsernameLoginInput.Name = "UsernameLoginInput";
             UsernameLoginInput.Size = new Size(221, 23);
             UsernameLoginInput.TabIndex = 0;
-            UsernameLoginInput.Text = "admin";
+            UsernameLoginInput.Text = "doctor2";
             UsernameLoginInput.TextChanged += UsernameLoginInput_TextChanged;
             // 
             // UserLabel
