@@ -258,17 +258,16 @@ namespace DBAces
             string firstName = nameParts[0];
             string lastName = nameParts[1];
 
-            string sql1 = "SELECT d.PhoneNum,d.Email,c.Cost FROM Doctors d JOIN CostPerDoctor c ON d.DoctorID = c.DoctorID WHERE d.FirstName = @FirstName AND d.LastName = @LastName;";
+            string sql1 = "SELECT d.PhoneNum,d.Email,c.CostPerDoctor FROM Doctors d JOIN DoctorSpecialization c ON d.DoctorID = c.DoctorID WHERE d.LastName = @LastName AND d.FirstName = @FirstName";
             using (SqlConnection con = new SqlConnection(sqlcon))
             {
                 con.Open();
                 using (SqlCommand cmd = new SqlCommand(sql1, con))
                 {
-                    cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar).Value = firstName;
+                    cmd.Parameters.Add("@Firstname", SqlDbType.NVarChar).Value = firstName;
                     cmd.Parameters.Add("@LastName", SqlDbType.NVarChar).Value = lastName;
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        MessageBox.Show("The Thread is here");
                         if (reader.Read())
                         {
                             DoctorsPhoneNumberLabel.Text = reader["PhoneNum"].ToString();
@@ -305,9 +304,7 @@ namespace DBAces
 
 
         }
-
         // [ Appointment PANEL ] = = = = = = = = == = = [ End ] = = = = = = = = 
-
         private void UserSetting_Paint(object sender, PaintEventArgs e)
         {
           

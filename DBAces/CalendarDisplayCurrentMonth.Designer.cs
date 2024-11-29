@@ -51,6 +51,7 @@
             Size = new Size(98, 66);
             Load += CalendarDisplayCurrentMonth_Load;
             Click += CalendarDisplayCurrentMonth_Click;
+            MouseClick += CalendarDisplayCurrentMonth_MouseClick;
             ResumeLayout(false);
             PerformLayout();
         }

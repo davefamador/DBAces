@@ -61,7 +61,7 @@ namespace DBAces
             {
                 case "Dashboard":
                     Appointment.Hide();
-                    ToAddAppointment.Hide();
+            
                     HistorySale.Hide();
                     Setting.Hide();
                     Dashboard.Show();
@@ -69,14 +69,14 @@ namespace DBAces
                 case "Appointments":
                     HistorySale.Hide();
                     Setting.Hide();
-                    ToAddAppointment.Hide();
+          
                     Dashboard.Hide();
                     Appointment.Show();
                     break;
                 case "HistorySale":
                     Appointment.Hide();
                     Setting.Hide();
-                    ToAddAppointment.Hide();
+         
                     Dashboard.Hide();
                     HistorySale.Show();
                     break;
@@ -84,13 +84,17 @@ namespace DBAces
                     Appointment.Hide();
                     HistorySale.Hide();
                     Dashboard.Hide();
-                    ToAddAppointment.Hide();
+         
                     Setting.Show();
                     break;
 
             }
         }
 
+        public void toLoadAddAppointment() {
+            Appointment.Hide();
+            Setting.Show();
+        }
 
 
 
@@ -181,7 +185,7 @@ namespace DBAces
             static_year = year;
 
             startofthemonth = new DateTime(year, month, 1);
-            MonthsName.Text = monthname + " " + year;
+        
             int days = DateTime.DaysInMonth(now.Year, now.Month);
             int daysofweek = Convert.ToInt32(startofthemonth.DayOfWeek.ToString("d"));
             int currentDay = now.Day;
@@ -229,6 +233,8 @@ namespace DBAces
                 }
 
             }
+            MonthsName.Text = monthname + " " + year;
+
             for (int a = 1; a <= daysofweek; a++)
             {
                 DisplayRecentMonth calendardisplay = new DisplayRecentMonth();
@@ -237,10 +243,8 @@ namespace DBAces
             for (int a = 1; a <= days; a++)
             {
                 CalendarDisplayCurrentMonth displayCurrentMonth = new CalendarDisplayCurrentMonth();
-                displayCurrentMonth.days(a, monthname);
+                displayCurrentMonth.days(a, MonthsName.Text.ToString(), UserID);
                 CalendarLayoutPanel.Controls.Add(displayCurrentMonth);
-
-
             }
         }
 
@@ -274,7 +278,7 @@ namespace DBAces
             static_month = month;
             static_year = year;
             String monthname = DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
-            MonthsName.Text = monthname + " " + year;
+            
             startofthemonth = new DateTime(year, month, 1);
             int days = DateTime.DaysInMonth(year, month);
             int daysofweek = Convert.ToInt32(startofthemonth.DayOfWeek.ToString("d"));
@@ -319,6 +323,8 @@ namespace DBAces
                 }
 
             }
+
+            MonthsName.Text = monthname + " " + static_year;
             for (int a = 1; a <= daysofweek; a++)
             {
                 DisplayRecentMonth calendardisplay = new DisplayRecentMonth();
@@ -327,7 +333,7 @@ namespace DBAces
             for (int a = 1; a <= days; a++)
             {
                 CalendarDisplayCurrentMonth displayCurrentMonth = new CalendarDisplayCurrentMonth();
-                displayCurrentMonth.days(a, monthname);
+                displayCurrentMonth.days(a, MonthsName.Text.ToString(), UserID);
                 CalendarLayoutPanel.Controls.Add(displayCurrentMonth);
             }
         }
@@ -349,7 +355,7 @@ namespace DBAces
             static_month = month;
             static_year = year;
             string monthname = DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
-            MonthsName.Text = monthname + " " + year;
+            
             startofthemonth = new DateTime(year, month, 1);
             int days = DateTime.DaysInMonth(year, month);
             int daysofweek = Convert.ToInt32(startofthemonth.DayOfWeek.ToString("d"));
@@ -391,7 +397,7 @@ namespace DBAces
 
 
                 }
-
+                MonthsName.Text = monthname + " " + year;
             }
             for (int a = 1; a <= daysofweek; a++)
             {
@@ -401,105 +407,10 @@ namespace DBAces
             for (int a = 1; a <= days; a++)
             {
                 CalendarDisplayCurrentMonth displayCurrentMonth = new CalendarDisplayCurrentMonth();
-                displayCurrentMonth.days(a, monthname);
+                displayCurrentMonth.days(a, MonthsName.Text.ToString(), UserID);
                 CalendarLayoutPanel.Controls.Add(displayCurrentMonth);
             }
 
-        }
-
-
-        //NEW DOCTOR APPOINTMENT
-
-        private List<string> timeCheck()
-        {
-            Dictionary<CheckBox, string> checkBoxMappings = new Dictionary<CheckBox, string>
-    {
-    
-
-        // Morning
-        { checkBox1, "7:00 AM" },
-        { checkBox2, "8:00 AM" },
-        { checkBox4, "9:00 AM" },
-        { checkBox3, "10:00 AM" },
-        { checkBox5, "11:00 AM" },
-        { checkBox10, "7:30 AM" },
-        { checkBox9, "8:30 AM" },
-        { checkBox8, "9:30 AM" },
-        { checkBox7, "10:30 AM" },
-        { checkBox6, "11:30 AM" },
-
-
-        //Afternoon
-        { checkBox20, "1:00 AM" },
-        { checkBox19, "2:00 AM" },
-        { checkBox18, "3:00 AM" },
-        { checkBox17, "4:00 AM" },
-        { checkBox16, "5:00 AM" },
-        { checkBox15, "1:30 AM" },
-        { checkBox14, "2:30 AM" },
-        { checkBox13, "3:30 AM" },
-        { checkBox12, "4:30 AM" },
-        { checkBox11, "5:30 AM" },
-
-        //Afternooon
-        { checkBox24, "6:00 AM" },
-        { checkBox23, "6:30 AM" },
-        { checkBox22, "7:00 AM" },
-        { checkBox21, "7:30 PM" },
-        { checkBox25, "8:00 PM" },
-        { SpecificTime, SpecificTimeTEXTBOX.Text}
-            };
-
-            return checkBoxMappings.Where(mapping => mapping.Key.Checked).Select(mapping => mapping.Value).ToList();
-        }
-
-
-
-        private void SpecificTimeTEXTBOX_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                if (SpecificTimeTEXTBOX.Focused)  // Only execute if the textbox is focused
-                {
-                    if (SpecificTimeTEXTBOX.Text.Length > 0)
-                    {
-                        SpecificTime.Checked = true;
-                    }
-                    else
-                    {
-                        SpecificTime.Checked = false;
-                    }
-                }
-            }
-            catch (Exception ex) {
-                MessageBox.Show("" + ex);
-            }
-        }
-
-        private void SpecificTimeTEXTBOX_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsDigit(e.KeyChar) && e.KeyChar != ':' && e.KeyChar != ' ' &&
-            e.KeyChar != 'A' && e.KeyChar != 'a' &&
-            e.KeyChar != 'P' && e.KeyChar != 'p' &&
-             e.KeyChar != 'M' && e.KeyChar != 'm' &&
-            !char.IsControl(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void SpecificTimeTEXTBOX_Leave(object sender, EventArgs e)
-        {
-            string timePattern = @"^(0?[1-9]|1[0-2]):[0-5][0-9] (AM|PM|am|pm)$";
-            if (SpecificTime.Text.Length > 0)
-            {
-
-            }else if (!System.Text.RegularExpressions.Regex.IsMatch(SpecificTimeTEXTBOX.Text, timePattern))
-            {
-                MessageBox.Show("Invalid time format. Please enter time in hh:mm AM/PM format.");
-                SpecificTimeTEXTBOX.Focus();
-            }
-          
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -507,25 +418,5 @@ namespace DBAces
 
         }
 
-        private void ToAddDoctorAvailableBTN_Click(object sender, EventArgs e)
-        {
-            DayTime = timeCheck();
-            MessageBox.Show(string.Join("\n", DayTime), "Selected Times");
-        }
-
-        private void checkBox42_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBox43_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label11_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
