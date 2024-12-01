@@ -24,6 +24,11 @@ namespace DBAces
         static String AddUserBalance = "AddUserBalance_Panel";
         static String HomePanel = "Home";
 
+
+        //List<(string FirstName, string LastName)> doctorList = new List<(string FirstName, string LastName)>();
+        List<int> doctorIDS = new List<int>();
+        List<Tuple<string, string>> doctorInfo = new List<Tuple<string, string>>();
+
         // USER VARIABLES
         static int UsersID = 0;
         string Firstname = "";
@@ -34,6 +39,7 @@ namespace DBAces
 
         // DOCTOR VARIABLE
         string DFirstName, DLastName;
+        string dLastFirstName;
 
         //COMBO BOX DOCTOR VARIABLE
         string DoctorsFirstName, DoctorsLastName, DoctorsPhoneNumber, DoctorEmail;
@@ -229,7 +235,7 @@ namespace DBAces
 
         private void toLoadComboBoxes()
         {
-            string sql = "SELECT DISTINCT Specialization FROM DoctorSpecialization;";
+            string sql = "SELECT DISTINCT Specialization,DoctorID FROM DoctorSpecialization;";
 
 
             using (SqlConnection con = new SqlConnection(sqlcon))
@@ -243,39 +249,40 @@ namespace DBAces
                         while (reader.Read())
                         {
                             SelectingSpecialistComboBox.Items.Add(reader["Specialization"].ToString());
+
                         }
                     }
                 }
-
                 con.Close();
             }
         }
+
         private void SelectingDoctorComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string fullName = SelectingDoctorComboBox.Text;
-            string[] nameParts = fullName.Split(' ');
+            string[] nameParts = SelectingDoctorComboBox.Text.Split(new string[] { ", " }, StringSplitOptions.None);
+            string firstName = nameParts[1];
+            string lastName = nameParts[0];
 
-            string firstName = nameParts[0];
-            string lastName = nameParts[1];
 
-            string sql1 = "SELECT d.PhoneNum,d.Email,c.CostPerDoctor FROM Doctors d JOIN DoctorSpecialization c ON d.DoctorID = c.DoctorID WHERE d.LastName = @LastName AND d.FirstName = @FirstName";
+            MessageBox.Show("Firstname : "+firstName+", LastName : "+lastName);
+            string sql1 = $"SELECT d.DoctorID, d.PhoneNum, d.Email, c.Specialization, c.CostPerDoctor FROM Doctors d JOIN DoctorSpecialization c ON d.DoctorID = c.DoctorID WHERE d.LastName = @LastName AND d.FirstName = @FirstName";
             using (SqlConnection con = new SqlConnection(sqlcon))
             {
                 con.Open();
                 using (SqlCommand cmd = new SqlCommand(sql1, con))
                 {
-                    cmd.Parameters.Add("@Firstname", SqlDbType.NVarChar).Value = firstName;
+                    cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar).Value = firstName;
                     cmd.Parameters.Add("@LastName", SqlDbType.NVarChar).Value = lastName;
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
                             DoctorsPhoneNumberLabel.Text = reader["PhoneNum"].ToString();
-
                             DoctorsEmailLabel.Text = reader["Email"].ToString();
-
+                            DoctorsCostLabel.Text = reader["CostPerDoctor"].ToString();
                         }
-                        else {
+                        else
+                        {
                             MessageBox.Show("NO FOUND DOCTOR");
                         }
                     }
@@ -285,24 +292,34 @@ namespace DBAces
         }
         private void SelectingSpecialistComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            string message = "";
             SelectingDoctorComboBox.Items.Clear();
             string sql = "SELECT d.FirstName, d.LastName FROM Doctors d JOIN DoctorSpecialization ds on d.DoctorID = ds.DoctorID WHERE  ds.Specialization = @Specialization; ";
-            using (SqlConnection con = new SqlConnection(sqlcon)) {
+            using (SqlConnection con = new SqlConnection(sqlcon))
+            {
                 con.Open();
-                using (SqlCommand cmd = new SqlCommand(sql, con)) {
+                using (SqlCommand cmd = new SqlCommand(sql, con))
+                {
                     cmd.Parameters.Add("@Specialization", SqlDbType.NVarChar).Value = SelectingSpecialistComboBox.Text;
-                    using (SqlDataReader reader = cmd.ExecuteReader()) {
-                        
-                        while (reader.Read()) {
-                            string doctorfullname = "Doctor " + reader["FirstName"].ToString()+" "+reader["LastName"].ToString();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+
+                        while (reader.Read())
+                        {
+                            string doctorfullname = reader["LastName"].ToString()+", "+ reader["FirstName"].ToString();
+                            doctorInfo.Add(Tuple.Create(reader["FirstName"].ToString(), reader["LastName"].ToString()));
                             SelectingDoctorComboBox.Items.Add(doctorfullname);
+                            
                         }
                     }
                 }
-                    con.Close();
+                con.Close();
             }
-
-
+            foreach (var doctor in doctorInfo)
+            {
+                message += $"Phone: {doctor.Item1}, Email: {doctor.Item2}\n";
+            }
+            MessageBox.Show(message, "Doctor Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         // [ Appointment PANEL ] = = = = = = = = == = = [ End ] = = = = = = = = 
         private void UserSetting_Paint(object sender, PaintEventArgs e)
