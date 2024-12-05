@@ -61,7 +61,6 @@ namespace DBAces
             {
                 case "Dashboard":
                     Appointment.Hide();
-            
                     HistorySale.Hide();
                     Setting.Hide();
                     Dashboard.Show();

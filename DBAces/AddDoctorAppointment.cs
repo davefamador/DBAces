@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using Microsoft.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace DBAces
 {
     public partial class AddDoctorAppointment : Form
     {
+        String sqlcon = "Data Source=.\\SQLEXPRESS;Initial Catalog=DBAces;Integrated Security=True;Trust Server Certificate=True";
         List<string> DayTime = new List<string>();
 
         int DoctorID;
@@ -123,18 +125,45 @@ namespace DBAces
             }
         }
 
-        private void SQLAppointment() { 
-            
+        private void SQLAppointment()
+        {
+            string sql = "INSERT INTO DoctorAvailability (DoctorID, DoctorTime,DoctorDayTime) VALUES (@DoctorID, @DoctorTime,@DoctorDayTime);";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(sqlcon))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        // Assuming timeCheck() returns a List<string>
+                        List<string> timeList = timeCheck();
+
+                        // Join the list into a single string, separated by commas (or your preferred delimiter)
+                        string timeString = string.Join(",", timeList);
+
+                        cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = DoctorID;
+                        cmd.Parameters.Add("@DoctorTime", SqlDbType.Text).Value = timeString;
+                        cmd.Parameters.Add("@DoctorDayTime", SqlDbType.NVarChar).Value = daysmonthyear;
+                        // Execute the command
+                        cmd.ExecuteNonQuery();
+                    }
+                    con.Close();
+                }
+            }
+            catch (Exception ax)
+            {
+                MessageBox.Show("" + ax);
+            }
         }
         private void ToAddDoctorAvailableBTN_Click(object sender, EventArgs e)
         {
             DayTime = timeCheck();
-            MessageBox.Show(string.Join("\n", DayTime), "Selected Times");
             DialogResult result = MessageBox.Show("Do you want to proceed?","Confirmation",MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {
                 SQLAppointment();
+
                 this.Close();
             }
             else if (result == DialogResult.No)

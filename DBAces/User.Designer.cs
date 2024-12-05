@@ -39,6 +39,9 @@
             UserHistoryFlowPanel = new FlowLayoutPanel();
             label3 = new Label();
             AppointmentPanel = new Panel();
+            PatientAppointment = new Button();
+            label26 = new Label();
+            DayComboBox = new ComboBox();
             DoctorsCostLabel = new Label();
             label25 = new Label();
             DoctorsEmailLabel = new Label();
@@ -47,15 +50,13 @@
             label23 = new Label();
             SelectingSpecialistComboBox = new ComboBox();
             label22 = new Label();
-            comboBox3 = new ComboBox();
-            dateTimePicker1 = new DateTimePicker();
+            TimeComboBox = new ComboBox();
             label21 = new Label();
             IsseRichTexBox = new RichTextBox();
             label20 = new Label();
             SelectingDoctorComboBox = new ComboBox();
             label19 = new Label();
             label18 = new Label();
-            button3 = new Button();
             UserSetting = new Panel();
             UserAddBalanceBTN = new Button();
             panel3 = new Panel();
@@ -92,6 +93,7 @@
             UserFirstnameLabel = new Label();
             flowLayoutPanel1 = new FlowLayoutPanel();
             label15 = new Label();
+            label27 = new Label();
             panel1.SuspendLayout();
             HistoryPanel.SuspendLayout();
             AppointmentPanel.SuspendLayout();
@@ -232,6 +234,10 @@
             // 
             // AppointmentPanel
             // 
+            AppointmentPanel.Controls.Add(label27);
+            AppointmentPanel.Controls.Add(PatientAppointment);
+            AppointmentPanel.Controls.Add(label26);
+            AppointmentPanel.Controls.Add(DayComboBox);
             AppointmentPanel.Controls.Add(DoctorsCostLabel);
             AppointmentPanel.Controls.Add(label25);
             AppointmentPanel.Controls.Add(DoctorsEmailLabel);
@@ -240,20 +246,50 @@
             AppointmentPanel.Controls.Add(label23);
             AppointmentPanel.Controls.Add(SelectingSpecialistComboBox);
             AppointmentPanel.Controls.Add(label22);
-            AppointmentPanel.Controls.Add(comboBox3);
-            AppointmentPanel.Controls.Add(dateTimePicker1);
+            AppointmentPanel.Controls.Add(TimeComboBox);
             AppointmentPanel.Controls.Add(label21);
             AppointmentPanel.Controls.Add(IsseRichTexBox);
             AppointmentPanel.Controls.Add(label20);
             AppointmentPanel.Controls.Add(SelectingDoctorComboBox);
             AppointmentPanel.Controls.Add(label19);
             AppointmentPanel.Controls.Add(label18);
-            AppointmentPanel.Controls.Add(button3);
             AppointmentPanel.Dock = DockStyle.Fill;
             AppointmentPanel.Location = new Point(0, 64);
             AppointmentPanel.Name = "AppointmentPanel";
             AppointmentPanel.Size = new Size(776, 685);
             AppointmentPanel.TabIndex = 2;
+            // 
+            // PatientAppointment
+            // 
+            PatientAppointment.BackColor = Color.IndianRed;
+            PatientAppointment.ForeColor = Color.White;
+            PatientAppointment.Location = new Point(42, 544);
+            PatientAppointment.Name = "PatientAppointment";
+            PatientAppointment.Size = new Size(699, 59);
+            PatientAppointment.TabIndex = 21;
+            PatientAppointment.Text = "Appointment Now";
+            PatientAppointment.UseVisualStyleBackColor = false;
+            PatientAppointment.Click += PatientAppointment_Click;
+            // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label26.Location = new Point(485, 184);
+            label26.Name = "label26";
+            label26.Size = new Size(27, 13);
+            label26.TabIndex = 20;
+            label26.Text = "Day";
+            // 
+            // DayComboBox
+            // 
+            DayComboBox.Font = new Font("Segoe UI", 8F);
+            DayComboBox.FormattingEnabled = true;
+            DayComboBox.Location = new Point(524, 178);
+            DayComboBox.Name = "DayComboBox";
+            DayComboBox.Size = new Size(228, 21);
+            DayComboBox.TabIndex = 19;
+            DayComboBox.SelectedIndexChanged += DayComboBox_SelectedIndexChanged;
             // 
             // DoctorsCostLabel
             // 
@@ -329,28 +365,22 @@
             // 
             label22.AutoSize = true;
             label22.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label22.Location = new Point(465, 204);
+            label22.Location = new Point(485, 210);
             label22.Name = "label22";
-            label22.Size = new Size(31, 13);
+            label22.Size = new Size(32, 13);
             label22.TabIndex = 11;
-            label22.Text = "Date";
+            label22.Text = "Time";
+            label22.Click += label22_Click;
             // 
-            // comboBox3
+            // TimeComboBox
             // 
-            comboBox3.Font = new Font("Segoe UI", 8F);
-            comboBox3.FormattingEnabled = true;
-            comboBox3.Location = new Point(523, 201);
-            comboBox3.Name = "comboBox3";
-            comboBox3.Size = new Size(228, 21);
-            comboBox3.TabIndex = 10;
-            // 
-            // dateTimePicker1
-            // 
-            dateTimePicker1.Font = new Font("Segoe UI", 10F);
-            dateTimePicker1.Location = new Point(452, 169);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(298, 25);
-            dateTimePicker1.TabIndex = 9;
+            TimeComboBox.Font = new Font("Segoe UI", 8F);
+            TimeComboBox.FormattingEnabled = true;
+            TimeComboBox.Location = new Point(524, 208);
+            TimeComboBox.Name = "TimeComboBox";
+            TimeComboBox.Size = new Size(228, 21);
+            TimeComboBox.TabIndex = 10;
+            TimeComboBox.SelectedIndexChanged += TimeComboBox_SelectedIndexChanged;
             // 
             // label21
             // 
@@ -409,17 +439,6 @@
             label18.Size = new Size(139, 37);
             label18.TabIndex = 2;
             label18.Text = "Specialist";
-            // 
-            // button3
-            // 
-            button3.BackColor = Color.IndianRed;
-            button3.ForeColor = Color.White;
-            button3.Location = new Point(39, 544);
-            button3.Name = "button3";
-            button3.Size = new Size(699, 59);
-            button3.TabIndex = 1;
-            button3.Text = "Appointment Now";
-            button3.UseVisualStyleBackColor = false;
             // 
             // UserSetting
             // 
@@ -576,9 +595,9 @@
             UsersPassword.AutoSize = true;
             UsersPassword.Location = new Point(28, 100);
             UsersPassword.Name = "UsersPassword";
-            UsersPassword.Size = new Size(91, 15);
+            UsersPassword.Size = new Size(47, 15);
             UsersPassword.TabIndex = 5;
-            UsersPassword.Text = "12321312312321";
+            UsersPassword.Text = "********";
             // 
             // PasswordLABEL
             // 
@@ -801,15 +820,25 @@
             label15.TabIndex = 3;
             label15.Text = "Medical Diagnosis History";
             // 
+            // label27
+            // 
+            label27.AutoSize = true;
+            label27.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label27.Location = new Point(22, 19);
+            label27.Name = "label27";
+            label27.Size = new Size(82, 21);
+            label27.TabIndex = 22;
+            label27.Text = "PatientID";
+            // 
             // User
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(776, 749);
             Controls.Add(AppointmentPanel);
+            Controls.Add(UserSetting);
             Controls.Add(UserHome);
             Controls.Add(AddBalancePanel);
-            Controls.Add(UserSetting);
             Controls.Add(HistoryPanel);
             Controls.Add(panel1);
             MinimumSize = new Size(792, 516);
@@ -886,15 +915,13 @@
         private Label label16;
         private Label label17;
         private Label label18;
-        private Button button3;
-        private DateTimePicker dateTimePicker1;
         private Label label21;
         private RichTextBox IsseRichTexBox;
         private Label label20;
         private ComboBox SelectingDoctorComboBox;
         private Label label19;
         private Label label22;
-        private ComboBox comboBox3;
+        private ComboBox TimeComboBox;
         private ComboBox SelectingSpecialistComboBox;
         private Label DoctorsEmailLabel;
         private Label DoctorsPhoneNumberLabel;
@@ -902,5 +929,9 @@
         private Label label23;
         private Label DoctorsCostLabel;
         private Label label25;
+        private Label label26;
+        private ComboBox DayComboBox;
+        private Button PatientAppointment;
+        private Label label27;
     }
 }

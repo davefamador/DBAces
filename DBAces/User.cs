@@ -24,15 +24,18 @@ namespace DBAces
         static String AddUserBalance = "AddUserBalance_Panel";
         static String HomePanel = "Home";
 
-
+        string firstName, lastName;
         //List<(string FirstName, string LastName)> doctorList = new List<(string FirstName, string LastName)>();
         List<int> doctorIDS = new List<int>();
         List<Tuple<string, string>> doctorInfo = new List<Tuple<string, string>>();
 
         // USER VARIABLES
+        int patientID = 0;
         static int UsersID = 0;
         string Firstname = "";
         string Lastname = "";
+        string patientUsername = "";
+        string patientpassword = "";
         DateOnly DateOfBirth;
         string Gender;
         int userBalance;
@@ -40,6 +43,8 @@ namespace DBAces
         // DOCTOR VARIABLE
         string DFirstName, DLastName;
         string dLastFirstName;
+
+        int tempDoctorID;
 
         //COMBO BOX DOCTOR VARIABLE
         string DoctorsFirstName, DoctorsLastName, DoctorsPhoneNumber, DoctorEmail;
@@ -53,9 +58,10 @@ namespace DBAces
         private void User_Load(object sender, EventArgs e)
         {
             toLoadUserDatas();
-            ToLoadInformation(); toLoadComboBoxes();
+            ToLoadInformation(); toLoadComboBoxes(); 
         }
 
+       
         private void toLoadPanels(String s)
         {
             switch (s)
@@ -107,7 +113,8 @@ namespace DBAces
 
         private void toLoadUserDatas()
         {
-            string sql = "SELECT UserID,FirstName,LastName,DateOfBirth,Gender FROM Patients WHERE UserID = @UserID";
+            string sql2 = "SELECT Username FROM Users WHERE UserID = @UserID";
+            string sql = "SELECT PatientID,FirstName,LastName,DateOfBirth,Gender FROM Patients WHERE UserID = @UserID";
             string sql1 = "SELECT Balance FROM UserBalance Where UserID = @UserID";
             using (SqlConnection con = new SqlConnection(sqlcon))
             {
@@ -121,6 +128,7 @@ namespace DBAces
                         {
                             if (reader.Read())
                             {
+                                patientID = int.Parse(reader["PatientID"].ToString());
                                 Firstname = reader["FirstName"].ToString();
                                 Lastname = reader["LastName"].ToString();
                                 DateOfBirth = DateOnly.FromDateTime((DateTime)reader["DateOfBirth"]);
@@ -147,8 +155,22 @@ namespace DBAces
                         }
                     }
                 }
-                con.Close();
+                using (SqlCommand cmd = new SqlCommand(sql2, con)) {
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = UsersID;
+                    using (SqlDataReader reaeder = cmd.ExecuteReader()) {
+                        if (reaeder.Read()) {
+                            patientUsername = reaeder["Username"].ToString();
+                            UsersUsername.Text = patientUsername;
+                        }
+                    }
+                }
+                    con.Close();
             }
+            label6.Text = Firstname;
+            label4.Text = Lastname;
+            label11.Text = DateOfBirth.ToString();
+            label10.Text = Gender;
+            label27.Text = patientID.ToString();
         }
 
         private void ToLoadInformation()
@@ -260,12 +282,12 @@ namespace DBAces
         private void SelectingDoctorComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             string[] nameParts = SelectingDoctorComboBox.Text.Split(new string[] { ", " }, StringSplitOptions.None);
-            string firstName = nameParts[1];
-            string lastName = nameParts[0];
+            firstName = nameParts[1];
+            lastName = nameParts[0];
 
+            DayComboBox.Items.Clear();
 
-            MessageBox.Show("Firstname : "+firstName+", LastName : "+lastName);
-            string sql1 = $"SELECT d.DoctorID, d.PhoneNum, d.Email, c.Specialization, c.CostPerDoctor FROM Doctors d JOIN DoctorSpecialization c ON d.DoctorID = c.DoctorID WHERE d.LastName = @LastName AND d.FirstName = @FirstName";
+            string sql1 = $"SELECT d.UserID, d.PhoneNum, d.Email, c.Specialization, c.CostPerDoctor FROM Doctors d JOIN DoctorSpecialization c ON d.DoctorID = c.DoctorID WHERE d.LastName = @LastName AND d.FirstName = @FirstName";
             using (SqlConnection con = new SqlConnection(sqlcon))
             {
                 con.Open();
@@ -277,6 +299,7 @@ namespace DBAces
                     {
                         if (reader.Read())
                         {
+                            tempDoctorID = int.Parse(reader["UserID"].ToString());
                             DoctorsPhoneNumberLabel.Text = reader["PhoneNum"].ToString();
                             DoctorsEmailLabel.Text = reader["Email"].ToString();
                             DoctorsCostLabel.Text = reader["CostPerDoctor"].ToString();
@@ -288,6 +311,33 @@ namespace DBAces
                     }
                 }
                 con.Close();
+
+
+            }
+            string sql = "SELECT da.DoctorDayTime FROM DoctorAvailability da JOIN Doctors d ON da.DoctorID = d.DoctorID WHERE da.DoctorID = @DoctorID";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(sqlcon))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = tempDoctorID;
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string aa = reader["DoctorDayTime"].ToString();
+                                DayComboBox.Items.Add(aa);
+                            }
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            catch (Exception ax)
+            {
+                MessageBox.Show("" + ax);
             }
         }
         private void SelectingSpecialistComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -306,25 +356,134 @@ namespace DBAces
 
                         while (reader.Read())
                         {
-                            string doctorfullname = reader["LastName"].ToString()+", "+ reader["FirstName"].ToString();
+                            string doctorfullname = reader["LastName"].ToString() + ", " + reader["FirstName"].ToString();
                             doctorInfo.Add(Tuple.Create(reader["FirstName"].ToString(), reader["LastName"].ToString()));
                             SelectingDoctorComboBox.Items.Add(doctorfullname);
-                            
+
                         }
                     }
                 }
                 con.Close();
             }
-            foreach (var doctor in doctorInfo)
+
+        }
+
+        private void TimeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string sql = "SELECT da.DoctorTime FROM DoctorAvailability da JOIN Doctors d ON da.DoctorID = d.DoctorID WHERE da.DoctorID = @DoctorID";
+            try
             {
-                message += $"Phone: {doctor.Item1}, Email: {doctor.Item2}\n";
+                using (SqlConnection con = new SqlConnection(sqlcon))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = tempDoctorID.ToString();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+
+                            }
+                        }
+                    }
+                    con.Close();
+                }
             }
-            MessageBox.Show(message, "Doctor Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            catch (Exception ax)
+            {
+                MessageBox.Show("" + ax);
+            }
+        }
+
+        private void DayComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            string sql = "SELECT da.DoctorTime FROM DoctorAvailability da JOIN Doctors d ON da.DoctorID = d.DoctorID WHERE da.DoctorID = @DoctorID";
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(sqlcon))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = tempDoctorID;
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                List<string> timeList = new List<string>(reader["DoctorTime"].ToString().Split(new string[] { "," }, StringSplitOptions.None));
+                                foreach (string time in timeList)
+                                {
+                                    TimeComboBox.Items.Add(time);
+                                }
+                            }
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            catch (Exception ax)
+            {
+                MessageBox.Show("" + ax);
+            }
+
+        }
+        private void PatientAppointmentSQL() {
+            string sql = "INSERT INTO Appointments (PatientID, DoctorID,AppointmentDate,AppointmentStatus,Issue,Payment) VALUES (@PatientID,@DoctorID,@AppointmentDate,@AppointmentStatus,@Issue,@Payment );";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(sqlcon))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        cmd.Parameters.Add("@PatientID", SqlDbType.Int).Value = patientID;
+                        cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = tempDoctorID;
+                        cmd.Parameters.Add("@AppointmentDate", SqlDbType.Text).Value = DayComboBox.Text + ", " + TimeComboBox.Text;
+                        cmd.Parameters.Add("@AppointmentStatus", SqlDbType.NVarChar).Value = "PENDING";
+                        cmd.Parameters.Add("@Issue", SqlDbType.Text).Value = IsseRichTexBox.Text;
+                        cmd.Parameters.Add("@Payment", SqlDbType.Int).Value = int.Parse(DoctorsCostLabel.Text);
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("Your Request has been moved");
+                    }
+                    con.Close();
+                }
+            }
+            catch (Exception ax)
+            {
+                MessageBox.Show("" + ax);
+
+            }
+        }
+
+        private string toCheckAppointment() {
+            string tocheck = "";
+
+            if (SelectingSpecialistComboBox.Text.Length <= 0 || SelectingDoctorComboBox.Text.Length <= 0 || DayComboBox.Text.Length <= 0 || TimeComboBox.Text.Length <= 0) {
+                tocheck += "Please Fill in the requirement";
+            }
+            if (IsseRichTexBox.Text.Length <= 0) {
+                tocheck += "\nPlease Tell us what is your concern. ";
+            
+            }
+            return tocheck;
+        }
+        private void PatientAppointment_Click(object sender, EventArgs e)
+        {
+            if (toCheckAppointment().Length <= 0)
+            {
+                PatientAppointmentSQL();
+            }
+            else {
+                MessageBox.Show(""+toCheckAppointment());
+            }
         }
         // [ Appointment PANEL ] = = = = = = = = == = = [ End ] = = = = = = = = 
         private void UserSetting_Paint(object sender, PaintEventArgs e)
         {
-          
+
         }
 
         private void HistoryBTN_Click(object sender, EventArgs e)
@@ -367,6 +526,11 @@ namespace DBAces
 
         }
 
-     
+        private void label22_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }
