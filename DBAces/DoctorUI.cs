@@ -31,9 +31,10 @@ namespace DBAces
         DateTime startofthemonth;
 
 
+
         CalendarDisplayCurrentMonth dateventkey = new CalendarDisplayCurrentMonth();
         String sqlcon = "Data Source=.\\SQLEXPRESS;Initial Catalog=DBAces;Integrated Security=True;Trust Server Certificate=True";
-        int UserID;
+        int UserID, DoctorID;
         String DoctorFirstname, DoctorLastname, UserPhoneNumber, UserEmail;
         String FullName;
         public DoctorUI()
@@ -47,13 +48,10 @@ namespace DBAces
         private void DoctorUI_Load(object sender, EventArgs e)
         {
             TogetDoctorAttribute();
-            toGetSpecialistDoctorValue();
+            // toGetSpecialistDoctorValue();
             DisplayDays();
-            
-            DoctorID.Text = UserID.ToString();
-            DoctorPhoneNumberLabel.Text = UserPhoneNumber;
-            DoctorEmailLabel.Text = UserEmail;
-            UserDoctorSpecializationLabel.Text = DoctorLastname + ", " + DoctorFirstname;
+            toLoadPatientDiagnosis(); DoctorsIDLABEL.Text = DoctorID.ToString();
+
         }
         private void toLoadPanel(string s)
         {
@@ -68,14 +66,14 @@ namespace DBAces
                 case "Appointments":
                     HistorySale.Hide();
                     Setting.Hide();
-          
+
                     Dashboard.Hide();
                     Appointment.Show();
                     break;
                 case "HistorySale":
                     Appointment.Hide();
                     Setting.Hide();
-         
+
                     Dashboard.Hide();
                     HistorySale.Show();
                     break;
@@ -83,18 +81,94 @@ namespace DBAces
                     Appointment.Hide();
                     HistorySale.Hide();
                     Dashboard.Hide();
-         
+
                     Setting.Show();
                     break;
 
             }
         }
 
-        public void toLoadAddAppointment() {
-            Appointment.Hide();
-            Setting.Show();
+        private void DashboardPanelsLoad(string s)
+        {
+            switch (s)
+            {
+                case "Patient":
+                    OnAppointmentPanel.Hide();
+                    DashboardPatient.Show();
+                    break;
+                case "OnAppointment":
+                    DashboardPatient.Hide();
+                    OnAppointmentPanel.Show();
+                    break;
+            }
         }
+        public void toloadPatient()
+        {
+            toLoadPatientDiagnosis();
+        }
+        public void toLoadPatientDiagnosis()
+        {
+            
+            //LoadPatientDiagnosis
+            string sql = "SELECT p.PatientID,a.AppointmentID,p.FirstName,p.LastName,p.DateOfBirth,p.Gender,a.Issue FROM Patients p JOIN Appointments a ON p.PatientID = a.PatientID WHERE a.DoctorID =  @DoctorID AND A.AppointmentStatus = @AppointmentStatus; ";
+            DoctorsPatient Dpatient = new DoctorsPatient();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(sqlcon))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = DoctorID;
+                        cmd.Parameters.Add("@AppointmentStatus", SqlDbType.NVarChar).Value = "DIAGNOSE";
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {                       //UserID = DoctorID
+                                Dpatient.toGetDatas(DoctorID, int.Parse(reader["PatientID"]?.ToString() ?? "0"), int.Parse(reader["AppointmentID"]?.ToString() ?? "0"), reader["FirstName"]?.ToString() ?? string.Empty, reader["LastName"]?.ToString() ?? string.Empty, reader["DateOfBirth"]?.ToString() ?? string.Empty, reader["Gender"]?.ToString() ?? string.Empty, reader["Issue"]?.ToString() ?? string.Empty);
+                                Dpatient.toGetValueBTN("DIAGNOSE");
+                                LoadPatientDiagnosis.Controls.Add(Dpatient);
+                                Dpatient = new DoctorsPatient();
 
+                            }
+                        }
+
+                    }
+
+                    con.Close();
+                }
+                string sql1 = "SELECT a.AppointmentID,p. p.FirstName,p.LastName,p.DateOfBirth,p.Gender,a.Issue FROM Patients p JOIN Appointments a ON p.PatientID = a.PatientID WHERE a.DoctorID =  @DoctorID AND A.AppointmentStatus = @AppointmentStatus; ";
+
+                using (SqlConnection con = new SqlConnection(sqlcon))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = DoctorID;
+                        cmd.Parameters.Add("@AppointmentStatus", SqlDbType.NVarChar).Value = "PENDING";
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                Dpatient.toGetDatas(DoctorID, int.Parse(reader["PatientID"]?.ToString() ?? "0"), int.Parse(reader["AppointmentID"]?.ToString() ?? "0"), reader["FirstName"]?.ToString() ?? string.Empty, reader["LastName"]?.ToString() ?? string.Empty, reader["DateOfBirth"]?.ToString() ?? string.Empty, reader["Gender"]?.ToString() ?? string.Empty, reader["Issue"]?.ToString() ?? string.Empty);
+                                Dpatient.toGetValueBTN("PENDING");
+                                GetAppointmentDoctor.Controls.Add(Dpatient);
+                                Dpatient = new DoctorsPatient();
+
+                            }
+                        }
+
+                    }
+
+                    con.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("" + ex);
+            }
+        }
 
 
         private void toGetSpecialistDoctorValue()
@@ -111,7 +185,7 @@ namespace DBAces
                     {
                         if (reader.Read())
                         {
-                            DoctorSpecializationLabel.Text = reader["Specialization"].ToString();
+
                         }
                     }
                 }
@@ -122,7 +196,7 @@ namespace DBAces
 
         private void TogetDoctorAttribute()
         {
-            string sql = "SELECT FirstName,LastName,PhoneNum,Email FROM Doctors WHERE UserID = @UserID";
+            string sql = "SELECT DoctorID,FirstName,LastName,PhoneNum,Email FROM Doctors WHERE UserID = @UserID";
             using (SqlConnection con = new SqlConnection(sqlcon))
             {
                 con.Open();
@@ -133,10 +207,11 @@ namespace DBAces
                     {
                         if (reader.Read())
                         {
-                            DoctorFirstname = reader["FirstName"].ToString();
-                            DoctorLastname = reader["LastName"].ToString();
-                            UserPhoneNumber = reader["PhoneNum"].ToString();
-                            UserEmail = reader["Email"].ToString();
+                            DoctorID = reader["DoctorID"] == DBNull.Value ? 0 : Convert.ToInt32(reader["DoctorID"]);
+                            DoctorFirstname = reader["FirstName"]?.ToString() ?? string.Empty;
+                            DoctorLastname = reader["LastName"]?.ToString() ?? string.Empty;
+                            UserPhoneNumber = reader["PhoneNum"]?.ToString() ?? string.Empty;
+                            UserEmail = reader["Email"]?.ToString() ?? string.Empty;
                         }
                     }
                 }
@@ -184,7 +259,7 @@ namespace DBAces
             static_year = year;
 
             startofthemonth = new DateTime(year, month, 1);
-        
+
             int days = DateTime.DaysInMonth(now.Year, now.Month);
             int daysofweek = Convert.ToInt32(startofthemonth.DayOfWeek.ToString("d"));
             int currentDay = now.Day;
@@ -242,7 +317,7 @@ namespace DBAces
             for (int a = 1; a <= days; a++)
             {
                 CalendarDisplayCurrentMonth displayCurrentMonth = new CalendarDisplayCurrentMonth();
-                displayCurrentMonth.days(a, MonthsName.Text.ToString(), UserID);
+                displayCurrentMonth.days(a, MonthsName.Text.ToString(), DoctorID);
                 CalendarLayoutPanel.Controls.Add(displayCurrentMonth);
             }
         }
@@ -277,7 +352,7 @@ namespace DBAces
             static_month = month;
             static_year = year;
             String monthname = DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
-            
+
             startofthemonth = new DateTime(year, month, 1);
             int days = DateTime.DaysInMonth(year, month);
             int daysofweek = Convert.ToInt32(startofthemonth.DayOfWeek.ToString("d"));
@@ -332,7 +407,7 @@ namespace DBAces
             for (int a = 1; a <= days; a++)
             {
                 CalendarDisplayCurrentMonth displayCurrentMonth = new CalendarDisplayCurrentMonth();
-                displayCurrentMonth.days(a, MonthsName.Text.ToString(), UserID);
+                displayCurrentMonth.days(a, MonthsName.Text.ToString(), DoctorID);
                 CalendarLayoutPanel.Controls.Add(displayCurrentMonth);
             }
         }
@@ -354,7 +429,7 @@ namespace DBAces
             static_month = month;
             static_year = year;
             string monthname = DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
-            
+
             startofthemonth = new DateTime(year, month, 1);
             int days = DateTime.DaysInMonth(year, month);
             int daysofweek = Convert.ToInt32(startofthemonth.DayOfWeek.ToString("d"));
@@ -406,7 +481,7 @@ namespace DBAces
             for (int a = 1; a <= days; a++)
             {
                 CalendarDisplayCurrentMonth displayCurrentMonth = new CalendarDisplayCurrentMonth();
-                displayCurrentMonth.days(a, MonthsName.Text.ToString(), UserID);
+                displayCurrentMonth.days(a, MonthsName.Text.ToString(), DoctorID);
                 CalendarLayoutPanel.Controls.Add(displayCurrentMonth);
             }
 
@@ -417,5 +492,32 @@ namespace DBAces
 
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void OnAppointmentDashboard_Click(object sender, EventArgs e)
+        {
+            DashboardPanelsLoad("OnAppointment");
+        }
+
+        private void DiagnosPatient_Click(object sender, EventArgs e)
+        {
+            DashboardPanelsLoad("Patient");
+        }
+
+        private void LogoutBTN_Click(object sender, EventArgs e)
+        {
+            LoginConsole login = new LoginConsole();
+
+            this.Close();
+            login.Show();
+        }
+
+        private void LoadPatientDiagnosis_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

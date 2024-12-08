@@ -39,6 +39,8 @@
             UserHistoryFlowPanel = new FlowLayoutPanel();
             label3 = new Label();
             AppointmentPanel = new Panel();
+            doctorsIDLabel = new Label();
+            label27 = new Label();
             PatientAppointment = new Button();
             label26 = new Label();
             DayComboBox = new ComboBox();
@@ -58,6 +60,7 @@
             label19 = new Label();
             label18 = new Label();
             UserSetting = new Panel();
+            PatientsIDLabel = new Label();
             UserAddBalanceBTN = new Button();
             panel3 = new Panel();
             button2 = new Button();
@@ -93,7 +96,16 @@
             UserFirstnameLabel = new Label();
             flowLayoutPanel1 = new FlowLayoutPanel();
             label15 = new Label();
-            label27 = new Label();
+            Appointment = new Panel();
+            Appointmented = new Panel();
+            panel4 = new Panel();
+            DateAppointment = new Label();
+            label31 = new Label();
+            cancelAppointmentBTN = new Button();
+            ModifyDateBTN = new Button();
+            label30 = new Label();
+            IssueRBox = new RichTextBox();
+            AppointmentStatusPatient = new Label();
             panel1.SuspendLayout();
             HistoryPanel.SuspendLayout();
             AppointmentPanel.SuspendLayout();
@@ -103,6 +115,9 @@
             AddBalancePanel.SuspendLayout();
             UserHome.SuspendLayout();
             UserHomeLoad.SuspendLayout();
+            Appointment.SuspendLayout();
+            Appointmented.SuspendLayout();
+            panel4.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -209,15 +224,15 @@
             HistoryPanel.Controls.Add(UserHistoryFlowPanel);
             HistoryPanel.Controls.Add(label3);
             HistoryPanel.Dock = DockStyle.Fill;
-            HistoryPanel.Location = new Point(0, 64);
+            HistoryPanel.Location = new Point(0, 0);
             HistoryPanel.Name = "HistoryPanel";
-            HistoryPanel.Size = new Size(776, 685);
+            HistoryPanel.Size = new Size(776, 749);
             HistoryPanel.TabIndex = 1;
             HistoryPanel.Paint += HistoryPanel_Paint;
             // 
             // UserHistoryFlowPanel
             // 
-            UserHistoryFlowPanel.Location = new Point(45, 77);
+            UserHistoryFlowPanel.Location = new Point(12, 77);
             UserHistoryFlowPanel.Name = "UserHistoryFlowPanel";
             UserHistoryFlowPanel.Size = new Size(742, 356);
             UserHistoryFlowPanel.TabIndex = 2;
@@ -234,6 +249,7 @@
             // 
             // AppointmentPanel
             // 
+            AppointmentPanel.Controls.Add(doctorsIDLabel);
             AppointmentPanel.Controls.Add(label27);
             AppointmentPanel.Controls.Add(PatientAppointment);
             AppointmentPanel.Controls.Add(label26);
@@ -254,10 +270,30 @@
             AppointmentPanel.Controls.Add(label19);
             AppointmentPanel.Controls.Add(label18);
             AppointmentPanel.Dock = DockStyle.Fill;
-            AppointmentPanel.Location = new Point(0, 64);
+            AppointmentPanel.Location = new Point(0, 0);
             AppointmentPanel.Name = "AppointmentPanel";
             AppointmentPanel.Size = new Size(776, 685);
             AppointmentPanel.TabIndex = 2;
+            // 
+            // doctorsIDLabel
+            // 
+            doctorsIDLabel.AutoSize = true;
+            doctorsIDLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            doctorsIDLabel.Location = new Point(26, 90);
+            doctorsIDLabel.Name = "doctorsIDLabel";
+            doctorsIDLabel.Size = new Size(79, 21);
+            doctorsIDLabel.TabIndex = 23;
+            doctorsIDLabel.Text = "DoctorID";
+            // 
+            // label27
+            // 
+            label27.AutoSize = true;
+            label27.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label27.Location = new Point(22, 19);
+            label27.Name = "label27";
+            label27.Size = new Size(82, 21);
+            label27.TabIndex = 22;
+            label27.Text = "PatientID";
             // 
             // PatientAppointment
             // 
@@ -442,6 +478,7 @@
             // 
             // UserSetting
             // 
+            UserSetting.Controls.Add(PatientsIDLabel);
             UserSetting.Controls.Add(UserAddBalanceBTN);
             UserSetting.Controls.Add(panel3);
             UserSetting.Controls.Add(panel2);
@@ -453,9 +490,19 @@
             UserSetting.TabIndex = 0;
             UserSetting.Paint += UserSetting_Paint;
             // 
+            // PatientsIDLabel
+            // 
+            PatientsIDLabel.AutoSize = true;
+            PatientsIDLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            PatientsIDLabel.Location = new Point(3, 1);
+            PatientsIDLabel.Name = "PatientsIDLabel";
+            PatientsIDLabel.Size = new Size(82, 21);
+            PatientsIDLabel.TabIndex = 22;
+            PatientsIDLabel.Text = "PatientID";
+            // 
             // UserAddBalanceBTN
             // 
-            UserAddBalanceBTN.Location = new Point(658, 29);
+            UserAddBalanceBTN.Location = new Point(612, 32);
             UserAddBalanceBTN.Name = "UserAddBalanceBTN";
             UserAddBalanceBTN.Size = new Size(129, 75);
             UserAddBalanceBTN.TabIndex = 10;
@@ -475,7 +522,7 @@
             panel3.Controls.Add(label5);
             panel3.Controls.Add(label6);
             panel3.Controls.Add(label7);
-            panel3.Location = new Point(389, 143);
+            panel3.Location = new Point(366, 145);
             panel3.Name = "panel3";
             panel3.Size = new Size(398, 225);
             panel3.TabIndex = 2;
@@ -684,7 +731,7 @@
             PatientWithdrawalInput.Name = "PatientWithdrawalInput";
             PatientWithdrawalInput.Size = new Size(318, 32);
             PatientWithdrawalInput.TabIndex = 4;
-            PatientWithdrawalInput.Text = "Input Number";
+            PatientWithdrawalInput.KeyPress += PatientWithdrawalInput_KeyPress;
             // 
             // GoBackADDBALANCEBTN
             // 
@@ -727,7 +774,6 @@
             PatientDepositInput.Name = "PatientDepositInput";
             PatientDepositInput.Size = new Size(318, 32);
             PatientDepositInput.TabIndex = 0;
-            PatientDepositInput.Text = "Input Number";
             PatientDepositInput.KeyPress += PatientDepositPress;
             // 
             // UserHome
@@ -820,27 +866,119 @@
             label15.TabIndex = 3;
             label15.Text = "Medical Diagnosis History";
             // 
-            // label27
+            // Appointment
             // 
-            label27.AutoSize = true;
-            label27.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label27.Location = new Point(22, 19);
-            label27.Name = "label27";
-            label27.Size = new Size(82, 21);
-            label27.TabIndex = 22;
-            label27.Text = "PatientID";
+            Appointment.Controls.Add(AppointmentPanel);
+            Appointment.Controls.Add(Appointmented);
+            Appointment.Dock = DockStyle.Fill;
+            Appointment.Location = new Point(0, 64);
+            Appointment.Name = "Appointment";
+            Appointment.Size = new Size(776, 685);
+            Appointment.TabIndex = 0;
+            // 
+            // Appointmented
+            // 
+            Appointmented.Controls.Add(panel4);
+            Appointmented.Dock = DockStyle.Fill;
+            Appointmented.Location = new Point(0, 0);
+            Appointmented.Name = "Appointmented";
+            Appointmented.Size = new Size(776, 685);
+            Appointmented.TabIndex = 23;
+            // 
+            // panel4
+            // 
+            panel4.Controls.Add(DateAppointment);
+            panel4.Controls.Add(label31);
+            panel4.Controls.Add(cancelAppointmentBTN);
+            panel4.Controls.Add(ModifyDateBTN);
+            panel4.Controls.Add(label30);
+            panel4.Controls.Add(IssueRBox);
+            panel4.Controls.Add(AppointmentStatusPatient);
+            panel4.Location = new Point(6, 6);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(766, 655);
+            panel4.TabIndex = 0;
+            // 
+            // DateAppointment
+            // 
+            DateAppointment.AutoSize = true;
+            DateAppointment.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            DateAppointment.Location = new Point(82, 223);
+            DateAppointment.Name = "DateAppointment";
+            DateAppointment.Size = new Size(53, 25);
+            DateAppointment.TabIndex = 7;
+            DateAppointment.Text = "Date";
+            DateAppointment.Click += DateAppointment_Click;
+            // 
+            // label31
+            // 
+            label31.AutoSize = true;
+            label31.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label31.Location = new Point(28, 195);
+            label31.Name = "label31";
+            label31.Size = new Size(177, 25);
+            label31.TabIndex = 6;
+            label31.Text = "Date Appointment";
+            label31.Click += label31_Click;
+            // 
+            // cancelAppointmentBTN
+            // 
+            cancelAppointmentBTN.Location = new Point(368, 506);
+            cancelAppointmentBTN.Name = "cancelAppointmentBTN";
+            cancelAppointmentBTN.Size = new Size(354, 83);
+            cancelAppointmentBTN.TabIndex = 5;
+            cancelAppointmentBTN.Text = "Cancel APPOINTMENT";
+            cancelAppointmentBTN.UseVisualStyleBackColor = true;
+            cancelAppointmentBTN.Click += cancelAppointmentBTN_Click;
+            // 
+            // ModifyDateBTN
+            // 
+            ModifyDateBTN.Location = new Point(24, 514);
+            ModifyDateBTN.Name = "ModifyDateBTN";
+            ModifyDateBTN.Size = new Size(316, 75);
+            ModifyDateBTN.TabIndex = 4;
+            ModifyDateBTN.Text = "Modify Date";
+            ModifyDateBTN.UseVisualStyleBackColor = true;
+            // 
+            // label30
+            // 
+            label30.AutoSize = true;
+            label30.Font = new Font("Segoe UI", 22.25F, FontStyle.Bold);
+            label30.Location = new Point(297, 339);
+            label30.Name = "label30";
+            label30.Size = new Size(88, 41);
+            label30.TabIndex = 3;
+            label30.Text = "Issue";
+            // 
+            // IssueRBox
+            // 
+            IssueRBox.Location = new Point(24, 386);
+            IssueRBox.Name = "IssueRBox";
+            IssueRBox.Size = new Size(660, 93);
+            IssueRBox.TabIndex = 2;
+            IssueRBox.Text = "";
+            // 
+            // AppointmentStatusPatient
+            // 
+            AppointmentStatusPatient.AutoSize = true;
+            AppointmentStatusPatient.Font = new Font("Segoe UI", 32.75F, FontStyle.Bold);
+            AppointmentStatusPatient.Location = new Point(39, 53);
+            AppointmentStatusPatient.Name = "AppointmentStatusPatient";
+            AppointmentStatusPatient.Size = new Size(222, 60);
+            AppointmentStatusPatient.TabIndex = 1;
+            AppointmentStatusPatient.Text = "PENDING";
             // 
             // User
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(776, 749);
-            Controls.Add(AppointmentPanel);
+            Controls.Add(Appointment);
+            Controls.Add(AddBalancePanel);
             Controls.Add(UserSetting);
             Controls.Add(UserHome);
-            Controls.Add(AddBalancePanel);
-            Controls.Add(HistoryPanel);
             Controls.Add(panel1);
+            Controls.Add(HistoryPanel);
             MinimumSize = new Size(792, 516);
             Name = "User";
             Text = "University Of Cebu Health Appointment";
@@ -862,6 +1000,10 @@
             UserHome.ResumeLayout(false);
             UserHomeLoad.ResumeLayout(false);
             UserHomeLoad.PerformLayout();
+            Appointment.ResumeLayout(false);
+            Appointmented.ResumeLayout(false);
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -933,5 +1075,17 @@
         private ComboBox DayComboBox;
         private Button PatientAppointment;
         private Label label27;
+        private Label PatientsIDLabel;
+        private Panel Appointment;
+        private Panel Appointmented;
+        private Panel panel4;
+        private Label AppointmentStatusPatient;
+        private Button cancelAppointmentBTN;
+        private Button ModifyDateBTN;
+        private Label label30;
+        private RichTextBox IssueRBox;
+        private Label label31;
+        private Label DateAppointment;
+        private Label doctorsIDLabel;
     }
 }

@@ -61,6 +61,7 @@
             checkBox21 = new CheckBox();
             checkBox25 = new CheckBox();
             ToAddAppointment = new Panel();
+            DoctorsIDs = new Label();
             ToAddAppointment.SuspendLayout();
             SuspendLayout();
             // 
@@ -414,6 +415,7 @@
             // ToAddAppointment
             // 
             ToAddAppointment.BackColor = Color.FromArgb(128, 255, 128);
+            ToAddAppointment.Controls.Add(DoctorsIDs);
             ToAddAppointment.Controls.Add(checkBox25);
             ToAddAppointment.Controls.Add(checkBox21);
             ToAddAppointment.Controls.Add(checkBox22);
@@ -451,6 +453,16 @@
             ToAddAppointment.Name = "ToAddAppointment";
             ToAddAppointment.Size = new Size(774, 480);
             ToAddAppointment.TabIndex = 2;
+            // 
+            // DoctorsIDs
+            // 
+            DoctorsIDs.AutoSize = true;
+            DoctorsIDs.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
+            DoctorsIDs.Location = new Point(12, 9);
+            DoctorsIDs.Name = "DoctorsIDs";
+            DoctorsIDs.Size = new Size(91, 25);
+            DoctorsIDs.TabIndex = 101;
+            DoctorsIDs.Text = "DoctorID";
             // 
             // AddDoctorAppointment
             // 
@@ -505,5 +517,6 @@
         private CheckBox checkBox21;
         private CheckBox checkBox25;
         private Panel ToAddAppointment;
+        private Label DoctorsIDs;
     }
 }

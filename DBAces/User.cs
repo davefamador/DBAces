@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
+using Microsoft.IdentityModel.Tokens;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 namespace DBAces
@@ -24,12 +25,15 @@ namespace DBAces
         static String AddUserBalance = "AddUserBalance_Panel";
         static String HomePanel = "Home";
 
+
         string firstName, lastName;
         //List<(string FirstName, string LastName)> doctorList = new List<(string FirstName, string LastName)>();
         List<int> doctorIDS = new List<int>();
         List<Tuple<string, string>> doctorInfo = new List<Tuple<string, string>>();
 
         // USER VARIABLES
+
+        int UserBalance;
         int patientID = 0;
         static int UsersID = 0;
         string Firstname = "";
@@ -58,10 +62,14 @@ namespace DBAces
         private void User_Load(object sender, EventArgs e)
         {
             toLoadUserDatas();
-            ToLoadInformation(); toLoadComboBoxes(); 
+            ToLoadInformation(); toLoadComboBoxes(); toLoadAppointment(); checkAppointment();
+            PatientsIDLabel.Text = UsersID.ToString(); checkUserBalance();
         }
 
-       
+        private void toLoadAppointment()
+        {
+
+        }
         private void toLoadPanels(String s)
         {
             switch (s)
@@ -71,10 +79,10 @@ namespace DBAces
                     HistoryPanel.Hide();
                     UserSetting.Hide();
                     UserHome.Hide();
-                    AppointmentPanel.Show();
+                    Appointment.Show();
                     break;
                 case "History_Panel":
-                    AppointmentPanel.Hide();
+                    Appointment.Hide();
                     AddBalancePanel.Hide();
                     UserSetting.Hide();
                     UserHome.Hide();
@@ -82,21 +90,21 @@ namespace DBAces
                     break;
                 case "UserSetting_Panel":
                     HistoryPanel.Hide();
-                    AppointmentPanel.Hide();
+                    Appointment.Hide();
                     AddBalancePanel.Hide();
                     UserHome.Hide();
                     UserSetting.Show();
                     break;
                 case "AddUserBalance_Panel":
                     HistoryPanel.Hide();
-                    AppointmentPanel.Hide();
+                    Appointment.Hide();
                     UserSetting.Hide();
                     UserHome.Hide();
                     AddBalancePanel.Show();
                     break;
                 case "HomePanel":
                     HistoryPanel.Hide();
-                    AppointmentPanel.Hide();
+                    Appointment.Hide();
                     UserSetting.Hide();
                     AddBalancePanel.Hide();
                     UserHome.Show();
@@ -108,6 +116,57 @@ namespace DBAces
         public void getDatas(int id)
         {
             UsersID = id;
+        }
+
+        private bool toCheckAppointmentSQL()
+        {
+
+            string sql = "SELECT a.AppointmentDate,a.AppointmentStatus,a.Issue FROM Appointments a WHERE a.AppointmentStatus IN ('PENDING', 'RESCHEDULE', 'DIAGNOSE') AND PatientID = @PatientID;";
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(sqlcon))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        cmd.Parameters.Add("@PatientID", SqlDbType.Int).Value = patientID;
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                AppointmentStatusPatient.Text = reader["AppointmentStatus"].ToString();
+                                DateAppointment.Text = reader["AppointmentDate"].ToString();
+                                IssueRBox.Text = reader["Issue"].ToString();
+                                return true;
+                            }
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("" + e);
+                return false;
+            }
+
+            return false;
+        }
+
+        private void checkAppointment()
+        {
+            if (toCheckAppointmentSQL())
+            {
+                AppointmentPanel.Hide();
+                Appointmented.Show();
+            }
+            else
+            {
+                Appointmented.Hide();
+                AppointmentPanel.Show();
+            }
+
         }
 
 
@@ -128,14 +187,15 @@ namespace DBAces
                         {
                             if (reader.Read())
                             {
-                                patientID = int.Parse(reader["PatientID"].ToString());
-                                Firstname = reader["FirstName"].ToString();
-                                Lastname = reader["LastName"].ToString();
-                                DateOfBirth = DateOnly.FromDateTime((DateTime)reader["DateOfBirth"]);
-                                Gender = reader["Gender"].ToString();
-                            }
-                        }
+                                patientID = reader["PatientID"] == DBNull.Value ? 0 : int.Parse(reader["PatientID"].ToString());
+                                Firstname = reader["FirstName"] == DBNull.Value ? "" : reader["FirstName"].ToString();
+                                Lastname = reader["LastName"] == DBNull.Value ? "" : reader["LastName"].ToString();
+                                DateOfBirth = reader["DateOfBirth"] == DBNull.Value ? DateOnly.MinValue : DateOnly.FromDateTime((DateTime)reader["DateOfBirth"]);
+                                Gender = reader["Gender"] == DBNull.Value ? "" : reader["Gender"].ToString();
 
+                            }
+
+                        }
                     }
                 }
                 catch (Exception e)
@@ -155,16 +215,19 @@ namespace DBAces
                         }
                     }
                 }
-                using (SqlCommand cmd = new SqlCommand(sql2, con)) {
+                using (SqlCommand cmd = new SqlCommand(sql2, con))
+                {
                     cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = UsersID;
-                    using (SqlDataReader reaeder = cmd.ExecuteReader()) {
-                        if (reaeder.Read()) {
+                    using (SqlDataReader reaeder = cmd.ExecuteReader())
+                    {
+                        if (reaeder.Read())
+                        {
                             patientUsername = reaeder["Username"].ToString();
                             UsersUsername.Text = patientUsername;
                         }
                     }
                 }
-                    con.Close();
+                con.Close();
             }
             label6.Text = Firstname;
             label4.Text = Lastname;
@@ -207,20 +270,79 @@ namespace DBAces
             }
 
         }
+        private bool CheckBalanceWithdrawalInput()
+        {
+
+            if (PatientWithdrawalInput.Text.Length <= 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
+        }
         private bool CheckWithdrawalBalanceInput()
         {
 
             return false;
         }
 
+        private void checkUserBalance()
+        {
 
+            string sql = "SELECT BALANCE FROM UserBalance WHERE UserID = @UserID";
+
+            using (SqlConnection con = new SqlConnection(sqlcon))
+            {
+                con.Open();
+
+                using (SqlCommand cmd = new SqlCommand(sql, con))
+                {
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = UsersID;
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            userBalance = int.Parse(reader["BALANCE"].ToString());
+                            UserBalanceLabel.Text = reader["BALANCE"].ToString();
+                            
+                        }
+                    }
+                }
+                con.Close();
+            }
+        }
         private void AddBalanceDepositBTN_Click(object sender, EventArgs e)
         {
+            
+            string sql = "UPDATE UserBalance SET BALANCE = @Balance WHERE UserID = @UserID;";
             if (CheckBalanceInput())
             {
                 if (ConfirmationMesssageBox())
                 {
+                    try
+                    {
+                        using (SqlConnection con = new SqlConnection(sqlcon))
+                        {
+                            con.Open();
+                            using (SqlCommand cmd = new SqlCommand(sql, con))
+                            {
+                                cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = UsersID;
+                                cmd.Parameters.Add("@Balance", SqlDbType.Int).Value = userBalance + int.Parse(PatientDepositInput.Text);
+                                cmd.ExecuteNonQuery();
+                            }
+                            con.Close();
+                            checkUserBalance();
+                            MessageBox.Show("The Balance is added");
 
+                        }
+                    }
+                    catch (Exception aa)
+                    {
+                        MessageBox.Show("" + aa);
+                    }
                 }
             }
             else
@@ -232,6 +354,35 @@ namespace DBAces
         private void AddBalanceWithdrawalBTN_Click(object sender, EventArgs e)
         {
 
+            
+            string sql = "UPDATE UserBalance SET BALANCE = @Balance WHERE UserID = @UserID;";
+            if (CheckBalanceWithdrawalInput())
+            {
+                if (ConfirmationMesssageBox())
+                {
+                   
+                        using (SqlConnection con = new SqlConnection(sqlcon))
+                        {
+                            con.Open();
+                            using (SqlCommand cmd = new SqlCommand(sql, con))
+                            {
+                                cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = UsersID;
+                                cmd.Parameters.Add("@Balance", SqlDbType.Int).Value = userBalance - int.Parse(PatientWithdrawalInput.Text);
+                                cmd.ExecuteNonQuery();
+                            }
+                            con.Close();
+                            checkUserBalance();
+                            MessageBox.Show("The Balance is Deducted");
+
+                        }
+                    }
+                   
+                
+            }
+            else
+            {
+                MessageBox.Show("You Must Input Desired Number in the Deposit Box");
+            }
         }
 
         private void PatientDepositPress(object sender, KeyPressEventArgs e)
@@ -281,13 +432,14 @@ namespace DBAces
 
         private void SelectingDoctorComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            DayComboBox.Items.Clear();
             string[] nameParts = SelectingDoctorComboBox.Text.Split(new string[] { ", " }, StringSplitOptions.None);
             firstName = nameParts[1];
             lastName = nameParts[0];
 
-            DayComboBox.Items.Clear();
 
-            string sql1 = $"SELECT d.UserID, d.PhoneNum, d.Email, c.Specialization, c.CostPerDoctor FROM Doctors d JOIN DoctorSpecialization c ON d.DoctorID = c.DoctorID WHERE d.LastName = @LastName AND d.FirstName = @FirstName";
+
+            string sql1 = $"SELECT d.DoctorID, d.PhoneNum, d.Email, c.Specialization, c.CostPerDoctor FROM Doctors d JOIN DoctorSpecialization c ON d.DoctorID = c.DoctorID WHERE d.LastName = @LastName AND d.FirstName = @FirstName";
             using (SqlConnection con = new SqlConnection(sqlcon))
             {
                 con.Open();
@@ -299,10 +451,11 @@ namespace DBAces
                     {
                         if (reader.Read())
                         {
-                            tempDoctorID = int.Parse(reader["UserID"].ToString());
+                            tempDoctorID = int.Parse(reader["DoctorID"].ToString());
                             DoctorsPhoneNumberLabel.Text = reader["PhoneNum"].ToString();
                             DoctorsEmailLabel.Text = reader["Email"].ToString();
                             DoctorsCostLabel.Text = reader["CostPerDoctor"].ToString();
+                            doctorsIDLabel.Text = tempDoctorID.ToString();
                         }
                         else
                         {
@@ -342,8 +495,12 @@ namespace DBAces
         }
         private void SelectingSpecialistComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string message = "";
+
+            DayComboBox.Items.Clear();
             SelectingDoctorComboBox.Items.Clear();
+            TimeComboBox.Items.Clear();
+
+            string message = "";
             string sql = "SELECT d.FirstName, d.LastName FROM Doctors d JOIN DoctorSpecialization ds on d.DoctorID = ds.DoctorID WHERE  ds.Specialization = @Specialization; ";
             using (SqlConnection con = new SqlConnection(sqlcon))
             {
@@ -398,9 +555,7 @@ namespace DBAces
 
         private void DayComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             string sql = "SELECT da.DoctorTime FROM DoctorAvailability da JOIN Doctors d ON da.DoctorID = d.DoctorID WHERE da.DoctorID = @DoctorID";
-
             try
             {
                 using (SqlConnection con = new SqlConnection(sqlcon))
@@ -430,8 +585,10 @@ namespace DBAces
             }
 
         }
-        private void PatientAppointmentSQL() {
+        private void PatientAppointmentSQL()
+        {
             string sql = "INSERT INTO Appointments (PatientID, DoctorID,AppointmentDate,AppointmentStatus,Issue,Payment) VALUES (@PatientID,@DoctorID,@AppointmentDate,@AppointmentStatus,@Issue,@Payment );";
+            string sql2 = "UPDATE UserBalance SET BALANCE = @Balance WHERE UserID = @UserID;";
             try
             {
                 using (SqlConnection con = new SqlConnection(sqlcon))
@@ -446,9 +603,15 @@ namespace DBAces
                         cmd.Parameters.Add("@Issue", SqlDbType.Text).Value = IsseRichTexBox.Text;
                         cmd.Parameters.Add("@Payment", SqlDbType.Int).Value = int.Parse(DoctorsCostLabel.Text);
                         cmd.ExecuteNonQuery();
-                        MessageBox.Show("Your Request has been moved");
+                      
                     }
-                    con.Close();
+                    using (SqlCommand cmd = new SqlCommand(sql2,con)) {
+                        cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = UsersID;
+                        cmd.Parameters.Add("@Balance", SqlDbType.Int).Value = userBalance - int.Parse(DoctorsCostLabel.Text);
+                        cmd.ExecuteNonQuery();
+                    }
+                        con.Close();
+                    MessageBox.Show("Your Request have been moved");
                 }
             }
             catch (Exception ax)
@@ -458,26 +621,43 @@ namespace DBAces
             }
         }
 
-        private string toCheckAppointment() {
+        private string toCheckAppointment()
+        {
             string tocheck = "";
 
-            if (SelectingSpecialistComboBox.Text.Length <= 0 || SelectingDoctorComboBox.Text.Length <= 0 || DayComboBox.Text.Length <= 0 || TimeComboBox.Text.Length <= 0) {
+            if (SelectingSpecialistComboBox.Text.Length <= 0 || SelectingDoctorComboBox.Text.Length <= 0 || DayComboBox.Text.Length <= 0 || TimeComboBox.Text.Length <= 0)
+            {
                 tocheck += "Please Fill in the requirement";
             }
-            if (IsseRichTexBox.Text.Length <= 0) {
+            if (IsseRichTexBox.Text.Length <= 0)
+            {
                 tocheck += "\nPlease Tell us what is your concern. ";
-            
+
             }
             return tocheck;
+        }
+        private bool toCheckBalanceAppointment() {
+            if (userBalance > int.Parse(DoctorsCostLabel.Text)) {
+                return true;
+            }
+            return false;
         }
         private void PatientAppointment_Click(object sender, EventArgs e)
         {
             if (toCheckAppointment().Length <= 0)
             {
-                PatientAppointmentSQL();
+                if (toCheckBalanceAppointment())
+                {
+                    PatientAppointmentSQL();
+                    checkAppointment();
+                }
+                else {
+                    MessageBox.Show("I dont know : \n"+ DoctorsCostLabel + "\n"+ UserBalance);
+                }
             }
-            else {
-                MessageBox.Show(""+toCheckAppointment());
+            else
+            {
+                MessageBox.Show("" + toCheckAppointment());
             }
         }
         // [ Appointment PANEL ] = = = = = = = = == = = [ End ] = = = = = = = = 
@@ -531,6 +711,24 @@ namespace DBAces
 
         }
 
+        private void DateAppointment_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void label31_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cancelAppointmentBTN_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PatientWithdrawalInput_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
     }
 }

@@ -26,6 +26,7 @@ namespace DBAces
         private void AddDoctorAppointment_Load(object sender, EventArgs e)
         {
             DateApointment.Text = daysmonthyear;
+            DoctorsIDs.Text = DoctorID.ToString();
         }
 
         private List<string> timeCheck()

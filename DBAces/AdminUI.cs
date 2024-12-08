@@ -154,13 +154,17 @@ namespace DBAces
 
         private void ToCreateDoctor() {
             string sql = "INSERT INTO Users (Username, Password, Role) OUTPUT INSERTED.UserID VALUES (@Username, @Password, @Role)";
-            string sql1 = "INSERT INTO Doctors (UserID,FirstName,LastName) VALUES (@UserID,@FirstName,@LastName)";
-            string sql2 = "INSERT INTO DoctorSpecialization (DoctorID,Specialization) VALUES (@DoctorID,@Specialization)";
+            string sql1 = "INSERT INTO Doctors (UserID, FirstName, LastName) OUTPUT INSERTED.DoctorID VALUES (@UserID, @FirstName, @LastName)";
+            string sql2 = "INSERT INTO DoctorSpecialization (DoctorID, Specialization) VALUES (@DoctorID, @Specialization)";
+            string sql3 = "INSERT INTO UserBalance (UserID, Balance) VALUES (@UserID, @Balance)";
 
+
+            int newUserID = 0;
+            int newDoctorID = 0;
             string userName = DoctorUserNameTextbox.Text.ToString();
             string passWord = DoctorPasswordTextBox.Text.ToString();
             using (SqlConnection con = new SqlConnection(sqlcon)) {
-                int newUserID = 0;
+           
                 con.Open();
                 try {
                     using (SqlCommand cmd = new SqlCommand(sql, con)){
@@ -168,20 +172,27 @@ namespace DBAces
                         cmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = passWord;
                         cmd.Parameters.Add("@Role", SqlDbType.NVarChar).Value = DoctorRole;
                         newUserID = (int)cmd.ExecuteScalar();
+                        MessageBox.Show(""+newUserID);
                     }
                     using (SqlCommand cmd = new SqlCommand(sql1, con)) {
                         cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = newUserID;
                         cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar).Value = DoctorFirstNameTextBox.Text;
                         cmd.Parameters.Add("@LastName", SqlDbType.NVarChar).Value = DoctorLastNameTextBox.Text;
-                        cmd.ExecuteNonQuery();
-                     
+                        newDoctorID = (int)cmd.ExecuteScalar();
+                        MessageBox.Show("New DoctorID: " + newDoctorID);
+
                     }
                     using (SqlCommand cmd = new SqlCommand(sql2, con)) {
-                        cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = newUserID;
+                        cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = newDoctorID;
                         cmd.Parameters.Add("@Specialization", SqlDbType.NVarChar).Value = SpecializationTextBox.Text;
                         cmd.ExecuteNonQuery();
                     }
-                    MessageBox.Show("Doctor Account is Created");
+                    using (SqlCommand cmd = new SqlCommand(sql3, con)) {
+                        cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = newUserID;
+                        cmd.Parameters.Add("@BALANCE", SqlDbType.Int).Value = 0;
+                        cmd.ExecuteNonQuery();
+                    }
+                        MessageBox.Show("Doctor Account is Created");
 
                 }
                 catch (Exception aa){
