@@ -91,12 +91,13 @@
             label6 = new Label();
             Dashboard = new Panel();
             DashboardPatient = new Panel();
+            PatientsPanel = new Panel();
             LoadPatientDiagnosis = new FlowLayoutPanel();
+            OnAppointmentPanel = new Panel();
+            GetAppointmentDoctor = new FlowLayoutPanel();
             DashboardTopBar = new Panel();
             OnAppointmentDashboard = new Button();
             DiagnosPatient = new Button();
-            OnAppointmentPanel = new Panel();
-            GetAppointmentDoctor = new FlowLayoutPanel();
             HistorySale = new Panel();
             label5 = new Label();
             Appointment.SuspendLayout();
@@ -111,8 +112,9 @@
             ModifyAccount.SuspendLayout();
             Dashboard.SuspendLayout();
             DashboardPatient.SuspendLayout();
-            DashboardTopBar.SuspendLayout();
+            PatientsPanel.SuspendLayout();
             OnAppointmentPanel.SuspendLayout();
+            DashboardTopBar.SuspendLayout();
             HistorySale.SuspendLayout();
             SuspendLayout();
             // 
@@ -259,9 +261,8 @@
             // 
             // Setting
             // 
-            Setting.Controls.Add(AddBalancePanel);
             Setting.Controls.Add(SettingPanel);
-            Setting.Controls.Add(ModifyBackground);
+            Setting.Controls.Add(AddBalancePanel);
             Setting.Controls.Add(ModifyAccount);
             Setting.Controls.Add(label6);
             Setting.Dock = DockStyle.Fill;
@@ -350,6 +351,7 @@
             // SettingPanel
             // 
             SettingPanel.BackColor = Color.FromArgb(192, 255, 192);
+            SettingPanel.Controls.Add(ModifyBackground);
             SettingPanel.Controls.Add(panel3);
             SettingPanel.Controls.Add(AccountUserIDsLabel);
             SettingPanel.Controls.Add(panel2);
@@ -778,8 +780,6 @@
             // 
             Dashboard.BackColor = Color.FromArgb(192, 255, 192);
             Dashboard.Controls.Add(DashboardPatient);
-            Dashboard.Controls.Add(DashboardTopBar);
-            Dashboard.Controls.Add(OnAppointmentPanel);
             Dashboard.Dock = DockStyle.Fill;
             Dashboard.Location = new Point(0, 75);
             Dashboard.Name = "Dashboard";
@@ -788,21 +788,49 @@
             // 
             // DashboardPatient
             // 
-            DashboardPatient.Controls.Add(LoadPatientDiagnosis);
+            DashboardPatient.Controls.Add(PatientsPanel);
+            DashboardPatient.Controls.Add(OnAppointmentPanel);
+            DashboardPatient.Controls.Add(DashboardTopBar);
             DashboardPatient.Dock = DockStyle.Fill;
-            DashboardPatient.Location = new Point(0, 75);
+            DashboardPatient.Location = new Point(0, 0);
             DashboardPatient.Name = "DashboardPatient";
-            DashboardPatient.Size = new Size(778, 481);
+            DashboardPatient.Size = new Size(778, 556);
             DashboardPatient.TabIndex = 0;
+            // 
+            // PatientsPanel
+            // 
+            PatientsPanel.Controls.Add(LoadPatientDiagnosis);
+            PatientsPanel.Dock = DockStyle.Fill;
+            PatientsPanel.Location = new Point(0, 75);
+            PatientsPanel.Name = "PatientsPanel";
+            PatientsPanel.Size = new Size(778, 481);
+            PatientsPanel.TabIndex = 2;
             // 
             // LoadPatientDiagnosis
             // 
             LoadPatientDiagnosis.AutoScroll = true;
-            LoadPatientDiagnosis.Location = new Point(17, 18);
+            LoadPatientDiagnosis.Location = new Point(17, 33);
             LoadPatientDiagnosis.Name = "LoadPatientDiagnosis";
             LoadPatientDiagnosis.Size = new Size(734, 437);
             LoadPatientDiagnosis.TabIndex = 0;
             LoadPatientDiagnosis.Paint += LoadPatientDiagnosis_Paint;
+            // 
+            // OnAppointmentPanel
+            // 
+            OnAppointmentPanel.Controls.Add(GetAppointmentDoctor);
+            OnAppointmentPanel.Dock = DockStyle.Fill;
+            OnAppointmentPanel.Location = new Point(0, 75);
+            OnAppointmentPanel.Name = "OnAppointmentPanel";
+            OnAppointmentPanel.Size = new Size(778, 481);
+            OnAppointmentPanel.TabIndex = 1;
+            // 
+            // GetAppointmentDoctor
+            // 
+            GetAppointmentDoctor.AutoScroll = true;
+            GetAppointmentDoctor.Location = new Point(17, 18);
+            GetAppointmentDoctor.Name = "GetAppointmentDoctor";
+            GetAppointmentDoctor.Size = new Size(734, 437);
+            GetAppointmentDoctor.TabIndex = 0;
             // 
             // DashboardTopBar
             // 
@@ -842,23 +870,6 @@
             DiagnosPatient.Text = "Patient";
             DiagnosPatient.UseVisualStyleBackColor = false;
             DiagnosPatient.Click += DiagnosPatient_Click;
-            // 
-            // OnAppointmentPanel
-            // 
-            OnAppointmentPanel.Controls.Add(GetAppointmentDoctor);
-            OnAppointmentPanel.Dock = DockStyle.Fill;
-            OnAppointmentPanel.Location = new Point(0, 0);
-            OnAppointmentPanel.Name = "OnAppointmentPanel";
-            OnAppointmentPanel.Size = new Size(778, 556);
-            OnAppointmentPanel.TabIndex = 1;
-            // 
-            // GetAppointmentDoctor
-            // 
-            GetAppointmentDoctor.AutoScroll = true;
-            GetAppointmentDoctor.Location = new Point(17, 18);
-            GetAppointmentDoctor.Name = "GetAppointmentDoctor";
-            GetAppointmentDoctor.Size = new Size(734, 437);
-            GetAppointmentDoctor.TabIndex = 0;
             // 
             // HistorySale
             // 
@@ -914,8 +925,9 @@
             ModifyAccount.PerformLayout();
             Dashboard.ResumeLayout(false);
             DashboardPatient.ResumeLayout(false);
-            DashboardTopBar.ResumeLayout(false);
+            PatientsPanel.ResumeLayout(false);
             OnAppointmentPanel.ResumeLayout(false);
+            DashboardTopBar.ResumeLayout(false);
             HistorySale.ResumeLayout(false);
             HistorySale.PerformLayout();
             ResumeLayout(false);
@@ -1021,5 +1033,6 @@
         private Button AddBalanceDepositBTN;
         private Label label19;
         private TextBox PatientDepositInput;
+        private Panel PatientsPanel;
     }
 }

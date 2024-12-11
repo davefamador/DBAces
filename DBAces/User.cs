@@ -63,9 +63,11 @@ namespace DBAces
         {
             toLoadUserDatas();
             ToLoadInformation(); toLoadComboBoxes(); toLoadAppointment(); checkAppointment();
-            PatientsIDLabel.Text = UsersID.ToString(); checkUserBalance();
+            PatientsIDLabel.Text = UsersID.ToString(); checkUserBalance(); UserInformationBarrier();
         }
-
+        private void UserInformationBarrier(){
+            
+        }
         private void toLoadAppointment()
         {
 
@@ -94,6 +96,7 @@ namespace DBAces
                     AddBalancePanel.Hide();
                     UserHome.Hide();
                     ModifyAccount.Hide();
+                    UserBackground.Hide();
                     SettingPanel.Show();
                     UserSetting.Show();
                     break;
@@ -318,7 +321,6 @@ namespace DBAces
         }
         private void AddBalanceDepositBTN_Click(object sender, EventArgs e)
         {
-
             string sql = "UPDATE UserBalance SET BALANCE = @Balance WHERE UserID = @UserID;";
             string sql1 = "INSERT INTO PaymentHistory (UserID,DATE,PaymentType,AMOUNT) VALUES (@UserID,@DATE,@PaymentType,@AMOUNT)";
             if (CheckBalanceInput())
@@ -608,7 +610,6 @@ namespace DBAces
         private void PatientAppointmentSQL()
         {
             string sql = "INSERT INTO Appointments (PatientID, DoctorID,AppointmentDate,AppointmentStatus,Issue,Payment) VALUES (@PatientID,@DoctorID,@AppointmentDate,@AppointmentStatus,@Issue,@Payment );";
-            string sql3 = "UPDATE ";
             string sql2 = "UPDATE UserBalance SET BALANCE = @Balance WHERE UserID = @UserID;";
             try
             {
@@ -811,17 +812,18 @@ namespace DBAces
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            AccountSettingPanel(2);
-        }
         private void AccountSettingPanel(int s)
         {
             switch (s)
             {
                 case 1:
-                    SettingPanel.Hide();
+                    UserBackground.Hide();
                     ModifyAccount.Show();
+                    break;
+                case 2:
+                    ModifyAccount.Hide();
+                    UserBackground.Show();
+
                     break;
             }
         }
@@ -850,6 +852,121 @@ namespace DBAces
         }
 
         private void label34_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ModifyInformation_Click(object sender, EventArgs e)
+        {
+            AccountSettingPanel(2);
+        }
+
+        private void sqlname()
+        {
+            string sql = "UPDATE Patients SET FirstName = @FirstName ,LastName = @LastName WHERE UserID = @UserID";
+            using (SqlConnection con = new SqlConnection(sqlcon))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand(sql, con))
+                {
+                    cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar).Value = FirstnameBox.Text;
+                    cmd.Parameters.Add("@LastName", SqlDbType.NVarChar).Value = LastnameBox.Text;
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = UsersID;
+                    cmd.ExecuteNonQuery();
+                }
+                con.Close();
+                MessageBox.Show("User's Fullname have Updated");
+            }
+        }
+        private void sqlphone()
+        {
+            string sql = "UPDATE Patients SET DateOfBirth = @DateOfBirth WHERE UserID = @UserID";
+            using (SqlConnection con = new SqlConnection(sqlcon))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand(sql, con))
+                {
+                    cmd.Parameters.Add("@DateOfBirth", SqlDbType.NVarChar).Value = dateTimePicker1.Value;
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = UsersID;
+                    cmd.ExecuteNonQuery();
+                }
+                con.Close();
+                MessageBox.Show("User's Phone Number have Updated");
+            }
+        }
+
+        private void sqlemail()
+        {
+            string sql = "UPDATE Patients SET Gender = @Gender WHERE UserID = @UserID";
+            using (SqlConnection con = new SqlConnection(sqlcon))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand(sql, con))
+                {
+                    cmd.Parameters.Add("@Gender", SqlDbType.NVarChar).Value = comboBox1.SelectedValue.ToString();
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = UsersID;
+                    cmd.ExecuteNonQuery();
+                }
+                con.Close();
+                MessageBox.Show("User's Email have Updated");
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (FirstnameBox.Text.Length > 2 && LastnameBox.Text.Length > 2)
+            {
+                DialogResult dialogResult = MessageBox.Show("Are you Sure", "Confirmation", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    sqlname();
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please input your name. Thank you");
+            }
+        }
+
+        private void ChangeEmailBTN_Click(object sender, EventArgs e)
+        {
+            comboBox1.SelectedItem.ToString();
+            if (comboBox1.SelectedIndex != -1)  // Check if an item is selected
+            {
+                sqlemail();
+            }
+            else
+            {
+                MessageBox.Show("Please Select Gender. Thank  you");
+            }
+        }
+
+        private void ChangePhoneNumber_Click(object sender, EventArgs e)
+        {
+            DateTime selectedDate = dateTimePicker1.Value.Date;
+            if (selectedDate != DateTime.MinValue)
+            {
+                DialogResult dialogResult = MessageBox.Show("Are you Sure", "Confirmation", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    sqlphone();
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+
+                }
+            }
+            else
+            {
+
+            }
+        }
+
+        private void PhoneNumberBox_TextChanged(object sender, EventArgs e)
         {
 
         }

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Text.RegularExpressions;
 
 namespace DBAces
 {
@@ -140,6 +141,7 @@ namespace DBAces
                 con.Close();
                 MessageBox.Show("User's Fullname have Updated");
             }
+            this.Close();
         }
         private void sqlphone()
         {
@@ -156,6 +158,7 @@ namespace DBAces
                 con.Close();
                 MessageBox.Show("User's Phone Number have Updated");
             }
+            this.Close();
         }
 
         private void sqlemail()
@@ -172,6 +175,7 @@ namespace DBAces
                 }
                 con.Close();
                 MessageBox.Show("User's Email have Updated");
+                this.Close();
             }
         }
 
@@ -215,10 +219,16 @@ namespace DBAces
                 MessageBox.Show("Please input 11 Numbers");
             }
         }
+        public static bool IsValidEmail(string email)
+        {
+            string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            Regex regex = new Regex(emailPattern);
+            return regex.IsMatch(email);
+        }
 
         private void ChangeEmailBTN_Click(object sender, EventArgs e)
         {
-            if (EmailBox.Text.Length == 11)
+            if (IsValidEmail(EmailBox.Text))
             {
                 DialogResult dialogResult = MessageBox.Show("Are you Sure", "Confirmation", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
@@ -232,7 +242,7 @@ namespace DBAces
             }
             else
             {
-                MessageBox.Show("Please input 11 Numbers");
+                MessageBox.Show("Pleas input a proper Email. Thank you");
             }
         }
     }

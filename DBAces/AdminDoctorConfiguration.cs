@@ -88,7 +88,7 @@ namespace DBAces
             admin.Close();
             admin = new AdminUserConfiguration();
             admin.getAttributes(doctorID, username, password, Doctorname, DoctorphoneNumber, Email);
-            admin.SwitchPanel(1); // User Account Information
+            admin.SwitchPanel(2); // User Account Information
             admin.Show();
         }
 
@@ -97,7 +97,7 @@ namespace DBAces
             admin.Close();
             admin = new AdminUserConfiguration();
             admin.getAttributes(doctorID, username, password, Doctorname, DoctorphoneNumber, Email);
-            admin.SwitchPanel(2); // User Background Information
+            admin.SwitchPanel(1); // User Background Information
             admin.Show();
         }
 

@@ -66,7 +66,6 @@ namespace DBAces
 
                 MessageBox.Show("Diagnose Completed");
                 this.Close();
-                doctor.toLoadPatientDiagnosis();
             } catch (Exception a) {
                 MessageBox.Show(""+a);
             }

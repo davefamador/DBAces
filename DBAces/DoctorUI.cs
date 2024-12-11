@@ -118,10 +118,11 @@ namespace DBAces
             {
                 case "Patient":
                     OnAppointmentPanel.Hide();
-                    DashboardPatient.Show();
+                    PatientsPanel.Show();
                     break;
                 case "OnAppointment":
-                    DashboardPatient.Hide();
+           
+                    PatientsPanel.Hide();
                     OnAppointmentPanel.Show();
                     break;
             }
@@ -141,8 +142,7 @@ namespace DBAces
             //LoadPatientDiagnosis
             string sql = "SELECT p.PatientID,a.AppointmentID,p.FirstName,p.LastName,p.DateOfBirth,p.Gender,a.Issue FROM Patients p JOIN Appointments a ON p.PatientID = a.PatientID WHERE a.DoctorID =  @DoctorID AND A.AppointmentStatus = @AppointmentStatus; ";
             DoctorsPatient Dpatient = new DoctorsPatient();
-            try
-            {
+           
                 using (SqlConnection con = new SqlConnection(sqlcon))
                 {
                     con.Open();
@@ -154,8 +154,8 @@ namespace DBAces
                         {
                             while (reader.Read())
                             {                       //UserID = DoctorID
-                                Dpatient.toGetDatas(DoctorID, int.Parse(reader["PatientID"]?.ToString() ?? "0"), int.Parse(reader["AppointmentID"]?.ToString() ?? "0"), reader["FirstName"]?.ToString() ?? string.Empty, reader["LastName"]?.ToString() ?? string.Empty, reader["DateOfBirth"]?.ToString() ?? string.Empty, reader["Gender"]?.ToString() ?? string.Empty, reader["Issue"]?.ToString() ?? string.Empty);
-                                Dpatient.toGetValueBTN("DIAGNOSE");
+                            Dpatient.toGetDatas(DoctorID, int.Parse(reader["PatientID"]?.ToString() ?? "0"), int.Parse(reader["AppointmentID"]?.ToString() ?? "0"), reader["FirstName"]?.ToString() ?? string.Empty, reader["LastName"]?.ToString() ?? string.Empty, reader["DateOfBirth"]?.ToString() ?? string.Empty, reader["Gender"]?.ToString() ?? string.Empty, reader["Issue"]?.ToString() ?? string.Empty);
+                            Dpatient.toGetValueBTN("DIAGNOSE");
                                 LoadPatientDiagnosis.Controls.Add(Dpatient);
                                 Dpatient = new DoctorsPatient();
 
@@ -179,8 +179,8 @@ namespace DBAces
                         {
                             while (reader.Read())
                             {
-                                Dpatient.toGetDatas(DoctorID, int.Parse(reader["PatientID"]?.ToString() ?? "0"), int.Parse(reader["AppointmentID"]?.ToString() ?? "0"), reader["FirstName"]?.ToString() ?? string.Empty, reader["LastName"]?.ToString() ?? string.Empty, reader["DateOfBirth"]?.ToString() ?? string.Empty, reader["Gender"]?.ToString() ?? string.Empty, reader["Issue"]?.ToString() ?? string.Empty);
-                                Dpatient.toGetValueBTN("PENDING");
+                            Dpatient.toGetDatas(DoctorID, int.Parse(reader["PatientID"]?.ToString() ?? "0"), int.Parse(reader["AppointmentID"]?.ToString() ?? "0"), reader["FirstName"]?.ToString() ?? string.Empty, reader["LastName"]?.ToString() ?? string.Empty, reader["DateOfBirth"]?.ToString() ?? string.Empty, reader["Gender"]?.ToString() ?? string.Empty, reader["Issue"]?.ToString() ?? string.Empty);
+                            Dpatient.toGetValueBTN("PENDING");
                                 GetAppointmentDoctor.Controls.Add(Dpatient);
                                 Dpatient = new DoctorsPatient();
 
@@ -192,11 +192,7 @@ namespace DBAces
                     con.Close();
                 }
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("" + ex);
-            }
+            
         }
 
 

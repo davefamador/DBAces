@@ -170,7 +170,7 @@ namespace DBAces
             string passWord = PasswordRegisterInput.Text.ToString();
             string sql = "INSERT INTO Users (Username, Password, Role) OUTPUT INSERTED.UserID VALUES (@Username, @Password, @Role)";
             string sql1 = "INSERT INTO Patients (UserID) VALUES (@UserID)";
-            string sql2 = "INESRT INTO UserBalance (UserID,BALANCE) VALUES (@UserID,@BALANCE)";
+            string sql2 = "INSERT INTO UserBalance (UserID, BALANCE) VALUES (@UserID, @BALANCE)";
 
             using (SqlConnection con = new SqlConnection(sqlcon))
             {
@@ -193,10 +193,10 @@ namespace DBAces
                     {
                         cmd.Parameters.Add("UserID", SqlDbType.Int).Value = newUserID;
                         cmd.Parameters.Add("BALANCE", SqlDbType.Int).Value = 0;
+                        cmd.ExecuteNonQuery();
                     }
                     if (iteration1sql)
                     {
-
                         // PATIENTS SQL
                         using (SqlCommand cmd = new SqlCommand(sql1, con))
                         {
@@ -217,7 +217,6 @@ namespace DBAces
                     {
                         MessageBox.Show("The account didn't create");
                     }
-
                 }
                 catch (Exception e)
                 {

@@ -199,7 +199,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.Location = new Point(26, 297);
+            label7.Location = new Point(52, 297);
             label7.Name = "label7";
             label7.Size = new Size(163, 30);
             label7.TabIndex = 8;
@@ -265,8 +265,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightSteelBlue;
             ClientSize = new Size(571, 479);
-            Controls.Add(UserInformation);
             Controls.Add(UserBackground);
+            Controls.Add(UserInformation);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "AdminUserConfiguration";
             Text = "AdminUserConfiguration";

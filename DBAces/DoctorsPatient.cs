@@ -15,7 +15,6 @@ namespace DBAces
     public partial class DoctorsPatient : UserControl
     {
         string patientsStatus;
-
         int patientid = 0, doctorID = 0, ApppointmentID;
 
         DoctorUI doctorUI;
@@ -34,24 +33,29 @@ namespace DBAces
         }
         public void toGetDatas(int doctorid, int patientID, int AppointmentIDs, string firstname, string lastname, string dateofbirth, string gender, string issue)
         {
+            try
+            {
+                ApppointmentID = AppointmentIDs;
+                AppointmentIDLabel1.Text = ApppointmentID.ToString();
+                doctorID = doctorid;
+                patientid = patientID;
+                string[] parts = dateofbirth.Split(new[] { ' ' }, 4);
+                string dateStr = string.Join(" ", parts, 0, 3);
 
-            ApppointmentID = AppointmentIDs;
-            AppointmentIDLabel1.Text = ApppointmentID.ToString();
-            doctorID = doctorid;
-            patientid = patientID;
-            string[] parts = dateofbirth.Split(new[] { ' ' }, 4);
-            string dateStr = string.Join(" ", parts, 0, 3);
+                patientName = lastname + ", " + firstname;
+                Birthday = dateStr;
+                Gender = gender;
+                Issue = issue;
 
-            patientName = lastname + ", " + firstname;
-            Birthday = dateStr;
-            Gender = gender;
-            Issue = issue;
-
-            PatientName.Text = lastname + ", " + firstname;
-            PatientBirthday.Text = dateStr;
-            PatientGender.Text = gender;
-            IssueBox.Text = issue;
-        }
+                PatientName.Text = lastname + ", " + firstname;
+                PatientBirthday.Text = dateStr;
+                PatientGender.Text = gender;
+                IssueBox.Text = issue;
+            }
+            catch (Exception ee) {
+                MessageBox.Show("There is a Patient Doesnt have a Background Information record");
+            }
+            }
         public void toGetValueBTN(string btn)
         {
             patientsStatus = btn;
@@ -67,8 +71,6 @@ namespace DBAces
         {
 
             string sql = "UPDATE Appointments SET AppointmentStatus = @AppointmentStatus WHERE AppointmentID = @AppointmentID";
-            string sql1 = "SELECT ";
-
             try
             {
                 using (SqlConnection con = new SqlConnection(sqlcon))
@@ -79,11 +81,11 @@ namespace DBAces
                         cmd.Parameters.Add("@AppointmentID", SqlDbType.Int).Value = ApppointmentID;
                         cmd.Parameters.Add("@AppointmentStatus", SqlDbType.NVarChar).Value = "DIAGNOSE";
                         cmd.ExecuteNonQuery();
-                        doctorUI.toLoadPatientDiagnosis();
                         MessageBox.Show("The Patient Added to your appointment.");
                     }
                     con.Close();
                 }
+                doctorUI.toLoadPatientDiagnosis();
             }
             catch (Exception ex)
             {
@@ -107,17 +109,31 @@ namespace DBAces
         private void button2_Click(object sender, EventArgs e)
         {
             string sql = "UPDATE Appointments SET AppointmentStatus = @AppointmentStatus WHERE AppointmentID = @AppointmentID";
-            string sql2 = "UPDATE UserBalance SET BALANCE = ISNULL(BALANCE, 0) + (SELECT a.Payment FROM Appointments a JOIN UserBalance m ON a.UserID = m.UserID WHERE a.DoctorID = 3 AND a.AppointmentID = 13) WHERE DoctorID = 3; ";
-            using (SqlConnection con = new SqlConnection(sqlcon)) { 
-                con.Open();
-                using (SqlCommand cmd = new SqlCommand(sql, con)) {
-                    cmd.Parameters.Add("@AppointmentID",SqlDbType.Int).Value = ApppointmentID;
-                    cmd.Parameters.Add("@AppointmentStatus",SqlDbType.NVarChar).Value = "CANCELLED";
-                    cmd.ExecuteNonQuery();
-                }
-                using ()
+            string sql2 = "UPDATE ub\r\nSET BALANCE = ISNULL(ub.BALANCE, 0) + a.Payment\r\nFROM UserBalance ub\r\nJOIN Users u ON u.UserID = ub.UserID\r\nJOIN Appointments a ON a.PatientID = u.UserID\r\nWHERE a.DoctorID = @DoctorID AND a.AppointmentID = @AppointmentID; ";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(sqlcon))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        cmd.Parameters.Add("@AppointmentID", SqlDbType.Int).Value = ApppointmentID;
+                        cmd.Parameters.Add("@AppointmentStatus", SqlDbType.NVarChar).Value = "CANCELLED";
+                        cmd.ExecuteNonQuery();
+                    }
+                    using (SqlCommand cmd = new SqlCommand(sql2, con))
+                    {
+                        cmd.Parameters.Add("@AppointmentID", SqlDbType.Int).Value = ApppointmentID;
+                        cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = ApppointmentID;
+                        cmd.ExecuteNonQuery();
+                    }
                     con.Close();
+                }
             }
+            catch (Exception ee) {
+                MessageBox.Show(ee.Message);
+            }
+            MessageBox.Show("You have cancelled this appointment");
         }
     }
 }

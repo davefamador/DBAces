@@ -18,7 +18,7 @@ namespace DBAces
         int PatientID;
         string username, password, Doctorname, DoctorphoneNumber, Email;
 
-        AdminUserConfiguration admin = new AdminUserConfiguration();
+        AdminPatientConfigure admin = new AdminPatientConfigure();
         public AdminPatientConfiguration()
         {
             InitializeComponent();
@@ -59,9 +59,9 @@ namespace DBAces
         private void button2_Click(object sender, EventArgs e)
         {
             admin.Close();
-            admin = new AdminUserConfiguration();
+            admin = new AdminPatientConfigure();
             admin.getAttributes(PatientID, username, password, Doctorname, DoctorphoneNumber, Email);
-            admin.SwitchPanel(1); // User Account Information
+            admin.SwitchPanel(2); // User Account Information
             admin.Show();
         }
 
@@ -78,9 +78,9 @@ namespace DBAces
         private void button1_Click(object sender, EventArgs e)
         {
             admin.Close();
-            admin = new AdminUserConfiguration();
+            admin = new AdminPatientConfigure();
             admin.getAttributes(PatientID, username, password, Doctorname, DoctorphoneNumber, Email);
-            admin.SwitchPanel(2); // User Account Information
+            admin.SwitchPanel(1); // User Account Information
             admin.Show();
         }
     }

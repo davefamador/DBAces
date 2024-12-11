@@ -204,7 +204,7 @@
             Controls.Add(PatientName);
             Controls.Add(button1);
             Name = "DoctorsPatient";
-            Size = new Size(748, 161);
+            Size = new Size(748, 182);
             Load += DoctorsPatient_Load;
             ResumeLayout(false);
             PerformLayout();

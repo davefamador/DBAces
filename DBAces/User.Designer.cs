@@ -36,6 +36,20 @@
             HistoryBTN = new Button();
             AppointmentBTN = new Button();
             HistoryPanel = new Panel();
+            panel5 = new Panel();
+            panel6 = new Panel();
+            label37 = new Label();
+            label38 = new Label();
+            label34 = new Label();
+            PatientHistory = new FlowLayoutPanel();
+            panel8 = new Panel();
+            label35 = new Label();
+            label33 = new Label();
+            panel7 = new Panel();
+            label36 = new Label();
+            label32 = new Label();
+            Sales = new Button();
+            HistoryPatientBTN = new Button();
             label3 = new Label();
             AppointmentPanel = new Panel();
             doctorsIDLabel = new Label();
@@ -60,6 +74,18 @@
             label18 = new Label();
             UserSetting = new Panel();
             SettingPanel = new Panel();
+            UserBackground = new Panel();
+            dateTimePicker1 = new DateTimePicker();
+            button1 = new Button();
+            ChangeGender = new Button();
+            label39 = new Label();
+            label40 = new Label();
+            LastnameBox = new TextBox();
+            label41 = new Label();
+            label42 = new Label();
+            ChangePhoneNumber = new Button();
+            label43 = new Label();
+            FirstnameBox = new TextBox();
             label1 = new Label();
             panel2 = new Panel();
             ModifyAccountBTN = new Button();
@@ -68,6 +94,7 @@
             UsersUsername = new Label();
             label2 = new Label();
             panel3 = new Panel();
+            ModifyInformation = new Button();
             label11 = new Label();
             label10 = new Label();
             label9 = new Label();
@@ -110,25 +137,17 @@
             label30 = new Label();
             IssueRBox = new RichTextBox();
             AppointmentStatusPatient = new Label();
-            HistoryPatientBTN = new Button();
-            Sales = new Button();
-            label32 = new Label();
-            panel5 = new Panel();
-            panel7 = new Panel();
-            panel8 = new Panel();
-            label33 = new Label();
-            PatientHistory = new FlowLayoutPanel();
-            label34 = new Label();
-            label35 = new Label();
-            label36 = new Label();
-            panel6 = new Panel();
-            label37 = new Label();
-            label38 = new Label();
+            comboBox1 = new ComboBox();
             panel1.SuspendLayout();
             HistoryPanel.SuspendLayout();
+            panel5.SuspendLayout();
+            panel6.SuspendLayout();
+            panel8.SuspendLayout();
+            panel7.SuspendLayout();
             AppointmentPanel.SuspendLayout();
             UserSetting.SuspendLayout();
             SettingPanel.SuspendLayout();
+            UserBackground.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             ModifyAccount.SuspendLayout();
@@ -138,10 +157,6 @@
             Appointment.SuspendLayout();
             Appointmented.SuspendLayout();
             panel4.SuspendLayout();
-            panel5.SuspendLayout();
-            panel7.SuspendLayout();
-            panel8.SuspendLayout();
-            panel6.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -255,6 +270,151 @@
             HistoryPanel.Size = new Size(776, 685);
             HistoryPanel.TabIndex = 1;
             HistoryPanel.Paint += HistoryPanel_Paint;
+            // 
+            // panel5
+            // 
+            panel5.Controls.Add(panel6);
+            panel5.Controls.Add(label34);
+            panel5.Controls.Add(PatientHistory);
+            panel5.Controls.Add(panel8);
+            panel5.Controls.Add(panel7);
+            panel5.Location = new Point(27, 121);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(724, 540);
+            panel5.TabIndex = 5;
+            // 
+            // panel6
+            // 
+            panel6.BackColor = Color.Maroon;
+            panel6.Controls.Add(label37);
+            panel6.Controls.Add(label38);
+            panel6.Location = new Point(259, 26);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(214, 100);
+            panel6.TabIndex = 3;
+            // 
+            // label37
+            // 
+            label37.AutoSize = true;
+            label37.Font = new Font("Segoe UI Semibold", 29.25F, FontStyle.Bold | FontStyle.Italic);
+            label37.ForeColor = Color.White;
+            label37.Location = new Point(66, 9);
+            label37.Name = "label37";
+            label37.Size = new Size(80, 52);
+            label37.TabIndex = 2;
+            label37.Text = "102";
+            // 
+            // label38
+            // 
+            label38.AutoSize = true;
+            label38.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            label38.ForeColor = Color.White;
+            label38.Location = new Point(59, 63);
+            label38.Name = "label38";
+            label38.Size = new Size(100, 25);
+            label38.TabIndex = 0;
+            label38.Text = "Total Paid";
+            // 
+            // label34
+            // 
+            label34.AutoSize = true;
+            label34.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label34.Location = new Point(289, 171);
+            label34.Name = "label34";
+            label34.Size = new Size(105, 32);
+            label34.TabIndex = 5;
+            label34.Text = " History";
+            label34.Click += label34_Click;
+            // 
+            // PatientHistory
+            // 
+            PatientHistory.AutoScroll = true;
+            PatientHistory.Location = new Point(32, 207);
+            PatientHistory.Name = "PatientHistory";
+            PatientHistory.Size = new Size(655, 312);
+            PatientHistory.TabIndex = 4;
+            // 
+            // panel8
+            // 
+            panel8.BackColor = Color.Maroon;
+            panel8.Controls.Add(label35);
+            panel8.Controls.Add(label33);
+            panel8.Location = new Point(35, 41);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(200, 100);
+            panel8.TabIndex = 3;
+            // 
+            // label35
+            // 
+            label35.AutoSize = true;
+            label35.Font = new Font("Segoe UI Semibold", 29.25F, FontStyle.Bold | FontStyle.Italic);
+            label35.ForeColor = Color.White;
+            label35.Location = new Point(50, 11);
+            label35.Name = "label35";
+            label35.Size = new Size(80, 52);
+            label35.TabIndex = 1;
+            label35.Text = "102";
+            // 
+            // label33
+            // 
+            label33.AutoSize = true;
+            label33.Font = new Font("Segoe UI Semibold", 12.25F, FontStyle.Bold | FontStyle.Italic);
+            label33.ForeColor = Color.White;
+            label33.Location = new Point(15, 71);
+            label33.Name = "label33";
+            label33.Size = new Size(162, 23);
+            label33.TabIndex = 0;
+            label33.Text = "No Of Appointment";
+            // 
+            // panel7
+            // 
+            panel7.BackColor = Color.Maroon;
+            panel7.Controls.Add(label36);
+            panel7.Controls.Add(label32);
+            panel7.Location = new Point(496, 41);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(214, 100);
+            panel7.TabIndex = 2;
+            // 
+            // label36
+            // 
+            label36.AutoSize = true;
+            label36.Font = new Font("Segoe UI Semibold", 29.25F, FontStyle.Bold | FontStyle.Italic);
+            label36.ForeColor = Color.White;
+            label36.Location = new Point(79, 9);
+            label36.Name = "label36";
+            label36.Size = new Size(80, 52);
+            label36.TabIndex = 2;
+            label36.Text = "102";
+            // 
+            // label32
+            // 
+            label32.AutoSize = true;
+            label32.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            label32.ForeColor = Color.White;
+            label32.Location = new Point(48, 66);
+            label32.Name = "label32";
+            label32.Size = new Size(129, 25);
+            label32.TabIndex = 0;
+            label32.Text = "No. Diagnose";
+            // 
+            // Sales
+            // 
+            Sales.Location = new Point(179, 65);
+            Sales.Name = "Sales";
+            Sales.Size = new Size(123, 39);
+            Sales.TabIndex = 4;
+            Sales.Text = "button1";
+            Sales.UseVisualStyleBackColor = true;
+            // 
+            // HistoryPatientBTN
+            // 
+            HistoryPatientBTN.Location = new Point(30, 65);
+            HistoryPatientBTN.Name = "HistoryPatientBTN";
+            HistoryPatientBTN.Size = new Size(123, 39);
+            HistoryPatientBTN.TabIndex = 3;
+            HistoryPatientBTN.Text = "Patient";
+            HistoryPatientBTN.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
@@ -509,6 +669,7 @@
             // SettingPanel
             // 
             SettingPanel.BackColor = SystemColors.ButtonFace;
+            SettingPanel.Controls.Add(UserBackground);
             SettingPanel.Controls.Add(label1);
             SettingPanel.Controls.Add(panel2);
             SettingPanel.Controls.Add(panel3);
@@ -519,6 +680,127 @@
             SettingPanel.Name = "SettingPanel";
             SettingPanel.Size = new Size(776, 685);
             SettingPanel.TabIndex = 10;
+            // 
+            // UserBackground
+            // 
+            UserBackground.Controls.Add(comboBox1);
+            UserBackground.Controls.Add(dateTimePicker1);
+            UserBackground.Controls.Add(button1);
+            UserBackground.Controls.Add(ChangeGender);
+            UserBackground.Controls.Add(label39);
+            UserBackground.Controls.Add(label40);
+            UserBackground.Controls.Add(LastnameBox);
+            UserBackground.Controls.Add(label41);
+            UserBackground.Controls.Add(label42);
+            UserBackground.Controls.Add(ChangePhoneNumber);
+            UserBackground.Controls.Add(label43);
+            UserBackground.Controls.Add(FirstnameBox);
+            UserBackground.Dock = DockStyle.Fill;
+            UserBackground.Location = new Point(0, 0);
+            UserBackground.Name = "UserBackground";
+            UserBackground.Size = new Size(776, 685);
+            UserBackground.TabIndex = 24;
+            // 
+            // dateTimePicker1
+            // 
+            dateTimePicker1.Location = new Point(97, 337);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new Size(200, 23);
+            dateTimePicker1.TabIndex = 15;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(52, 166);
+            button1.Name = "button1";
+            button1.Size = new Size(611, 61);
+            button1.TabIndex = 14;
+            button1.Text = "Change Name";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // ChangeGender
+            // 
+            ChangeGender.Location = new Point(462, 366);
+            ChangeGender.Name = "ChangeGender";
+            ChangeGender.Size = new Size(146, 30);
+            ChangeGender.TabIndex = 12;
+            ChangeGender.Text = "Add Gender";
+            ChangeGender.UseVisualStyleBackColor = true;
+            ChangeGender.Click += ChangeEmailBTN_Click;
+            // 
+            // label39
+            // 
+            label39.AutoSize = true;
+            label39.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label39.Location = new Point(511, 292);
+            label39.Name = "label39";
+            label39.Size = new Size(84, 30);
+            label39.TabIndex = 10;
+            label39.Text = "Gender";
+            // 
+            // label40
+            // 
+            label40.AutoSize = true;
+            label40.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label40.Location = new Point(107, 297);
+            label40.Name = "label40";
+            label40.Size = new Size(131, 30);
+            label40.TabIndex = 8;
+            label40.Text = "DateOfBirth";
+            // 
+            // LastnameBox
+            // 
+            LastnameBox.Location = new Point(474, 107);
+            LastnameBox.Name = "LastnameBox";
+            LastnameBox.Size = new Size(207, 23);
+            LastnameBox.TabIndex = 7;
+            // 
+            // label41
+            // 
+            label41.AutoSize = true;
+            label41.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label41.Location = new Point(533, 74);
+            label41.Name = "label41";
+            label41.Size = new Size(106, 30);
+            label41.TabIndex = 6;
+            label41.Text = "Lastname";
+            // 
+            // label42
+            // 
+            label42.AutoSize = true;
+            label42.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label42.Location = new Point(295, 29);
+            label42.Name = "label42";
+            label42.Size = new Size(181, 30);
+            label42.TabIndex = 5;
+            label42.Text = "User Background";
+            // 
+            // ChangePhoneNumber
+            // 
+            ChangePhoneNumber.Location = new Point(114, 366);
+            ChangePhoneNumber.Name = "ChangePhoneNumber";
+            ChangePhoneNumber.Size = new Size(146, 30);
+            ChangePhoneNumber.TabIndex = 0;
+            ChangePhoneNumber.Text = "Add Birthday";
+            ChangePhoneNumber.UseVisualStyleBackColor = true;
+            ChangePhoneNumber.Click += ChangePhoneNumber_Click;
+            // 
+            // label43
+            // 
+            label43.AutoSize = true;
+            label43.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label43.Location = new Point(102, 77);
+            label43.Name = "label43";
+            label43.Size = new Size(109, 30);
+            label43.TabIndex = 1;
+            label43.Text = "Firstname";
+            // 
+            // FirstnameBox
+            // 
+            FirstnameBox.Location = new Point(62, 110);
+            FirstnameBox.Name = "FirstnameBox";
+            FirstnameBox.Size = new Size(254, 23);
+            FirstnameBox.TabIndex = 2;
             // 
             // label1
             // 
@@ -593,6 +875,7 @@
             // panel3
             // 
             panel3.BackColor = SystemColors.ButtonFace;
+            panel3.Controls.Add(ModifyInformation);
             panel3.Controls.Add(label11);
             panel3.Controls.Add(label10);
             panel3.Controls.Add(label9);
@@ -603,8 +886,18 @@
             panel3.Controls.Add(label7);
             panel3.Location = new Point(366, 121);
             panel3.Name = "panel3";
-            panel3.Size = new Size(398, 178);
+            panel3.Size = new Size(398, 234);
             panel3.TabIndex = 2;
+            // 
+            // ModifyInformation
+            // 
+            ModifyInformation.Location = new Point(77, 151);
+            ModifyInformation.Name = "ModifyInformation";
+            ModifyInformation.Size = new Size(257, 64);
+            ModifyInformation.TabIndex = 6;
+            ModifyInformation.Text = "Modify Information";
+            ModifyInformation.UseVisualStyleBackColor = true;
+            ModifyInformation.Click += ModifyInformation_Click;
             // 
             // label11
             // 
@@ -1037,160 +1330,24 @@
             AppointmentStatusPatient.TabIndex = 1;
             AppointmentStatusPatient.Text = "PENDING";
             // 
-            // HistoryPatientBTN
+            // comboBox1
             // 
-            HistoryPatientBTN.Location = new Point(30, 65);
-            HistoryPatientBTN.Name = "HistoryPatientBTN";
-            HistoryPatientBTN.Size = new Size(123, 39);
-            HistoryPatientBTN.TabIndex = 3;
-            HistoryPatientBTN.Text = "Patient";
-            HistoryPatientBTN.UseVisualStyleBackColor = true;
-            // 
-            // Sales
-            // 
-            Sales.Location = new Point(179, 65);
-            Sales.Name = "Sales";
-            Sales.Size = new Size(123, 39);
-            Sales.TabIndex = 4;
-            Sales.Text = "button1";
-            Sales.UseVisualStyleBackColor = true;
-            // 
-            // label32
-            // 
-            label32.AutoSize = true;
-            label32.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            label32.ForeColor = Color.White;
-            label32.Location = new Point(48, 66);
-            label32.Name = "label32";
-            label32.Size = new Size(129, 25);
-            label32.TabIndex = 0;
-            label32.Text = "No. Diagnose";
-            // 
-            // panel5
-            // 
-            panel5.Controls.Add(panel6);
-            panel5.Controls.Add(label34);
-            panel5.Controls.Add(PatientHistory);
-            panel5.Controls.Add(panel8);
-            panel5.Controls.Add(panel7);
-            panel5.Location = new Point(27, 121);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(724, 540);
-            panel5.TabIndex = 5;
-            // 
-            // panel7
-            // 
-            panel7.BackColor = Color.Maroon;
-            panel7.Controls.Add(label36);
-            panel7.Controls.Add(label32);
-            panel7.Location = new Point(496, 41);
-            panel7.Name = "panel7";
-            panel7.Size = new Size(214, 100);
-            panel7.TabIndex = 2;
-            // 
-            // panel8
-            // 
-            panel8.BackColor = Color.Maroon;
-            panel8.Controls.Add(label35);
-            panel8.Controls.Add(label33);
-            panel8.Location = new Point(35, 41);
-            panel8.Name = "panel8";
-            panel8.Size = new Size(200, 100);
-            panel8.TabIndex = 3;
-            // 
-            // label33
-            // 
-            label33.AutoSize = true;
-            label33.Font = new Font("Segoe UI Semibold", 12.25F, FontStyle.Bold | FontStyle.Italic);
-            label33.ForeColor = Color.White;
-            label33.Location = new Point(15, 71);
-            label33.Name = "label33";
-            label33.Size = new Size(162, 23);
-            label33.TabIndex = 0;
-            label33.Text = "No Of Appointment";
-            // 
-            // PatientHistory
-            // 
-            PatientHistory.AutoScroll = true;
-            PatientHistory.Location = new Point(32, 207);
-            PatientHistory.Name = "PatientHistory";
-            PatientHistory.Size = new Size(655, 312);
-            PatientHistory.TabIndex = 4;
-            // 
-            // label34
-            // 
-            label34.AutoSize = true;
-            label34.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label34.Location = new Point(289, 171);
-            label34.Name = "label34";
-            label34.Size = new Size(105, 32);
-            label34.TabIndex = 5;
-            label34.Text = " History";
-            label34.Click += label34_Click;
-            // 
-            // label35
-            // 
-            label35.AutoSize = true;
-            label35.Font = new Font("Segoe UI Semibold", 29.25F, FontStyle.Bold | FontStyle.Italic);
-            label35.ForeColor = Color.White;
-            label35.Location = new Point(50, 11);
-            label35.Name = "label35";
-            label35.Size = new Size(80, 52);
-            label35.TabIndex = 1;
-            label35.Text = "102";
-            // 
-            // label36
-            // 
-            label36.AutoSize = true;
-            label36.Font = new Font("Segoe UI Semibold", 29.25F, FontStyle.Bold | FontStyle.Italic);
-            label36.ForeColor = Color.White;
-            label36.Location = new Point(79, 9);
-            label36.Name = "label36";
-            label36.Size = new Size(80, 52);
-            label36.TabIndex = 2;
-            label36.Text = "102";
-            // 
-            // panel6
-            // 
-            panel6.BackColor = Color.Maroon;
-            panel6.Controls.Add(label37);
-            panel6.Controls.Add(label38);
-            panel6.Location = new Point(259, 26);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(214, 100);
-            panel6.TabIndex = 3;
-            // 
-            // label37
-            // 
-            label37.AutoSize = true;
-            label37.Font = new Font("Segoe UI Semibold", 29.25F, FontStyle.Bold | FontStyle.Italic);
-            label37.ForeColor = Color.White;
-            label37.Location = new Point(66, 9);
-            label37.Name = "label37";
-            label37.Size = new Size(80, 52);
-            label37.TabIndex = 2;
-            label37.Text = "102";
-            // 
-            // label38
-            // 
-            label38.AutoSize = true;
-            label38.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            label38.ForeColor = Color.White;
-            label38.Location = new Point(59, 63);
-            label38.Name = "label38";
-            label38.Size = new Size(100, 25);
-            label38.TabIndex = 0;
-            label38.Text = "Total Paid";
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Male", "Female" });
+            comboBox1.Location = new Point(443, 332);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(220, 23);
+            comboBox1.TabIndex = 16;
             // 
             // User
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(776, 749);
-            Controls.Add(HistoryPanel);
+            Controls.Add(UserSetting);
             Controls.Add(Appointment);
             Controls.Add(AddBalancePanel);
-            Controls.Add(UserSetting);
+            Controls.Add(HistoryPanel);
             Controls.Add(UserHome);
             Controls.Add(panel1);
             MinimumSize = new Size(792, 516);
@@ -1201,11 +1358,21 @@
             panel1.PerformLayout();
             HistoryPanel.ResumeLayout(false);
             HistoryPanel.PerformLayout();
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
+            panel6.ResumeLayout(false);
+            panel6.PerformLayout();
+            panel8.ResumeLayout(false);
+            panel8.PerformLayout();
+            panel7.ResumeLayout(false);
+            panel7.PerformLayout();
             AppointmentPanel.ResumeLayout(false);
             AppointmentPanel.PerformLayout();
             UserSetting.ResumeLayout(false);
             SettingPanel.ResumeLayout(false);
             SettingPanel.PerformLayout();
+            UserBackground.ResumeLayout(false);
+            UserBackground.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             panel3.ResumeLayout(false);
@@ -1221,14 +1388,6 @@
             Appointmented.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
-            panel5.ResumeLayout(false);
-            panel5.PerformLayout();
-            panel7.ResumeLayout(false);
-            panel7.PerformLayout();
-            panel8.ResumeLayout(false);
-            panel8.PerformLayout();
-            panel6.ResumeLayout(false);
-            panel6.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1330,5 +1489,19 @@
         private Panel panel6;
         private Label label37;
         private Label label38;
+        private Button ModifyInformation;
+        private Panel UserBackground;
+        private Button button1;
+        private Button ChangeGender;
+        private Label label39;
+        private Label label40;
+        private TextBox LastnameBox;
+        private Label label41;
+        private Label label42;
+        private Button ChangePhoneNumber;
+        private Label label43;
+        private TextBox FirstnameBox;
+        private DateTimePicker dateTimePicker1;
+        private ComboBox comboBox1;
     }
 }
