@@ -36,7 +36,6 @@
             HistoryBTN = new Button();
             AppointmentBTN = new Button();
             HistoryPanel = new Panel();
-            UserHistoryFlowPanel = new FlowLayoutPanel();
             label3 = new Label();
             AppointmentPanel = new Panel();
             doctorsIDLabel = new Label();
@@ -111,6 +110,20 @@
             label30 = new Label();
             IssueRBox = new RichTextBox();
             AppointmentStatusPatient = new Label();
+            HistoryPatientBTN = new Button();
+            Sales = new Button();
+            label32 = new Label();
+            panel5 = new Panel();
+            panel7 = new Panel();
+            panel8 = new Panel();
+            label33 = new Label();
+            PatientHistory = new FlowLayoutPanel();
+            label34 = new Label();
+            label35 = new Label();
+            label36 = new Label();
+            panel6 = new Panel();
+            label37 = new Label();
+            label38 = new Label();
             panel1.SuspendLayout();
             HistoryPanel.SuspendLayout();
             AppointmentPanel.SuspendLayout();
@@ -125,6 +138,10 @@
             Appointment.SuspendLayout();
             Appointmented.SuspendLayout();
             panel4.SuspendLayout();
+            panel5.SuspendLayout();
+            panel7.SuspendLayout();
+            panel8.SuspendLayout();
+            panel6.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -228,21 +245,16 @@
             // 
             // HistoryPanel
             // 
-            HistoryPanel.Controls.Add(UserHistoryFlowPanel);
+            HistoryPanel.Controls.Add(panel5);
+            HistoryPanel.Controls.Add(Sales);
+            HistoryPanel.Controls.Add(HistoryPatientBTN);
             HistoryPanel.Controls.Add(label3);
             HistoryPanel.Dock = DockStyle.Fill;
-            HistoryPanel.Location = new Point(0, 0);
+            HistoryPanel.Location = new Point(0, 64);
             HistoryPanel.Name = "HistoryPanel";
-            HistoryPanel.Size = new Size(776, 749);
+            HistoryPanel.Size = new Size(776, 685);
             HistoryPanel.TabIndex = 1;
             HistoryPanel.Paint += HistoryPanel_Paint;
-            // 
-            // UserHistoryFlowPanel
-            // 
-            UserHistoryFlowPanel.Location = new Point(12, 77);
-            UserHistoryFlowPanel.Name = "UserHistoryFlowPanel";
-            UserHistoryFlowPanel.Size = new Size(742, 356);
-            UserHistoryFlowPanel.TabIndex = 2;
             // 
             // label3
             // 
@@ -1025,17 +1037,162 @@
             AppointmentStatusPatient.TabIndex = 1;
             AppointmentStatusPatient.Text = "PENDING";
             // 
+            // HistoryPatientBTN
+            // 
+            HistoryPatientBTN.Location = new Point(30, 65);
+            HistoryPatientBTN.Name = "HistoryPatientBTN";
+            HistoryPatientBTN.Size = new Size(123, 39);
+            HistoryPatientBTN.TabIndex = 3;
+            HistoryPatientBTN.Text = "Patient";
+            HistoryPatientBTN.UseVisualStyleBackColor = true;
+            // 
+            // Sales
+            // 
+            Sales.Location = new Point(179, 65);
+            Sales.Name = "Sales";
+            Sales.Size = new Size(123, 39);
+            Sales.TabIndex = 4;
+            Sales.Text = "button1";
+            Sales.UseVisualStyleBackColor = true;
+            // 
+            // label32
+            // 
+            label32.AutoSize = true;
+            label32.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            label32.ForeColor = Color.White;
+            label32.Location = new Point(48, 66);
+            label32.Name = "label32";
+            label32.Size = new Size(129, 25);
+            label32.TabIndex = 0;
+            label32.Text = "No. Diagnose";
+            // 
+            // panel5
+            // 
+            panel5.Controls.Add(panel6);
+            panel5.Controls.Add(label34);
+            panel5.Controls.Add(PatientHistory);
+            panel5.Controls.Add(panel8);
+            panel5.Controls.Add(panel7);
+            panel5.Location = new Point(27, 121);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(724, 540);
+            panel5.TabIndex = 5;
+            // 
+            // panel7
+            // 
+            panel7.BackColor = Color.Maroon;
+            panel7.Controls.Add(label36);
+            panel7.Controls.Add(label32);
+            panel7.Location = new Point(496, 41);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(214, 100);
+            panel7.TabIndex = 2;
+            // 
+            // panel8
+            // 
+            panel8.BackColor = Color.Maroon;
+            panel8.Controls.Add(label35);
+            panel8.Controls.Add(label33);
+            panel8.Location = new Point(35, 41);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(200, 100);
+            panel8.TabIndex = 3;
+            // 
+            // label33
+            // 
+            label33.AutoSize = true;
+            label33.Font = new Font("Segoe UI Semibold", 12.25F, FontStyle.Bold | FontStyle.Italic);
+            label33.ForeColor = Color.White;
+            label33.Location = new Point(15, 71);
+            label33.Name = "label33";
+            label33.Size = new Size(162, 23);
+            label33.TabIndex = 0;
+            label33.Text = "No Of Appointment";
+            // 
+            // PatientHistory
+            // 
+            PatientHistory.AutoScroll = true;
+            PatientHistory.Location = new Point(32, 207);
+            PatientHistory.Name = "PatientHistory";
+            PatientHistory.Size = new Size(655, 312);
+            PatientHistory.TabIndex = 4;
+            // 
+            // label34
+            // 
+            label34.AutoSize = true;
+            label34.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label34.Location = new Point(289, 171);
+            label34.Name = "label34";
+            label34.Size = new Size(105, 32);
+            label34.TabIndex = 5;
+            label34.Text = " History";
+            label34.Click += label34_Click;
+            // 
+            // label35
+            // 
+            label35.AutoSize = true;
+            label35.Font = new Font("Segoe UI Semibold", 29.25F, FontStyle.Bold | FontStyle.Italic);
+            label35.ForeColor = Color.White;
+            label35.Location = new Point(50, 11);
+            label35.Name = "label35";
+            label35.Size = new Size(80, 52);
+            label35.TabIndex = 1;
+            label35.Text = "102";
+            // 
+            // label36
+            // 
+            label36.AutoSize = true;
+            label36.Font = new Font("Segoe UI Semibold", 29.25F, FontStyle.Bold | FontStyle.Italic);
+            label36.ForeColor = Color.White;
+            label36.Location = new Point(79, 9);
+            label36.Name = "label36";
+            label36.Size = new Size(80, 52);
+            label36.TabIndex = 2;
+            label36.Text = "102";
+            // 
+            // panel6
+            // 
+            panel6.BackColor = Color.Maroon;
+            panel6.Controls.Add(label37);
+            panel6.Controls.Add(label38);
+            panel6.Location = new Point(259, 26);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(214, 100);
+            panel6.TabIndex = 3;
+            // 
+            // label37
+            // 
+            label37.AutoSize = true;
+            label37.Font = new Font("Segoe UI Semibold", 29.25F, FontStyle.Bold | FontStyle.Italic);
+            label37.ForeColor = Color.White;
+            label37.Location = new Point(66, 9);
+            label37.Name = "label37";
+            label37.Size = new Size(80, 52);
+            label37.TabIndex = 2;
+            label37.Text = "102";
+            // 
+            // label38
+            // 
+            label38.AutoSize = true;
+            label38.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            label38.ForeColor = Color.White;
+            label38.Location = new Point(59, 63);
+            label38.Name = "label38";
+            label38.Size = new Size(100, 25);
+            label38.TabIndex = 0;
+            label38.Text = "Total Paid";
+            // 
             // User
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(776, 749);
+            Controls.Add(HistoryPanel);
             Controls.Add(Appointment);
             Controls.Add(AddBalancePanel);
             Controls.Add(UserSetting);
             Controls.Add(UserHome);
             Controls.Add(panel1);
-            Controls.Add(HistoryPanel);
             MinimumSize = new Size(792, 516);
             Name = "User";
             Text = "University Of Cebu Health Appointment";
@@ -1064,6 +1221,14 @@
             Appointmented.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
+            panel7.ResumeLayout(false);
+            panel7.PerformLayout();
+            panel8.ResumeLayout(false);
+            panel8.PerformLayout();
+            panel6.ResumeLayout(false);
+            panel6.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1092,7 +1257,6 @@
         private Label label6;
         private Label label7;
         private Button ModifyAccountBTN;
-        private FlowLayoutPanel UserHistoryFlowPanel;
         private Label label3;
         private Label UserBalanceLabel;
         private Label BalanceLabel;
@@ -1152,5 +1316,19 @@
         private Label label29;
         private TextBox PasswordInput;
         private TextBox UsernameInput;
+        private Panel panel5;
+        private Panel panel8;
+        private Label label33;
+        private Panel panel7;
+        private Label label32;
+        private Button Sales;
+        private Button HistoryPatientBTN;
+        private Label label34;
+        private FlowLayoutPanel PatientHistory;
+        private Label label35;
+        private Label label36;
+        private Panel panel6;
+        private Label label37;
+        private Label label38;
     }
 }

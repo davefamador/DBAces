@@ -16,7 +16,7 @@ namespace DBAces
     {
         string patientsStatus;
 
-        int patientid = 0,doctorID = 0, ApppointmentID;
+        int patientid = 0, doctorID = 0, ApppointmentID;
 
         DoctorUI doctorUI;
         //Patient Info
@@ -32,7 +32,7 @@ namespace DBAces
         {
 
         }
-        public void toGetDatas(int doctorid,int patientID,int AppointmentIDs,string firstname, string lastname, string dateofbirth, string gender, string issue)
+        public void toGetDatas(int doctorid, int patientID, int AppointmentIDs, string firstname, string lastname, string dateofbirth, string gender, string issue)
         {
 
             ApppointmentID = AppointmentIDs;
@@ -101,6 +101,22 @@ namespace DBAces
             {
                 diagnosPatient.toGetValues(ApppointmentID, doctorID, patientid, patientName);
                 diagnosPatient.Show();
+            }
+        }
+    
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string sql = "UPDATE Appointments SET AppointmentStatus = @AppointmentStatus WHERE AppointmentID = @AppointmentID";
+            string sql2 = "UPDATE UserBalance SET BALANCE = ISNULL(BALANCE, 0) + (SELECT a.Payment FROM Appointments a JOIN UserBalance m ON a.UserID = m.UserID WHERE a.DoctorID = 3 AND a.AppointmentID = 13) WHERE DoctorID = 3; ";
+            using (SqlConnection con = new SqlConnection(sqlcon)) { 
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand(sql, con)) {
+                    cmd.Parameters.Add("@AppointmentID",SqlDbType.Int).Value = ApppointmentID;
+                    cmd.Parameters.Add("@AppointmentStatus",SqlDbType.NVarChar).Value = "CANCELLED";
+                    cmd.ExecuteNonQuery();
+                }
+                using ()
+                    con.Close();
             }
         }
     }

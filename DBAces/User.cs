@@ -336,7 +336,7 @@ namespace DBAces
                                 cmd.Parameters.Add("@Balance", SqlDbType.Int).Value = userBalance + int.Parse(PatientDepositInput.Text);
                                 cmd.ExecuteNonQuery();
                             }
-                            using (SqlCommand cmd = new SqlCommand(sql1,con))
+                            using (SqlCommand cmd = new SqlCommand(sql1, con))
                             {
                                 cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = UsersID;
                                 cmd.Parameters.Add("@DATE", SqlDbType.Date).Value = DateTime.Now;
@@ -351,7 +351,7 @@ namespace DBAces
 
                         }
 
-                       
+
                     }
                     catch (Exception aa)
                     {
@@ -383,7 +383,7 @@ namespace DBAces
                             cmd.Parameters.Add("@Balance", SqlDbType.Int).Value = userBalance - int.Parse(PatientWithdrawalInput.Text);
                             cmd.ExecuteNonQuery();
                         }
-                        using (SqlCommand cmd = new SqlCommand(sql1,con))
+                        using (SqlCommand cmd = new SqlCommand(sql1, con))
                         {
                             cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = UsersID;
                             cmd.Parameters.Add("@DATE", SqlDbType.Date).Value = DateTime.Now;
@@ -740,7 +740,7 @@ namespace DBAces
             }
         }
 
-  
+
         private void UserSetting_Paint(object sender, PaintEventArgs e)
         {
 
@@ -831,7 +831,7 @@ namespace DBAces
         }
 
 
-   
+
 
         private void ModifyingAccountBTN_Click(object sender, EventArgs e)
         {
@@ -847,6 +847,11 @@ namespace DBAces
             {
                 ChangePasswordSQL();
             }
+        }
+
+        private void label34_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

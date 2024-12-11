@@ -40,11 +40,12 @@
             IssueBox = new RichTextBox();
             PatientDate = new Label();
             AppointmentIDLabel1 = new Label();
+            button2 = new Button();
             SuspendLayout();
             // 
             // button1
             // 
-            button1.Location = new Point(610, 42);
+            button1.Location = new Point(615, 20);
             button1.Name = "button1";
             button1.Size = new Size(118, 84);
             button1.TabIndex = 0;
@@ -166,19 +167,30 @@
             // AppointmentIDLabel1
             // 
             AppointmentIDLabel1.AutoSize = true;
-            AppointmentIDLabel1.Font = new Font("Segoe UI", 14F);
+            AppointmentIDLabel1.Font = new Font("Segoe UI", 7F);
             AppointmentIDLabel1.ForeColor = Color.White;
-            AppointmentIDLabel1.Location = new Point(610, 14);
+            AppointmentIDLabel1.Location = new Point(3, 0);
             AppointmentIDLabel1.Name = "AppointmentIDLabel1";
-            AppointmentIDLabel1.Size = new Size(140, 25);
+            AppointmentIDLabel1.Size = new Size(73, 12);
             AppointmentIDLabel1.TabIndex = 11;
             AppointmentIDLabel1.Text = "AppointmentID";
+            // 
+            // button2
+            // 
+            button2.Location = new Point(615, 110);
+            button2.Name = "button2";
+            button2.Size = new Size(118, 38);
+            button2.TabIndex = 12;
+            button2.Text = "Cancel";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // DoctorsPatient
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Green;
+            Controls.Add(button2);
             Controls.Add(AppointmentIDLabel1);
             Controls.Add(PatientDate);
             Controls.Add(IssueBox);
@@ -212,5 +224,6 @@
         private RichTextBox IssueBox;
         private Label PatientDate;
         private Label AppointmentIDLabel1;
+        private Button button2;
     }
 }
