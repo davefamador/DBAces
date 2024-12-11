@@ -102,7 +102,7 @@
             UsernameLoginInput.Name = "UsernameLoginInput";
             UsernameLoginInput.Size = new Size(221, 23);
             UsernameLoginInput.TabIndex = 0;
-            UsernameLoginInput.Text = "doctor2";
+            UsernameLoginInput.Text = "admin";
             UsernameLoginInput.TextChanged += UsernameLoginInput_TextChanged;
             // 
             // UserLabel
@@ -325,8 +325,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(317, 299);
             Controls.Add(ToLoginPanel);
-            Controls.Add(FpasswordPanel);
             Controls.Add(ToRegisterPanel);
+            Controls.Add(FpasswordPanel);
             Name = "LoginConsole";
             Text = "LoginConsole";
             Load += LoginConsole_Load;

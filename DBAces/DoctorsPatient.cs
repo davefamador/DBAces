@@ -36,6 +36,7 @@ namespace DBAces
         {
 
             ApppointmentID = AppointmentIDs;
+            AppointmentIDLabel1.Text = ApppointmentID.ToString();
             doctorID = doctorid;
             patientid = patientID;
             string[] parts = dateofbirth.Split(new[] { ' ' }, 4);
@@ -62,37 +63,33 @@ namespace DBAces
         {
 
         }
-        private void SQL() {
+        private void SQL()
+        {
 
             string sql = "UPDATE Appointments SET AppointmentStatus = @AppointmentStatus WHERE AppointmentID = @AppointmentID";
             string sql1 = "SELECT ";
-            
-                try
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(sqlcon))
                 {
-                    using (SqlConnection con = new SqlConnection(sqlcon))
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
                     {
-                        con.Open();
-                        using (SqlCommand cmd = new SqlCommand(sql, con))
-                        {
-                            cmd.Parameters.Add("@AppointmentID", SqlDbType.Int).Value = ApppointmentID;
-                            cmd.Parameters.Add("@AppointmentStatus", SqlDbType.NVarChar).Value = "DIAGNOSE";
-                            cmd.ExecuteNonQuery();
-                            doctorUI.toLoadPatientDiagnosis();
-                            MessageBox.Show("The Patient Added to your appointment.");
-                        }
-                        con.Close();
+                        cmd.Parameters.Add("@AppointmentID", SqlDbType.Int).Value = ApppointmentID;
+                        cmd.Parameters.Add("@AppointmentStatus", SqlDbType.NVarChar).Value = "DIAGNOSE";
+                        cmd.ExecuteNonQuery();
+                        doctorUI.toLoadPatientDiagnosis();
+                        MessageBox.Show("The Patient Added to your appointment.");
                     }
+                    con.Close();
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("" + ex);
-                }
-            
-       
-         
-
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("" + ex);
+            }
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             DiagnosPatient diagnosPatient = new DiagnosPatient();

@@ -39,6 +39,7 @@
             label3 = new Label();
             IssueBox = new RichTextBox();
             PatientDate = new Label();
+            AppointmentIDLabel1 = new Label();
             SuspendLayout();
             // 
             // button1
@@ -162,11 +163,23 @@
             PatientDate.TabIndex = 10;
             PatientDate.Text = "Patient Name";
             // 
+            // AppointmentIDLabel1
+            // 
+            AppointmentIDLabel1.AutoSize = true;
+            AppointmentIDLabel1.Font = new Font("Segoe UI", 14F);
+            AppointmentIDLabel1.ForeColor = Color.White;
+            AppointmentIDLabel1.Location = new Point(610, 14);
+            AppointmentIDLabel1.Name = "AppointmentIDLabel1";
+            AppointmentIDLabel1.Size = new Size(140, 25);
+            AppointmentIDLabel1.TabIndex = 11;
+            AppointmentIDLabel1.Text = "AppointmentID";
+            // 
             // DoctorsPatient
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Green;
+            Controls.Add(AppointmentIDLabel1);
             Controls.Add(PatientDate);
             Controls.Add(IssueBox);
             Controls.Add(label3);
@@ -198,5 +211,6 @@
         private Label label3;
         private RichTextBox IssueBox;
         private Label PatientDate;
+        private Label AppointmentIDLabel1;
     }
 }

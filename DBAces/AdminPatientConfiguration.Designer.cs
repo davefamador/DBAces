@@ -41,6 +41,9 @@
             PatientPasswordLabel = new Label();
             button1 = new Button();
             button2 = new Button();
+            label1 = new Label();
+            button3 = new Button();
+            BalanceLABEL = new Label();
             SuspendLayout();
             // 
             // UserIDLabel
@@ -59,7 +62,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(328, 58);
+            label2.Location = new Point(239, 58);
             label2.Name = "label2";
             label2.Size = new Size(109, 21);
             label2.TabIndex = 1;
@@ -70,7 +73,7 @@
             PatientNameLabel.AutoSize = true;
             PatientNameLabel.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             PatientNameLabel.ForeColor = SystemColors.Window;
-            PatientNameLabel.Location = new Point(359, 39);
+            PatientNameLabel.Location = new Point(270, 39);
             PatientNameLabel.Name = "PatientNameLabel";
             PatientNameLabel.Size = new Size(132, 19);
             PatientNameLabel.TabIndex = 2;
@@ -81,7 +84,7 @@
             PatientDateOfBirth.AutoSize = true;
             PatientDateOfBirth.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             PatientDateOfBirth.ForeColor = SystemColors.Window;
-            PatientDateOfBirth.Location = new Point(359, 79);
+            PatientDateOfBirth.Location = new Point(270, 79);
             PatientDateOfBirth.Name = "PatientDateOfBirth";
             PatientDateOfBirth.Size = new Size(135, 19);
             PatientDateOfBirth.TabIndex = 4;
@@ -92,18 +95,19 @@
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label4.ForeColor = Color.White;
-            label4.Location = new Point(328, 18);
+            label4.Location = new Point(239, 18);
             label4.Name = "label4";
             label4.Size = new Size(112, 21);
             label4.TabIndex = 3;
             label4.Text = "Doctor Name";
+            label4.Click += label4_Click;
             // 
             // PatientGenderLabel
             // 
             PatientGenderLabel.AutoSize = true;
             PatientGenderLabel.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             PatientGenderLabel.ForeColor = SystemColors.Window;
-            PatientGenderLabel.Location = new Point(527, 60);
+            PatientGenderLabel.Location = new Point(468, 79);
             PatientGenderLabel.Name = "PatientGenderLabel";
             PatientGenderLabel.Size = new Size(105, 19);
             PatientGenderLabel.TabIndex = 6;
@@ -114,7 +118,7 @@
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label5.ForeColor = Color.White;
-            label5.Location = new Point(543, 36);
+            label5.Location = new Point(485, 58);
             label5.Name = "label5";
             label5.Size = new Size(65, 21);
             label5.TabIndex = 5;
@@ -167,27 +171,63 @@
             // 
             // button1
             // 
-            button1.Location = new Point(638, 31);
+            button1.Location = new Point(270, 133);
             button1.Name = "button1";
-            button1.Size = new Size(88, 67);
+            button1.Size = new Size(289, 53);
             button1.TabIndex = 11;
             button1.Text = "Configure Doctor Information";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // button2
             // 
-            button2.Location = new Point(219, 18);
+            button2.Location = new Point(23, 133);
             button2.Name = "button2";
-            button2.Size = new Size(88, 80);
+            button2.Size = new Size(227, 53);
             button2.TabIndex = 12;
             button2.Text = "Configure Doctor User Information";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(468, 18);
+            label1.Name = "label1";
+            label1.Size = new Size(82, 21);
+            label1.TabIndex = 13;
+            label1.Text = "BALANCE";
+            // 
+            // button3
+            // 
+            button3.Location = new Point(602, 99);
+            button3.Name = "button3";
+            button3.Size = new Size(113, 78);
+            button3.TabIndex = 15;
+            button3.Text = "DELETE USER";
+            button3.UseVisualStyleBackColor = true;
+            // 
+            // BalanceLABEL
+            // 
+            BalanceLABEL.AutoSize = true;
+            BalanceLABEL.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            BalanceLABEL.ForeColor = Color.White;
+            BalanceLABEL.Location = new Point(591, 18);
+            BalanceLABEL.Name = "BalanceLABEL";
+            BalanceLABEL.Size = new Size(82, 21);
+            BalanceLABEL.TabIndex = 16;
+            BalanceLABEL.Text = "BALANCE";
             // 
             // AdminPatientConfiguration
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 64);
+            Controls.Add(BalanceLABEL);
+            Controls.Add(button3);
+            Controls.Add(label1);
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(label7);
@@ -202,7 +242,7 @@
             Controls.Add(label2);
             Controls.Add(UserIDLabel);
             Name = "AdminPatientConfiguration";
-            Size = new Size(744, 128);
+            Size = new Size(737, 203);
             Load += AdminPatientConfiguration_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -223,5 +263,9 @@
         private Label PatientPasswordLabel;
         private Button button1;
         private Button button2;
+        private Label label1;
+        private Label label6;
+        private Button button3;
+        private Label BalanceLABEL;
     }
 }

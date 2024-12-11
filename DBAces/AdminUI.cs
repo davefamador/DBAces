@@ -39,7 +39,7 @@ namespace DBAces
         {
             toLoadDoctorInformation();
             toLoadPatientInformation();
-            
+
             DoctorDisplayFlowLayout.Show();
         }
 
@@ -102,7 +102,7 @@ namespace DBAces
                         while (reader.Read())
                         {
 
-                            adminPatientConfiguration.toGetAttributes(reader["Username"].ToString(), reader["Password"].ToString(), Convert.ToInt32(reader["UserID"]), reader["FirstName"].ToString() + ", " + reader["LastName"].ToString(), DateOnly.FromDateTime(Convert.ToDateTime(reader["DateOfBirth"])), reader["Gender"].ToString());
+                            adminPatientConfiguration.toGetAttributes(reader["Username"].ToString() ?? string.Empty, reader["Password"].ToString() ?? string.Empty, Convert.ToInt32(reader["UserID"]), reader["FirstName"].ToString() + ", " + reader["LastName"].ToString(), reader["DateOfBirth"].ToString() ?? string.Empty, reader["Gender"].ToString() ?? string.Empty);
                             PatientDisplayFlowLayout.Controls.Add(adminPatientConfiguration);
                             adminPatientConfiguration = new AdminPatientConfiguration();
 
@@ -133,9 +133,9 @@ namespace DBAces
                             adminconfiguration.toGetDatasDoctor(reader["Username"].ToString(), reader["Password"].ToString(), Convert.ToInt32(reader["UserID"]), reader["FirstName"].ToString() + ", " + reader["LastName"].ToString(), reader["PhoneNum"].ToString(), reader["Email"].ToString());
                             DoctorDisplayFlowLayout.Controls.Add(adminconfiguration);
                             adminconfiguration = new AdminDoctorConfiguration();
-                           
+
                         }
-                       
+
                     }
                     con.Close();
                 }
@@ -145,6 +145,27 @@ namespace DBAces
                 }
             }
         }
+        private void toswitch(string s) { 
+           switch(s){
+                case "Patient":
+                    DoctorUserPanel.Hide();
+                    UserPatientPanel.Show();
+                    break;
+                case "Doctor":
+                    UserPatientPanel.Hide();
+                    DoctorUserPanel.Show();
+                    break;
+            }
+
+        }
+        private void UserPatientBTN_Click(object sender, EventArgs e)
+        {
+            toswitch("Patient");
+        }
+        private void UserDoctorBTN_Click(object sender, EventArgs e)
+        {
+            toswitch("Doctor");
+        }
 
         // [ USER PANEL ] = = = = = = = = == = = [ END ] = = = = = = = = 
 
@@ -152,7 +173,8 @@ namespace DBAces
         // [ ADD DOCTOR PANEL ] = = = = = = = = == = = [ ENTRY ] = = = = = = = = 
 
 
-        private void ToCreateDoctor() {
+        private void ToCreateDoctor()
+        {
             string sql = "INSERT INTO Users (Username, Password, Role) OUTPUT INSERTED.UserID VALUES (@Username, @Password, @Role)";
             string sql1 = "INSERT INTO Doctors (UserID, FirstName, LastName) OUTPUT INSERTED.DoctorID VALUES (@UserID, @FirstName, @LastName)";
             string sql2 = "INSERT INTO DoctorSpecialization (DoctorID, Specialization) VALUES (@DoctorID, @Specialization)";
@@ -163,18 +185,22 @@ namespace DBAces
             int newDoctorID = 0;
             string userName = DoctorUserNameTextbox.Text.ToString();
             string passWord = DoctorPasswordTextBox.Text.ToString();
-            using (SqlConnection con = new SqlConnection(sqlcon)) {
-           
+            using (SqlConnection con = new SqlConnection(sqlcon))
+            {
+
                 con.Open();
-                try {
-                    using (SqlCommand cmd = new SqlCommand(sql, con)){
+                try
+                {
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
                         cmd.Parameters.Add("@Username", SqlDbType.NVarChar).Value = userName;
                         cmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = passWord;
                         cmd.Parameters.Add("@Role", SqlDbType.NVarChar).Value = DoctorRole;
                         newUserID = (int)cmd.ExecuteScalar();
-                        MessageBox.Show(""+newUserID);
+                        MessageBox.Show("" + newUserID);
                     }
-                    using (SqlCommand cmd = new SqlCommand(sql1, con)) {
+                    using (SqlCommand cmd = new SqlCommand(sql1, con))
+                    {
                         cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = newUserID;
                         cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar).Value = DoctorFirstNameTextBox.Text;
                         cmd.Parameters.Add("@LastName", SqlDbType.NVarChar).Value = DoctorLastNameTextBox.Text;
@@ -182,39 +208,47 @@ namespace DBAces
                         MessageBox.Show("New DoctorID: " + newDoctorID);
 
                     }
-                    using (SqlCommand cmd = new SqlCommand(sql2, con)) {
+                    using (SqlCommand cmd = new SqlCommand(sql2, con))
+                    {
                         cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = newDoctorID;
                         cmd.Parameters.Add("@Specialization", SqlDbType.NVarChar).Value = SpecializationTextBox.Text;
                         cmd.ExecuteNonQuery();
                     }
-                    using (SqlCommand cmd = new SqlCommand(sql3, con)) {
+                    using (SqlCommand cmd = new SqlCommand(sql3, con))
+                    {
                         cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = newUserID;
                         cmd.Parameters.Add("@BALANCE", SqlDbType.Int).Value = 0;
                         cmd.ExecuteNonQuery();
                     }
-                        MessageBox.Show("Doctor Account is Created");
+                    MessageBox.Show("Doctor Account is Created");
 
                 }
-                catch (Exception aa){
+                catch (Exception aa)
+                {
                     MessageBox.Show(" " + aa);
                 }
                 con.Close();
             }
 
         }
-        private string ErrorMessage() {
+        private string ErrorMessage()
+        {
             string messageresult = "";
 
-            if (DoctorFirstNameTextBox.Text.Length < 3) {
+            if (DoctorFirstNameTextBox.Text.Length < 3)
+            {
                 messageresult += "FirstName Must Above 3 Length \n";
             }
-            if (DoctorLastNameTextBox.Text.Length < 3) {
+            if (DoctorLastNameTextBox.Text.Length < 3)
+            {
                 messageresult += "LastName Must above 3 Length\n";
             }
-            if (DoctorUserNameTextbox.Text.Length < 3) {
+            if (DoctorUserNameTextbox.Text.Length < 3)
+            {
                 messageresult += "Username Must above 3 Length \n";
             }
-            if (DoctorPasswordTextBox.Text.Length < 3) {
+            if (DoctorPasswordTextBox.Text.Length < 3)
+            {
                 messageresult += "Password Must above 3 Length\n";
             }
             return messageresult;
@@ -225,8 +259,8 @@ namespace DBAces
             {
                 return true;
             }
-           
-            
+
+
             return false;
         }
 
@@ -240,7 +274,7 @@ namespace DBAces
             {
                 MessageBox.Show("You must fill out all the textbox");
             }
-           
+
         }
         // [ ADD DOCTOR PANEL ] = = = = = = = = == = = [ END ] = = = = = = = = =
         private void UserPanel_Paint(object sender, PaintEventArgs e)
@@ -283,6 +317,16 @@ namespace DBAces
 
         }
 
-      
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }

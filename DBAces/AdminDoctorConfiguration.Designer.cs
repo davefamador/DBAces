@@ -30,7 +30,6 @@
         {
             button1 = new Button();
             DoctorIDLabel = new Label();
-            label2 = new Label();
             DoctorUsernameLabel = new Label();
             DoctorPasswordLabel = new Label();
             label5 = new Label();
@@ -43,39 +42,35 @@
             label9 = new Label();
             DoctorEmailLabel = new Label();
             label6 = new Label();
+            label1 = new Label();
+            DeleteUser = new Button();
             SuspendLayout();
             // 
             // button1
             // 
-            button1.Location = new Point(632, 27);
+            button1.ForeColor = Color.Black;
+            button1.Location = new Point(318, 112);
             button1.Name = "button1";
-            button1.Size = new Size(90, 66);
+            button1.Size = new Size(273, 55);
             button1.TabIndex = 0;
             button1.Text = "Change Doctor Information";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // DoctorIDLabel
             // 
             DoctorIDLabel.AutoSize = true;
+            DoctorIDLabel.ForeColor = SystemColors.ControlLightLight;
             DoctorIDLabel.Location = new Point(0, 0);
             DoctorIDLabel.Name = "DoctorIDLabel";
             DoctorIDLabel.Size = new Size(54, 15);
             DoctorIDLabel.TabIndex = 1;
             DoctorIDLabel.Text = "DoctorID";
             // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(15, 15);
-            label2.Name = "label2";
-            label2.Size = new Size(87, 21);
-            label2.TabIndex = 2;
-            label2.Text = "Username";
-            // 
             // DoctorUsernameLabel
             // 
             DoctorUsernameLabel.AutoSize = true;
+            DoctorUsernameLabel.ForeColor = SystemColors.ControlLightLight;
             DoctorUsernameLabel.Location = new Point(48, 36);
             DoctorUsernameLabel.Name = "DoctorUsernameLabel";
             DoctorUsernameLabel.Size = new Size(124, 15);
@@ -85,6 +80,7 @@
             // DoctorPasswordLabel
             // 
             DoctorPasswordLabel.AutoSize = true;
+            DoctorPasswordLabel.ForeColor = SystemColors.ControlLightLight;
             DoctorPasswordLabel.Location = new Point(48, 84);
             DoctorPasswordLabel.Name = "DoctorPasswordLabel";
             DoctorPasswordLabel.Size = new Size(121, 15);
@@ -95,6 +91,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.ForeColor = SystemColors.ControlLightLight;
             label5.Location = new Point(15, 63);
             label5.Name = "label5";
             label5.Size = new Size(82, 21);
@@ -103,17 +100,20 @@
             // 
             // button2
             // 
-            button2.Location = new Point(178, 36);
+            button2.ForeColor = Color.Black;
+            button2.Location = new Point(15, 117);
             button2.Name = "button2";
-            button2.Size = new Size(122, 57);
+            button2.Size = new Size(261, 50);
             button2.TabIndex = 6;
             button2.Text = "Change User Information ";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // DoctorNameLabel
             // 
             DoctorNameLabel.AutoSize = true;
-            DoctorNameLabel.Location = new Point(349, 36);
+            DoctorNameLabel.ForeColor = SystemColors.ControlLightLight;
+            DoctorNameLabel.Location = new Point(279, 36);
             DoctorNameLabel.Name = "DoctorNameLabel";
             DoctorNameLabel.Size = new Size(103, 15);
             DoctorNameLabel.TabIndex = 8;
@@ -123,7 +123,8 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(318, 15);
+            label4.ForeColor = SystemColors.ControlLightLight;
+            label4.Location = new Point(248, 15);
             label4.Name = "label4";
             label4.Size = new Size(56, 21);
             label4.TabIndex = 7;
@@ -132,7 +133,8 @@
             // DoctorSpecializationLabel
             // 
             DoctorSpecializationLabel.AutoSize = true;
-            DoctorSpecializationLabel.Location = new Point(349, 84);
+            DoctorSpecializationLabel.ForeColor = SystemColors.ControlLightLight;
+            DoctorSpecializationLabel.Location = new Point(279, 84);
             DoctorSpecializationLabel.Name = "DoctorSpecializationLabel";
             DoctorSpecializationLabel.Size = new Size(107, 15);
             DoctorSpecializationLabel.TabIndex = 10;
@@ -142,7 +144,8 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.Location = new Point(318, 63);
+            label7.ForeColor = SystemColors.ControlLightLight;
+            label7.Location = new Point(248, 63);
             label7.Name = "label7";
             label7.Size = new Size(118, 21);
             label7.TabIndex = 9;
@@ -151,7 +154,8 @@
             // DoctorPhoneNumberLabel
             // 
             DoctorPhoneNumberLabel.AutoSize = true;
-            DoctorPhoneNumberLabel.Location = new Point(477, 36);
+            DoctorPhoneNumberLabel.ForeColor = SystemColors.ControlLightLight;
+            DoctorPhoneNumberLabel.Location = new Point(407, 36);
             DoctorPhoneNumberLabel.Name = "DoctorPhoneNumberLabel";
             DoctorPhoneNumberLabel.Size = new Size(149, 15);
             DoctorPhoneNumberLabel.TabIndex = 12;
@@ -161,7 +165,8 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label9.Location = new Point(458, 15);
+            label9.ForeColor = SystemColors.ControlLightLight;
+            label9.Location = new Point(388, 15);
             label9.Name = "label9";
             label9.Size = new Size(126, 21);
             label9.TabIndex = 11;
@@ -170,7 +175,8 @@
             // DoctorEmailLabel
             // 
             DoctorEmailLabel.AutoSize = true;
-            DoctorEmailLabel.Location = new Point(491, 84);
+            DoctorEmailLabel.ForeColor = SystemColors.ControlLightLight;
+            DoctorEmailLabel.Location = new Point(421, 84);
             DoctorEmailLabel.Name = "DoctorEmailLabel";
             DoctorEmailLabel.Size = new Size(100, 15);
             DoctorEmailLabel.TabIndex = 14;
@@ -180,17 +186,42 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(472, 63);
+            label6.ForeColor = SystemColors.ControlLightLight;
+            label6.Location = new Point(402, 63);
             label6.Name = "label6";
             label6.Size = new Size(53, 21);
             label6.TabIndex = 13;
             label6.Text = "Email";
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = SystemColors.ControlLightLight;
+            label1.Location = new Point(15, 15);
+            label1.Name = "label1";
+            label1.Size = new Size(87, 21);
+            label1.TabIndex = 15;
+            label1.Text = "Username";
+            // 
+            // DeleteUser
+            // 
+            DeleteUser.ForeColor = Color.Black;
+            DeleteUser.Location = new Point(620, 26);
+            DeleteUser.Name = "DeleteUser";
+            DeleteUser.Size = new Size(92, 131);
+            DeleteUser.TabIndex = 16;
+            DeleteUser.Text = "Delete User";
+            DeleteUser.UseVisualStyleBackColor = true;
+            DeleteUser.Click += DeleteUser_Click;
+            // 
             // AdminDoctorConfiguration
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.GradientActiveCaption;
+            BackColor = Color.FromArgb(0, 0, 64);
+            Controls.Add(DeleteUser);
+            Controls.Add(label1);
             Controls.Add(DoctorEmailLabel);
             Controls.Add(label6);
             Controls.Add(DoctorPhoneNumberLabel);
@@ -203,11 +234,11 @@
             Controls.Add(DoctorPasswordLabel);
             Controls.Add(label5);
             Controls.Add(DoctorUsernameLabel);
-            Controls.Add(label2);
             Controls.Add(DoctorIDLabel);
             Controls.Add(button1);
+            ForeColor = SystemColors.ControlLightLight;
             Name = "AdminDoctorConfiguration";
-            Size = new Size(744, 116);
+            Size = new Size(736, 181);
             Load += AdminDoctorConfiguration_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -230,5 +261,7 @@
         private Label label9;
         private Label DoctorEmailLabel;
         private Label label6;
+        private Label label1;
+        private Button DeleteUser;
     }
 }

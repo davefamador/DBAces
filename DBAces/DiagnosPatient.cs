@@ -32,16 +32,9 @@ namespace DBAces
             PatientName = patientName;
         }
 
-        private void toDiagnosSQL()
-        {
-            string sql = "INSERT INTO MedicalDiagnosis (Appointmentid, DoctorID, PatientID, Conditions,DiagnosisDates,Treatments) VALUES (Appointmentid, DoctorID, PatientID, Conditions,DiagnosisDates,Treatments); ";
-
-
-        }
 
         private void InsertSQL() {
             string sql = "INSERT INTO MedicalDiagnosis (Appointmentid,DoctorID,PatientID,Conditions,DiagnosisDates,Treatments) VALUES (@Appointmentid,@DoctorID,@PatientID,@Conditions,@DiagnosisDates,@Treatments)";
-
             string sql2 = "UPDATE Appointments SET AppointmentStatus = @AppointmentStatus WHERE AppointmentID = @AppointmentID";
             try {
                 using (SqlConnection con = new SqlConnection(sqlcon)) { 
@@ -62,7 +55,8 @@ namespace DBAces
                         cmd.Parameters.Add("@AppointmentStatus", SqlDbType.NVarChar).Value = "FINISHED";
                         cmd.ExecuteNonQuery();
                     }
-                    con.Close();
+                    using ()
+                        con.Close();
                 }
 
                 MessageBox.Show("Diagnose Completed");
