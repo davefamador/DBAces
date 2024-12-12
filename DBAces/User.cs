@@ -143,15 +143,15 @@ namespace DBAces
                 case "Appoinment_Panel":
                     AddBalancePanel.Hide();
                     HistoryPanel.Hide();
-                    UserSetting.Hide();
                     UserHome.Hide();
+                    SettingPanel.Hide();
                     Appointment.Show();
                     break;
                 case "History_Panel":
                     Appointment.Hide();
                     AddBalancePanel.Hide();
-                    UserSetting.Hide();
                     UserHome.Hide();
+                    SettingPanel.Hide();
                     HistoryPanel.Show();
                     break;
                 case "UserSetting_Panel":
@@ -161,20 +161,20 @@ namespace DBAces
                     UserHome.Hide();
                     ModifyAccount.Hide();
                     UserBackground.Hide();
+                    Setting.Show();
                     SettingPanel.Show();
-                    UserSetting.Show();
+                   
                     break;
                 case "AddUserBalance_Panel":
                     HistoryPanel.Hide();
                     Appointment.Hide();
-                    UserSetting.Hide();
                     UserHome.Hide();
                     AddBalancePanel.Show();
                     break;
                 case "HomePanel":
                     HistoryPanel.Hide();
+                    SettingPanel.Hide();
                     Appointment.Hide();
-                    UserSetting.Hide();
                     AddBalancePanel.Hide();
                     UserHome.Show();
                     break;
@@ -924,7 +924,7 @@ namespace DBAces
 
         private void UserAddBalanceBTN_Click(object sender, EventArgs e)
         {
-            toLoadPanels(AddUserBalance);
+            AccountSettingPanel(3);
         }
 
         private void HomeBTN_Click(object sender, EventArgs e)
@@ -993,14 +993,21 @@ namespace DBAces
             {
                 case 1:
                     UserBackground.Hide();
-                    SettingPanel.Hide();
+                    Setting.Hide();
+                    AddBalancePanel.Hide();
                     ModifyAccount.Show();
                     break;
                 case 2:
                     ModifyAccount.Hide();
-                    SettingPanel.Hide();
+                    Setting.Hide();
+                    AddBalancePanel.Hide();
                     UserBackground.Show();
-
+                    break;
+                case 3:
+                    UserBackground.Hide();
+                    Setting.Hide();
+                    ModifyAccount.Hide();
+                    AddBalancePanel.Show();
                     break;
             }
         }
@@ -1166,6 +1173,11 @@ namespace DBAces
             this.Close();
             LoginConsole login = new LoginConsole();
             login.Show();
+        }
+
+        private void PatientsIDLabel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

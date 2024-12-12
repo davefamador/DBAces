@@ -1,19 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using Microsoft.Data.SqlClient;
 using System.Data;
-using Microsoft.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Drawing.Text;
-using Microsoft.IdentityModel.Tokens;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using Microsoft.VisualBasic.ApplicationServices;
-using static System.ComponentModel.Design.ObjectSelectorEditor;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace DBAces
 {
@@ -47,41 +33,7 @@ namespace DBAces
         {
             switch (s)
             {
-                case "User":
-                    DashboardPanel.Hide();
-                    AppointmentPanel.Hide();
-                    PaymentHistoryPanel.Hide();
-                    AddUserPanel.Hide();
-                    UserPanel.Show();
-                    break;
-                case "Appointment":
-                    DashboardPanel.Hide();
-                    UserPanel.Hide();
-                    PaymentHistoryPanel.Hide();
-                    AddUserPanel.Hide();
-                    AppointmentPanel.Show();
-                    break;
-                case "PaymentHistory":
-                    DashboardPanel.Hide();
-                    AppointmentPanel.Hide();
-                    UserPanel.Hide();
-                    AddUserPanel.Hide();
-                    PaymentHistoryPanel.Show();
-                    break;
-                case "Dashboard":
-                    AppointmentPanel.Hide();
-                    PaymentHistoryPanel.Hide();
-                    UserPanel.Hide();
-                    AddUserPanel.Hide();
-                    DashboardPanel.Show();
-                    break;
-                case "AddDoctor":
-                    AppointmentPanel.Hide();
-                    PaymentHistoryPanel.Hide();
-                    UserPanel.Hide();
-                    DashboardPanel.Hide();
-                    AddUserPanel.Show();
-                    break;
+                
             }
         }
 
@@ -145,8 +97,10 @@ namespace DBAces
                 }
             }
         }
-        private void toswitch(string s) { 
-           switch(s){
+        private void toswitch(string s)
+        {
+            switch (s)
+            {
                 case "Patient":
                     DoctorUserPanel.Hide();
                     UserPatientPanel.Show();
@@ -205,7 +159,8 @@ namespace DBAces
         {
             string userName = DoctorUserNameTextbox.Text.ToString();
             string passWord = DoctorPasswordTextBox.Text.ToString();
-            if (ToFindUserNamesql(DoctorUserNameTextbox.Text)) {
+            if (ToFindUserNamesql(DoctorUserNameTextbox.Text))
+            {
                 MessageBox.Show("Username has taken");
                 return;
             }
@@ -361,6 +316,9 @@ namespace DBAces
 
         }
 
+        private void button1_Click_1(object sender, EventArgs e)
+        {
 
+        }
     }
 }

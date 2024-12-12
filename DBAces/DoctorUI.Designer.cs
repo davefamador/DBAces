@@ -42,6 +42,13 @@
             HistorySalePanelBTN = new Button();
             AppointmentBTN = new Button();
             Setting = new Panel();
+            AddBalancePanel = new Panel();
+            AddBalanceWithdrawalBTN = new Button();
+            label18 = new Label();
+            PatientWithdrawalInput = new TextBox();
+            AddBalanceDepositBTN = new Button();
+            label19 = new Label();
+            PatientDepositInput = new TextBox();
             SettingPanel = new Panel();
             label24 = new Label();
             panel4 = new Panel();
@@ -91,13 +98,6 @@
             label13 = new Label();
             label12 = new Label();
             label11 = new Label();
-            AddBalancePanel = new Panel();
-            AddBalanceWithdrawalBTN = new Button();
-            label18 = new Label();
-            PatientWithdrawalInput = new TextBox();
-            AddBalanceDepositBTN = new Button();
-            label19 = new Label();
-            PatientDepositInput = new TextBox();
             label6 = new Label();
             Dashboard = new Panel();
             DashboardPatient = new Panel();
@@ -115,6 +115,7 @@
             Appointment.SuspendLayout();
             Top_Bar.SuspendLayout();
             Setting.SuspendLayout();
+            AddBalancePanel.SuspendLayout();
             SettingPanel.SuspendLayout();
             panel4.SuspendLayout();
             panel3.SuspendLayout();
@@ -122,7 +123,6 @@
             panel1.SuspendLayout();
             ModifyAccount.SuspendLayout();
             ModifyBackground.SuspendLayout();
-            AddBalancePanel.SuspendLayout();
             Dashboard.SuspendLayout();
             DashboardPatient.SuspendLayout();
             PatientsPanel.SuspendLayout();
@@ -294,6 +294,83 @@
             Setting.Name = "Setting";
             Setting.Size = new Size(778, 556);
             Setting.TabIndex = 13;
+            // 
+            // AddBalancePanel
+            // 
+            AddBalancePanel.BackColor = Color.FromArgb(192, 255, 192);
+            AddBalancePanel.Controls.Add(AddBalanceWithdrawalBTN);
+            AddBalancePanel.Controls.Add(label18);
+            AddBalancePanel.Controls.Add(PatientWithdrawalInput);
+            AddBalancePanel.Controls.Add(AddBalanceDepositBTN);
+            AddBalancePanel.Controls.Add(label19);
+            AddBalancePanel.Controls.Add(PatientDepositInput);
+            AddBalancePanel.Dock = DockStyle.Fill;
+            AddBalancePanel.Location = new Point(0, 0);
+            AddBalancePanel.Name = "AddBalancePanel";
+            AddBalancePanel.Size = new Size(778, 556);
+            AddBalancePanel.TabIndex = 12;
+            // 
+            // AddBalanceWithdrawalBTN
+            // 
+            AddBalanceWithdrawalBTN.Location = new Point(574, 276);
+            AddBalanceWithdrawalBTN.Name = "AddBalanceWithdrawalBTN";
+            AddBalanceWithdrawalBTN.Size = new Size(176, 63);
+            AddBalanceWithdrawalBTN.TabIndex = 6;
+            AddBalanceWithdrawalBTN.Text = "Confirm Withdrawal";
+            AddBalanceWithdrawalBTN.UseVisualStyleBackColor = true;
+            AddBalanceWithdrawalBTN.Click += AddBalanceWithdrawalBTN_Click_1;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label18.Location = new Point(45, 241);
+            label18.Name = "label18";
+            label18.Size = new Size(186, 37);
+            label18.TabIndex = 5;
+            label18.Text = "WIDTHRWAL";
+            // 
+            // PatientWithdrawalInput
+            // 
+            PatientWithdrawalInput.BackColor = Color.White;
+            PatientWithdrawalInput.BorderStyle = BorderStyle.FixedSingle;
+            PatientWithdrawalInput.Font = new Font("Segoe UI", 14F);
+            PatientWithdrawalInput.ForeColor = Color.Black;
+            PatientWithdrawalInput.Location = new Point(73, 290);
+            PatientWithdrawalInput.Name = "PatientWithdrawalInput";
+            PatientWithdrawalInput.Size = new Size(318, 32);
+            PatientWithdrawalInput.TabIndex = 4;
+            // 
+            // AddBalanceDepositBTN
+            // 
+            AddBalanceDepositBTN.Location = new Point(575, 115);
+            AddBalanceDepositBTN.Name = "AddBalanceDepositBTN";
+            AddBalanceDepositBTN.Size = new Size(176, 63);
+            AddBalanceDepositBTN.TabIndex = 2;
+            AddBalanceDepositBTN.Text = "Confirm Deposit";
+            AddBalanceDepositBTN.UseVisualStyleBackColor = true;
+            AddBalanceDepositBTN.Click += AddBalanceDepositBTN_Click;
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label19.Location = new Point(45, 95);
+            label19.Name = "label19";
+            label19.Size = new Size(128, 37);
+            label19.TabIndex = 1;
+            label19.Text = "DEPOSIT";
+            // 
+            // PatientDepositInput
+            // 
+            PatientDepositInput.BackColor = Color.White;
+            PatientDepositInput.BorderStyle = BorderStyle.FixedSingle;
+            PatientDepositInput.Font = new Font("Segoe UI", 14F);
+            PatientDepositInput.ForeColor = Color.Black;
+            PatientDepositInput.Location = new Point(73, 135);
+            PatientDepositInput.Name = "PatientDepositInput";
+            PatientDepositInput.Size = new Size(318, 32);
+            PatientDepositInput.TabIndex = 0;
             // 
             // SettingPanel
             // 
@@ -811,83 +888,6 @@
             label11.TabIndex = 12;
             label11.Text = "Email";
             // 
-            // AddBalancePanel
-            // 
-            AddBalancePanel.BackColor = Color.FromArgb(192, 255, 192);
-            AddBalancePanel.Controls.Add(AddBalanceWithdrawalBTN);
-            AddBalancePanel.Controls.Add(label18);
-            AddBalancePanel.Controls.Add(PatientWithdrawalInput);
-            AddBalancePanel.Controls.Add(AddBalanceDepositBTN);
-            AddBalancePanel.Controls.Add(label19);
-            AddBalancePanel.Controls.Add(PatientDepositInput);
-            AddBalancePanel.Dock = DockStyle.Fill;
-            AddBalancePanel.Location = new Point(0, 0);
-            AddBalancePanel.Name = "AddBalancePanel";
-            AddBalancePanel.Size = new Size(778, 556);
-            AddBalancePanel.TabIndex = 12;
-            // 
-            // AddBalanceWithdrawalBTN
-            // 
-            AddBalanceWithdrawalBTN.Location = new Point(574, 276);
-            AddBalanceWithdrawalBTN.Name = "AddBalanceWithdrawalBTN";
-            AddBalanceWithdrawalBTN.Size = new Size(176, 63);
-            AddBalanceWithdrawalBTN.TabIndex = 6;
-            AddBalanceWithdrawalBTN.Text = "Confirm Withdrawal";
-            AddBalanceWithdrawalBTN.UseVisualStyleBackColor = true;
-            AddBalanceWithdrawalBTN.Click += AddBalanceWithdrawalBTN_Click_1;
-            // 
-            // label18
-            // 
-            label18.AutoSize = true;
-            label18.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label18.Location = new Point(45, 241);
-            label18.Name = "label18";
-            label18.Size = new Size(186, 37);
-            label18.TabIndex = 5;
-            label18.Text = "WIDTHRWAL";
-            // 
-            // PatientWithdrawalInput
-            // 
-            PatientWithdrawalInput.BackColor = Color.White;
-            PatientWithdrawalInput.BorderStyle = BorderStyle.FixedSingle;
-            PatientWithdrawalInput.Font = new Font("Segoe UI", 14F);
-            PatientWithdrawalInput.ForeColor = Color.Black;
-            PatientWithdrawalInput.Location = new Point(73, 290);
-            PatientWithdrawalInput.Name = "PatientWithdrawalInput";
-            PatientWithdrawalInput.Size = new Size(318, 32);
-            PatientWithdrawalInput.TabIndex = 4;
-            // 
-            // AddBalanceDepositBTN
-            // 
-            AddBalanceDepositBTN.Location = new Point(575, 115);
-            AddBalanceDepositBTN.Name = "AddBalanceDepositBTN";
-            AddBalanceDepositBTN.Size = new Size(176, 63);
-            AddBalanceDepositBTN.TabIndex = 2;
-            AddBalanceDepositBTN.Text = "Confirm Deposit";
-            AddBalanceDepositBTN.UseVisualStyleBackColor = true;
-            AddBalanceDepositBTN.Click += AddBalanceDepositBTN_Click;
-            // 
-            // label19
-            // 
-            label19.AutoSize = true;
-            label19.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label19.Location = new Point(45, 95);
-            label19.Name = "label19";
-            label19.Size = new Size(128, 37);
-            label19.TabIndex = 1;
-            label19.Text = "DEPOSIT";
-            // 
-            // PatientDepositInput
-            // 
-            PatientDepositInput.BackColor = Color.White;
-            PatientDepositInput.BorderStyle = BorderStyle.FixedSingle;
-            PatientDepositInput.Font = new Font("Segoe UI", 14F);
-            PatientDepositInput.ForeColor = Color.Black;
-            PatientDepositInput.Location = new Point(73, 135);
-            PatientDepositInput.Name = "PatientDepositInput";
-            PatientDepositInput.Size = new Size(318, 32);
-            PatientDepositInput.TabIndex = 0;
-            // 
             // label6
             // 
             label6.AutoSize = true;
@@ -1041,6 +1041,8 @@
             Top_Bar.ResumeLayout(false);
             Setting.ResumeLayout(false);
             Setting.PerformLayout();
+            AddBalancePanel.ResumeLayout(false);
+            AddBalancePanel.PerformLayout();
             SettingPanel.ResumeLayout(false);
             SettingPanel.PerformLayout();
             panel4.ResumeLayout(false);
@@ -1055,8 +1057,6 @@
             ModifyAccount.PerformLayout();
             ModifyBackground.ResumeLayout(false);
             ModifyBackground.PerformLayout();
-            AddBalancePanel.ResumeLayout(false);
-            AddBalancePanel.PerformLayout();
             Dashboard.ResumeLayout(false);
             DashboardPatient.ResumeLayout(false);
             PatientsPanel.ResumeLayout(false);

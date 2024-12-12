@@ -45,8 +45,6 @@
             UserDoctorBTN = new Button();
             UserPatientBTN = new Button();
             AppointmentPanel = new Panel();
-            PaymentHistoryPanel = new Panel();
-            DashboardPanel = new Panel();
             AddUserPanel = new Panel();
             ToRegisterDoctorBTN = new Button();
             SpecializationTextBox = new TextBox();
@@ -59,6 +57,9 @@
             label4 = new Label();
             DoctorUserNameTextbox = new TextBox();
             label3 = new Label();
+            Dashboard = new Panel();
+            button1 = new Button();
+            button2 = new Button();
             TopbarPanel.SuspendLayout();
             UserPanel.SuspendLayout();
             panel1.SuspendLayout();
@@ -71,6 +72,8 @@
             // TopbarPanel
             // 
             TopbarPanel.BackColor = Color.FromArgb(0, 0, 64);
+            TopbarPanel.Controls.Add(button2);
+            TopbarPanel.Controls.Add(button1);
             TopbarPanel.Controls.Add(AppointmentBTN);
             TopbarPanel.Controls.Add(TopBar_DashboardBTN);
             TopbarPanel.Controls.Add(TopBar_UserBTN);
@@ -88,7 +91,7 @@
             AppointmentBTN.FlatStyle = FlatStyle.Flat;
             AppointmentBTN.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             AppointmentBTN.ForeColor = SystemColors.Control;
-            AppointmentBTN.Location = new Point(144, 12);
+            AppointmentBTN.Location = new Point(132, 12);
             AppointmentBTN.Name = "AppointmentBTN";
             AppointmentBTN.Size = new Size(142, 37);
             AppointmentBTN.TabIndex = 9;
@@ -257,22 +260,6 @@
             AppointmentPanel.Size = new Size(838, 423);
             AppointmentPanel.TabIndex = 0;
             // 
-            // PaymentHistoryPanel
-            // 
-            PaymentHistoryPanel.Dock = DockStyle.Fill;
-            PaymentHistoryPanel.Location = new Point(0, 59);
-            PaymentHistoryPanel.Name = "PaymentHistoryPanel";
-            PaymentHistoryPanel.Size = new Size(838, 423);
-            PaymentHistoryPanel.TabIndex = 1;
-            // 
-            // DashboardPanel
-            // 
-            DashboardPanel.Dock = DockStyle.Fill;
-            DashboardPanel.Location = new Point(0, 59);
-            DashboardPanel.Name = "DashboardPanel";
-            DashboardPanel.Size = new Size(838, 423);
-            DashboardPanel.TabIndex = 14;
-            // 
             // AddUserPanel
             // 
             AddUserPanel.BackColor = SystemColors.ActiveCaption;
@@ -389,16 +376,52 @@
             label3.TabIndex = 0;
             label3.Text = "Doctor Username";
             // 
+            // Dashboard
+            // 
+            Dashboard.Dock = DockStyle.Fill;
+            Dashboard.Location = new Point(0, 59);
+            Dashboard.Name = "Dashboard";
+            Dashboard.Size = new Size(838, 423);
+            Dashboard.TabIndex = 0;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.Transparent;
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.ForeColor = SystemColors.Control;
+            button1.Location = new Point(263, 12);
+            button1.Name = "button1";
+            button1.Size = new Size(142, 37);
+            button1.TabIndex = 10;
+            button1.Text = "History";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click_1;
+            // 
+            // button2
+            // 
+            button2.BackColor = Color.Transparent;
+            button2.FlatAppearance.BorderSize = 0;
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button2.ForeColor = SystemColors.Control;
+            button2.Location = new Point(385, 12);
+            button2.Name = "button2";
+            button2.Size = new Size(142, 37);
+            button2.TabIndex = 11;
+            button2.Text = "Dashboard";
+            button2.UseVisualStyleBackColor = false;
+            // 
             // AdminUI
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(838, 482);
-            Controls.Add(AddUserPanel);
             Controls.Add(UserPanel);
-            Controls.Add(PaymentHistoryPanel);
-            Controls.Add(DashboardPanel);
+            Controls.Add(AddUserPanel);
             Controls.Add(AppointmentPanel);
+            Controls.Add(Dashboard);
             Controls.Add(TopbarPanel);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "AdminUI";
@@ -423,12 +446,10 @@
         private Button TopBar_UserBTN;
         private Panel UserPanel;
         private Panel AppointmentPanel;
-        private Panel PaymentHistoryPanel;
         private FlowLayoutPanel DoctorDisplayFlowLayout;
         private Label label2;
         private Panel panel1;
         private Button TopBar_DashboardBTN;
-        private Panel DashboardPanel;
         private Button AppointmentBTN;
         private Button AddDoctorBTN;
         private Panel AddUserPanel;
@@ -450,5 +471,8 @@
         private Panel UserPatientPanel;
         private FlowLayoutPanel PatientDisplayFlowLayout;
         private Label label1;
+        private Panel Dashboard;
+        private Button button2;
+        private Button button1;
     }
 }

@@ -173,7 +173,7 @@ namespace DBAces
         {
 
             //LoadPatientDiagnosis
-            string sql = "SELECT p.PatientID, a.AppointmentID, p.FirstName, p.LastName, p.DateOfBirth, p.Gender, a.Issue FROM Appointments a JOIN Patients p ON p.PatientID = a.PatientID JOIN Doctors d ON d.DoctorID = a.DoctorID WHERE a.DoctorID = @DoctorID AND a.AppointmentStatus = 'PENDING';";
+            string sql = "SELECT p.PatientID, a.AppointmentID, p.FirstName, p.LastName, p.DateOfBirth, p.Gender, a.Issue FROM Appointments a JOIN Patients p ON p.PatientID = a.PatientID JOIN Doctors d ON d.DoctorID = a.DoctorID WHERE a.DoctorID = @DoctorID AND a.AppointmentStatus = @AppointmentStatus";
             DoctorsPatient Dpatient = new DoctorsPatient();
 
             using (SqlConnection con = new SqlConnection(sqlcon))
