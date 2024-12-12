@@ -208,6 +208,7 @@
             button3.TabIndex = 15;
             button3.Text = "DELETE USER";
             button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
             // BalanceLABEL
             // 

@@ -85,6 +85,8 @@ namespace DBAces
                     }
 
                 }
+
+
                 con.Close();
             }
         }
@@ -738,62 +740,37 @@ namespace DBAces
         private void sqlphone()
         {
             string sql = "UPDATE Doctors SET PhoneNum = @PhoneNum WHERE DoctorID = @DoctorID";
-            if (!String.IsNullOrEmpty(UsernameInput.Text) && !String.IsNullOrEmpty(PasswordInput.Text))
+            using (SqlConnection con = new SqlConnection(sqlcon))
             {
-                if (ToFindUserNamesql(UsernameInput.Text))
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand(sql, con))
                 {
-                    using (SqlConnection con = new SqlConnection(sqlcon))
-                    {
-                        con.Open();
-                        using (SqlCommand cmd = new SqlCommand(sql, con))
-                        {
-                            cmd.Parameters.Add("@PhoneNum", SqlDbType.NVarChar).Value = PhoneNumberBox.Text;
-                            cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = DoctorID;
-                            cmd.ExecuteNonQuery();
-                        }
-                        con.Close();
-                        MessageBox.Show("User's Phone Number have Updated");
-                    }
+                    cmd.Parameters.Add("@PhoneNum", SqlDbType.NVarChar).Value = PhoneNumberBox.Text;
+                    cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = DoctorID;
+                    cmd.ExecuteNonQuery();
                 }
-                else if (!ToFindUserNamesql(UsernameInput.Text))
-                {
-                    MessageBox.Show("Please input another username. The username is already taken.");
-                }
+                con.Close();
+                MessageBox.Show("User's Phone Number have Updated");
             }
-            else
-            {
-                MessageBox.Show("Please input another username & Password");
-            }
+
+
         }
 
         private void sqlemail()
         {
             string sql = "UPDATE Doctors SET Email = @Email WHERE DoctorID = @DoctorID";
-            if (!String.IsNullOrEmpty(UsernameInput.Text) && !String.IsNullOrEmpty(PasswordInput.Text))
+
+            using (SqlConnection con = new SqlConnection(sqlcon))
             {
-                if (ToFindUserNamesql(UsernameInput.Text))
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand(sql, con))
                 {
-                    using (SqlConnection con = new SqlConnection(sqlcon))
-                    {
-                        con.Open();
-                        using (SqlCommand cmd = new SqlCommand(sql, con))
-                        {
-                            cmd.Parameters.Add("@Email", SqlDbType.NVarChar).Value = EmailBox.Text;
-                            cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = DoctorID;
-                            cmd.ExecuteNonQuery();
-                        }
-                        con.Close();
-                        MessageBox.Show("User's Email have Updated");
-                    }
+                    cmd.Parameters.Add("@Email", SqlDbType.NVarChar).Value = EmailBox.Text;
+                    cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = DoctorID;
+                    cmd.ExecuteNonQuery();
                 }
-                else if (!ToFindUserNamesql(UsernameInput.Text))
-                {
-                    MessageBox.Show("Please input another username. The username is already taken.");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please input another username & Password");
+                con.Close();
+                MessageBox.Show("User's Email have Updated");
             }
         }
         private void ChangeNameBTN_Click(object sender, EventArgs e)
@@ -999,7 +976,7 @@ namespace DBAces
                                 cmd.Parameters.Add("@AMOUNT", SqlDbType.Int).Value = int.Parse(PatientDepositInput.Text);
                                 cmd.ExecuteNonQuery();
                             }
-                          
+
                             con.Close();
                             checkUserBalance();
                             MessageBox.Show("The Balance is added");
@@ -1117,5 +1094,6 @@ namespace DBAces
         {
 
         }
+
     }
 }

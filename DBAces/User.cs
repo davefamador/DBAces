@@ -67,7 +67,8 @@ namespace DBAces
         {
             toLoadUserDatas();
             ToLoadInformation(); toLoadComboBoxes(); toLoadAppointment(); checkAppointment();
-            PatientsIDLabel.Text = UsersID.ToString(); checkUserBalance(); UserInformationBarrier();
+            PatientsIDLabel.Text = UsersID.ToString(); 
+            checkUserBalance(); UserInformationBarrier();
             toLoadPatientHistory();
         }
         private void UserInformationBarrier()

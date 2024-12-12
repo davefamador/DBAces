@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminUI));
             TopbarPanel = new Panel();
+            LogoutBTN = new Button();
             AppointmentBTN = new Button();
             TopBar_DashboardBTN = new Button();
             TopBar_UserBTN = new Button();
@@ -45,6 +47,10 @@
             UserDoctorBTN = new Button();
             UserPatientBTN = new Button();
             AppointmentPanel = new Panel();
+            AppointmentHistoryPanel = new Panel();
+            AppointmentsPanel = new FlowLayoutPanel();
+            AppointmentDiagnosePanel = new Panel();
+            flowLayoutPanel2 = new FlowLayoutPanel();
             AddUserPanel = new Panel();
             ToRegisterDoctorBTN = new Button();
             SpecializationTextBox = new TextBox();
@@ -58,22 +64,31 @@
             DoctorUserNameTextbox = new TextBox();
             label3 = new Label();
             Dashboard = new Panel();
-            button1 = new Button();
-            button2 = new Button();
+            HistoryPanel = new Panel();
+            SettingPanel = new Panel();
+            UpdateBTN = new Button();
+            PasswordInput = new TextBox();
+            UsernameInput = new TextBox();
+            label7 = new Label();
+            Username = new Label();
+            label8 = new Label();
             TopbarPanel.SuspendLayout();
             UserPanel.SuspendLayout();
             panel1.SuspendLayout();
             DoctorUserPanel.SuspendLayout();
             UserPatientPanel.SuspendLayout();
             TopbarUsers.SuspendLayout();
+            AppointmentPanel.SuspendLayout();
+            AppointmentHistoryPanel.SuspendLayout();
+            AppointmentDiagnosePanel.SuspendLayout();
             AddUserPanel.SuspendLayout();
+            SettingPanel.SuspendLayout();
             SuspendLayout();
             // 
             // TopbarPanel
             // 
             TopbarPanel.BackColor = Color.FromArgb(0, 0, 64);
-            TopbarPanel.Controls.Add(button2);
-            TopbarPanel.Controls.Add(button1);
+            TopbarPanel.Controls.Add(LogoutBTN);
             TopbarPanel.Controls.Add(AppointmentBTN);
             TopbarPanel.Controls.Add(TopBar_DashboardBTN);
             TopbarPanel.Controls.Add(TopBar_UserBTN);
@@ -83,6 +98,21 @@
             TopbarPanel.Size = new Size(838, 59);
             TopbarPanel.TabIndex = 0;
             TopbarPanel.Paint += TopbarPanel_Paint;
+            // 
+            // LogoutBTN
+            // 
+            LogoutBTN.BackColor = Color.Transparent;
+            LogoutBTN.BackgroundImage = (Image)resources.GetObject("LogoutBTN.BackgroundImage");
+            LogoutBTN.BackgroundImageLayout = ImageLayout.Stretch;
+            LogoutBTN.FlatAppearance.BorderSize = 0;
+            LogoutBTN.Font = new Font("Segoe UI", 6F, FontStyle.Bold);
+            LogoutBTN.ForeColor = Color.Black;
+            LogoutBTN.Location = new Point(0, 0);
+            LogoutBTN.Name = "LogoutBTN";
+            LogoutBTN.Size = new Size(36, 30);
+            LogoutBTN.TabIndex = 21;
+            LogoutBTN.UseVisualStyleBackColor = false;
+            LogoutBTN.Click += LogoutBTN_Click;
             // 
             // AppointmentBTN
             // 
@@ -254,11 +284,48 @@
             // 
             // AppointmentPanel
             // 
+            AppointmentPanel.BackColor = Color.PowderBlue;
+            AppointmentPanel.Controls.Add(label8);
+            AppointmentPanel.Controls.Add(AppointmentHistoryPanel);
+            AppointmentPanel.Controls.Add(AppointmentDiagnosePanel);
             AppointmentPanel.Dock = DockStyle.Fill;
             AppointmentPanel.Location = new Point(0, 59);
             AppointmentPanel.Name = "AppointmentPanel";
             AppointmentPanel.Size = new Size(838, 423);
             AppointmentPanel.TabIndex = 0;
+            // 
+            // AppointmentHistoryPanel
+            // 
+            AppointmentHistoryPanel.Controls.Add(AppointmentsPanel);
+            AppointmentHistoryPanel.Location = new Point(12, 89);
+            AppointmentHistoryPanel.Name = "AppointmentHistoryPanel";
+            AppointmentHistoryPanel.Size = new Size(806, 308);
+            AppointmentHistoryPanel.TabIndex = 3;
+            // 
+            // AppointmentsPanel
+            // 
+            AppointmentsPanel.AutoScroll = true;
+            AppointmentsPanel.Dock = DockStyle.Fill;
+            AppointmentsPanel.Location = new Point(0, 0);
+            AppointmentsPanel.Name = "AppointmentsPanel";
+            AppointmentsPanel.Size = new Size(806, 308);
+            AppointmentsPanel.TabIndex = 0;
+            // 
+            // AppointmentDiagnosePanel
+            // 
+            AppointmentDiagnosePanel.Controls.Add(flowLayoutPanel2);
+            AppointmentDiagnosePanel.Location = new Point(12, 89);
+            AppointmentDiagnosePanel.Name = "AppointmentDiagnosePanel";
+            AppointmentDiagnosePanel.Size = new Size(806, 298);
+            AppointmentDiagnosePanel.TabIndex = 2;
+            // 
+            // flowLayoutPanel2
+            // 
+            flowLayoutPanel2.Dock = DockStyle.Fill;
+            flowLayoutPanel2.Location = new Point(0, 0);
+            flowLayoutPanel2.Name = "flowLayoutPanel2";
+            flowLayoutPanel2.Size = new Size(806, 298);
+            flowLayoutPanel2.TabIndex = 1;
             // 
             // AddUserPanel
             // 
@@ -384,43 +451,93 @@
             Dashboard.Size = new Size(838, 423);
             Dashboard.TabIndex = 0;
             // 
-            // button1
+            // HistoryPanel
             // 
-            button1.BackColor = Color.Transparent;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.ForeColor = SystemColors.Control;
-            button1.Location = new Point(263, 12);
-            button1.Name = "button1";
-            button1.Size = new Size(142, 37);
-            button1.TabIndex = 10;
-            button1.Text = "History";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click_1;
+            HistoryPanel.Dock = DockStyle.Fill;
+            HistoryPanel.Location = new Point(0, 59);
+            HistoryPanel.Name = "HistoryPanel";
+            HistoryPanel.Size = new Size(838, 423);
+            HistoryPanel.TabIndex = 14;
             // 
-            // button2
+            // SettingPanel
             // 
-            button2.BackColor = Color.Transparent;
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button2.ForeColor = SystemColors.Control;
-            button2.Location = new Point(385, 12);
-            button2.Name = "button2";
-            button2.Size = new Size(142, 37);
-            button2.TabIndex = 11;
-            button2.Text = "Dashboard";
-            button2.UseVisualStyleBackColor = false;
+            SettingPanel.Controls.Add(UpdateBTN);
+            SettingPanel.Controls.Add(PasswordInput);
+            SettingPanel.Controls.Add(UsernameInput);
+            SettingPanel.Controls.Add(label7);
+            SettingPanel.Controls.Add(Username);
+            SettingPanel.Dock = DockStyle.Fill;
+            SettingPanel.Location = new Point(0, 59);
+            SettingPanel.Name = "SettingPanel";
+            SettingPanel.Size = new Size(838, 423);
+            SettingPanel.TabIndex = 15;
+            // 
+            // UpdateBTN
+            // 
+            UpdateBTN.Location = new Point(512, 93);
+            UpdateBTN.Name = "UpdateBTN";
+            UpdateBTN.Size = new Size(156, 139);
+            UpdateBTN.TabIndex = 4;
+            UpdateBTN.Text = "UPDATE";
+            UpdateBTN.UseVisualStyleBackColor = true;
+            UpdateBTN.Click += UpdateBTN_Click;
+            // 
+            // PasswordInput
+            // 
+            PasswordInput.Font = new Font("Segoe UI", 15F);
+            PasswordInput.Location = new Point(84, 195);
+            PasswordInput.Name = "PasswordInput";
+            PasswordInput.Size = new Size(328, 34);
+            PasswordInput.TabIndex = 3;
+            // 
+            // UsernameInput
+            // 
+            UsernameInput.Font = new Font("Segoe UI", 15F);
+            UsernameInput.Location = new Point(77, 93);
+            UsernameInput.Name = "UsernameInput";
+            UsernameInput.Size = new Size(328, 34);
+            UsernameInput.TabIndex = 2;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label7.Location = new Point(84, 139);
+            label7.Name = "label7";
+            label7.Size = new Size(139, 37);
+            label7.TabIndex = 1;
+            label7.Text = "Password";
+            // 
+            // Username
+            // 
+            Username.AutoSize = true;
+            Username.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            Username.Location = new Point(77, 53);
+            Username.Name = "Username";
+            Username.Size = new Size(146, 37);
+            Username.TabIndex = 0;
+            Username.Text = "Username";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label8.Location = new Point(321, 39);
+            label8.Name = "label8";
+            label8.Size = new Size(189, 37);
+            label8.TabIndex = 4;
+            label8.Text = "Appointment";
             // 
             // AdminUI
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(838, 482);
-            Controls.Add(UserPanel);
-            Controls.Add(AddUserPanel);
             Controls.Add(AppointmentPanel);
+            Controls.Add(UserPanel);
+            Controls.Add(SettingPanel);
+            Controls.Add(HistoryPanel);
+            Controls.Add(AddUserPanel);
             Controls.Add(Dashboard);
             Controls.Add(TopbarPanel);
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -435,8 +552,14 @@
             UserPatientPanel.ResumeLayout(false);
             UserPatientPanel.PerformLayout();
             TopbarUsers.ResumeLayout(false);
+            AppointmentPanel.ResumeLayout(false);
+            AppointmentPanel.PerformLayout();
+            AppointmentHistoryPanel.ResumeLayout(false);
+            AppointmentDiagnosePanel.ResumeLayout(false);
             AddUserPanel.ResumeLayout(false);
             AddUserPanel.PerformLayout();
+            SettingPanel.ResumeLayout(false);
+            SettingPanel.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -472,7 +595,18 @@
         private FlowLayoutPanel PatientDisplayFlowLayout;
         private Label label1;
         private Panel Dashboard;
-        private Button button2;
-        private Button button1;
+        private Panel HistoryPanel;
+        private Panel SettingPanel;
+        private Button UpdateBTN;
+        private TextBox PasswordInput;
+        private TextBox UsernameInput;
+        private Label label7;
+        private Label Username;
+        private Panel AppointmentHistoryPanel;
+        private FlowLayoutPanel AppointmentsPanel;
+        private Panel AppointmentDiagnosePanel;
+        private FlowLayoutPanel flowLayoutPanel2;
+        private Button LogoutBTN;
+        private Label label8;
     }
 }

@@ -26,7 +26,8 @@ namespace DBAces
             Query();
         }
 
-        private void Query() {
+        private void Query()
+        {
             string sql = "UPDATE MedicalDiagnosis SET Conditions = @Conditions, Treatments = @Treatments WHERE Appointmentid = @Appointmentid";
             try
             {
@@ -42,14 +43,22 @@ namespace DBAces
                     }
                     con.Close();
                 }
+                MessageBox.Show("UPDATED");
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 MessageBox.Show(ex.Message);
             }
         }
 
-        public void getID(int a) { 
-            AppointmentID = a;  
+        public void getID(int a)
+        {
+            AppointmentID = a;
+        }
+
+        private void PatientDiagnos_Click(object sender, EventArgs e)
+        {
+            Query();
         }
     }
 }

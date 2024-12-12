@@ -152,6 +152,7 @@ namespace DBAces
                             doctorui.Show();
                             break;
                         case "Admin":
+                            adminui.getvalues(UsersID);
                             this.Hide();
                             adminui.Show();
                             break;

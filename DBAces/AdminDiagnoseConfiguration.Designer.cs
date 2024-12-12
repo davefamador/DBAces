@@ -1,6 +1,6 @@
 ﻿namespace DBAces
 {
-    partial class UpdatePatientFromDoctor
+    partial class AdminDiagnoseConfiguration
     {
         /// <summary>
         /// Required designer variable.
@@ -37,51 +37,50 @@
             // 
             // PatientDiagnos
             // 
-            PatientDiagnos.Location = new Point(44, 244);
+            PatientDiagnos.Location = new Point(48, 246);
             PatientDiagnos.Name = "PatientDiagnos";
             PatientDiagnos.Size = new Size(326, 43);
-            PatientDiagnos.TabIndex = 11;
-            PatientDiagnos.Text = "Done";
+            PatientDiagnos.TabIndex = 15;
+            PatientDiagnos.Text = "Modify";
             PatientDiagnos.UseVisualStyleBackColor = true;
-            PatientDiagnos.Click += PatientDiagnos_Click;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(145, 136);
+            label2.Location = new Point(144, 126);
             label2.Name = "label2";
             label2.Size = new Size(87, 21);
-            label2.TabIndex = 10;
+            label2.TabIndex = 14;
             label2.Text = "Treatments";
             // 
             // TreatmentsBox
             // 
-            TreatmentsBox.Location = new Point(26, 160);
+            TreatmentsBox.Location = new Point(30, 150);
             TreatmentsBox.Name = "TreatmentsBox";
             TreatmentsBox.Size = new Size(344, 62);
-            TreatmentsBox.TabIndex = 9;
+            TreatmentsBox.TabIndex = 13;
             TreatmentsBox.Text = "";
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F);
-            label1.Location = new Point(154, 21);
+            label1.Location = new Point(153, 21);
             label1.Name = "label1";
             label1.Size = new Size(78, 21);
-            label1.TabIndex = 8;
+            label1.TabIndex = 12;
             label1.Text = "Condition";
             // 
             // ConditionBox
             // 
-            ConditionBox.Location = new Point(26, 55);
+            ConditionBox.Location = new Point(30, 45);
             ConditionBox.Name = "ConditionBox";
             ConditionBox.Size = new Size(344, 62);
-            ConditionBox.TabIndex = 7;
+            ConditionBox.TabIndex = 11;
             ConditionBox.Text = "";
             // 
-            // UpdatePatientFromDoctor
+            // AdminDiagnoseConfiguration
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -92,9 +91,8 @@
             Controls.Add(TreatmentsBox);
             Controls.Add(label1);
             Controls.Add(ConditionBox);
-            Name = "UpdatePatientFromDoctor";
-            Text = "Update Patient";
-            Load += UpdatePatientFromDoctor_Load;
+            Name = "AdminDiagnoseConfiguration";
+            Text = "AdminDiagnoseConfiguration";
             ResumeLayout(false);
             PerformLayout();
         }

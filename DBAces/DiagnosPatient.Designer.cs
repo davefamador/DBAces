@@ -34,6 +34,8 @@
             label2 = new Label();
             TreatmentsBox = new RichTextBox();
             PatientDiagnos = new Button();
+            label3 = new Label();
+            label4 = new Label();
             SuspendLayout();
             // 
             // PatientsName
@@ -92,12 +94,34 @@
             PatientDiagnos.UseVisualStyleBackColor = true;
             PatientDiagnos.Click += PatientDiagnos_Click;
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 12F);
+            label3.Location = new Point(142, 9);
+            label3.Name = "label3";
+            label3.Size = new Size(99, 21);
+            label3.TabIndex = 6;
+            label3.Text = "PatientName";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 12F);
+            label4.Location = new Point(276, 9);
+            label4.Name = "label4";
+            label4.Size = new Size(99, 21);
+            label4.TabIndex = 7;
+            label4.Text = "PatientName";
+            // 
             // DiagnosPatient
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.AntiqueWhite;
             ClientSize = new Size(407, 323);
+            Controls.Add(label4);
+            Controls.Add(label3);
             Controls.Add(PatientDiagnos);
             Controls.Add(label2);
             Controls.Add(TreatmentsBox);
@@ -120,5 +144,7 @@
         private Label label2;
         private RichTextBox TreatmentsBox;
         private Button PatientDiagnos;
+        private Label label3;
+        private Label label4;
     }
 }

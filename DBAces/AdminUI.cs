@@ -8,7 +8,7 @@ namespace DBAces
     {
 
         // Variables : 
-
+        int adminID;
         int MaxErrorMessage = 50;
         String DoctorRole = "Doctor";
 
@@ -20,12 +20,15 @@ namespace DBAces
         {
             InitializeComponent();
         }
-
+        public void getvalues(int id)
+        {
+            adminID = id;
+        }
         private void AdminUI_Load(object sender, EventArgs e)
         {
             toLoadDoctorInformation();
             toLoadPatientInformation();
-
+            toLoadPatientHistory();
             DoctorDisplayFlowLayout.Show();
         }
 
@@ -33,16 +36,64 @@ namespace DBAces
         {
             switch (s)
             {
-                
+                case "AddDoctor":
+                    UserPanel.Hide();
+                    Dashboard.Hide();
+                    SettingPanel.Hide();
+                    HistoryPanel.Hide();
+                    AppointmentPanel.Hide();
+                    AddUserPanel.Show();
+                    break;
+                case "Appointment":
+                    SettingPanel.Hide();
+                    AddUserPanel.Hide();
+                    UserPanel.Hide();
+                    HistoryPanel.Hide();
+                    Dashboard.Hide();
+                    AppointmentPanel.Show();
+                    break;
+                case "UserPanel":
+                    SettingPanel.Hide();
+                    AddUserPanel.Hide();
+                    AppointmentPanel.Hide();
+                    HistoryPanel.Hide();
+                    Dashboard.Hide();
+                    UserPanel.Show();
+                    break;
+                case "Dashboard":
+                    SettingPanel.Hide();
+                    AddUserPanel.Hide();
+                    SettingPanel.Hide();
+                    AppointmentPanel.Hide();
+                    UserPanel.Hide();
+                    HistoryPanel.Hide();
+                    Dashboard.Show();
+                    break;
+                case "Setting":
+                    AddUserPanel.Hide();
+                    SettingPanel.Hide();
+                    AppointmentPanel.Hide();
+                    HistoryPanel.Hide();
+                    UserPanel.Hide();
+                    Dashboard.Hide();
+                    SettingPanel.Show();
+                    break;
+                case "History":
+                    AddUserPanel.Hide();
+                    SettingPanel.Hide();
+                    AppointmentPanel.Hide();
+                    UserPanel.Hide();
+                    Dashboard.Hide();
+                    SettingPanel.Hide();
+                    HistoryPanel.Show();
+                    break;
             }
         }
-
-
         // [ USER PANEL ] = = = = = = = = == = = [ ENTRY ] = = = = = = = = 
         private void toLoadPatientInformation()
         {
             AdminPatientConfiguration adminPatientConfiguration = new AdminPatientConfiguration();
-            string sql1 = @"SELECT u.Username, u.Password, p.PatientID, p.UserID, p.FirstName, p.LastName, p.DateOfBirth, p.Gender FROM Users u JOIN Patients p ON u.UserID = p.UserID";
+            string sql1 = @"SELECT u.Username, u.Password, p.PatientID, p.UserID, p.FirstName, p.LastName, p.DateOfBirth, p.Gender FROM Users u JOIN Patients p ON u.UserID = p.UserID ";
             using (SqlConnection con = new SqlConnection(sqlcon))
             {
                 con.Open();
@@ -278,7 +329,7 @@ namespace DBAces
 
         private void TopBar_UserBTN_Click(object sender, EventArgs e)
         {
-            toLoadPanels("User");
+            toLoadPanels("UserPanel");
         }
 
         private void AppointmentBTN_Click(object sender, EventArgs e)
@@ -286,14 +337,11 @@ namespace DBAces
             toLoadPanels("Appointment");
         }
 
-        private void TopBar_PaymentHistoryBTN_Click(object sender, EventArgs e)
-        {
-            toLoadPanels("PaymentHistory");
-        }
+
 
         private void TopBar_DashboardBTN_Click(object sender, EventArgs e)
         {
-            toLoadPanels("Dashboard");
+            toLoadPanels("Setting");
         }
 
         private void AddDoctorBTN_Click(object sender, EventArgs e)
@@ -318,7 +366,73 @@ namespace DBAces
 
         private void button1_Click_1(object sender, EventArgs e)
         {
+            toLoadPanels("History");
+        }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            toLoadPanels("Dashboard");
+        }
+
+        private void UpdateBTN_Click(object sender, EventArgs e)
+        {
+            string sql = "UPDATE Users SET Username = @Username, Password = @Password WHERE UserID = @UserID";
+            if (UsernameInput.Text.Length > 0 && PasswordInput.Text.Length > 0)
+            {
+                using (SqlConnection con = new SqlConnection(sqlcon))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = adminID;
+                        cmd.Parameters.Add("@UserName", SqlDbType.NVarChar).Value = UsernameInput.Text;
+                        cmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = PasswordInput.Text;
+                        cmd.ExecuteNonQuery();
+                    }
+                    con.Close();
+                    MessageBox.Show("Username Password Updated");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please put valid username. Thank you");
+            }
+
+        }
+
+        private void toLoadPatientHistory()
+        {
+            AdminAppointments adminAppointment = new AdminAppointments();
+
+            string sql3 = "SELECT a.AppointmentID,a.AppointmentDate,a.AppointmentStatus,a.Issue,a.Payment,CONCAT(p.FirstName, ' ',p.LastName) AS FULLNAME FROM Appointments a JOIN Patients p ON a.PatientID = p.PatientID JOIN Doctors d ON a.DoctorID = d.DoctorID";
+            using (SqlConnection con = new SqlConnection(sqlcon))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand(sql3, con))
+                {
+                    cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = adminID;
+                    using (SqlDataReader read = cmd.ExecuteReader())
+                    {
+
+                        while (read.Read())
+                        {
+                            adminAppointment.getAttributes(read["AppointmentDate"].ToString() ?? "NOT SET", read["AppointmentStatus"].ToString() ?? "NOT SET",
+                                read["Issue"].ToString() ?? "NOT SET", read["Payment"].ToString() ?? "NOT SET", read["FULLNAME"].ToString() ?? "NOT SET", int.Parse(read["AppointmentID"].ToString() ?? "0"));
+                            AppointmentsPanel.Controls.Add(adminAppointment);
+                            adminAppointment = new AdminAppointments();
+                        }
+                    }
+
+                }
+                con.Close();
+            }
+        }
+
+        private void LogoutBTN_Click(object sender, EventArgs e)
+        {
+            LoginConsole login = new LoginConsole();
+            this.Close();
+            login.Show();
         }
     }
 }

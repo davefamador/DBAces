@@ -116,16 +116,31 @@ namespace DBAces
 
         private void toDeleteUser()
         {
-            string sql = "DELETE FROM Users WHERE Users IN(SELECT UserID FROM Doctors WHERE DoctorID = @DoctorID)";
-            using (SqlConnection con = new SqlConnection(sqlcon)) { 
-                con.Open();
-                using (SqlCommand cmd = new SqlCommand(sql, con)) {
-                    cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = doctorID;
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    MessageBox.Show("Numbers of Affected : " + rowsAffected);
+            string sql = "DELETE FROM Users WHERE UserID = (SELECT UserID FROM Doctors WHERE UserID = @DoctorID)";
+            string sql2 = "DELETE FROM DoctorBalance WHERE UserID = (SELECT UserID FROM Doctors WHERE UserID = @DoctorID)";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(sqlcon))
+                {
+                    con.Open();
+                    
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = doctorID;
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        MessageBox.Show("Number of Rows Affected: " + rowsAffected);
+                    }
+
+
+                    con.Close();
                 }
-             con.Close();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
+
     }
 }

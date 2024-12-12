@@ -36,8 +36,6 @@
             button2 = new Button();
             DoctorNameLabel = new Label();
             label4 = new Label();
-            DoctorSpecializationLabel = new Label();
-            label7 = new Label();
             DoctorPhoneNumberLabel = new Label();
             label9 = new Label();
             DoctorEmailLabel = new Label();
@@ -130,32 +128,11 @@
             label4.TabIndex = 7;
             label4.Text = "Name";
             // 
-            // DoctorSpecializationLabel
-            // 
-            DoctorSpecializationLabel.AutoSize = true;
-            DoctorSpecializationLabel.ForeColor = SystemColors.ControlLightLight;
-            DoctorSpecializationLabel.Location = new Point(279, 84);
-            DoctorSpecializationLabel.Name = "DoctorSpecializationLabel";
-            DoctorSpecializationLabel.Size = new Size(107, 15);
-            DoctorSpecializationLabel.TabIndex = 10;
-            DoctorSpecializationLabel.Text = "SpecializationLabel";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.ForeColor = SystemColors.ControlLightLight;
-            label7.Location = new Point(248, 63);
-            label7.Name = "label7";
-            label7.Size = new Size(118, 21);
-            label7.TabIndex = 9;
-            label7.Text = "Specialization";
-            // 
             // DoctorPhoneNumberLabel
             // 
             DoctorPhoneNumberLabel.AutoSize = true;
             DoctorPhoneNumberLabel.ForeColor = SystemColors.ControlLightLight;
-            DoctorPhoneNumberLabel.Location = new Point(407, 36);
+            DoctorPhoneNumberLabel.Location = new Point(418, 36);
             DoctorPhoneNumberLabel.Name = "DoctorPhoneNumberLabel";
             DoctorPhoneNumberLabel.Size = new Size(149, 15);
             DoctorPhoneNumberLabel.TabIndex = 12;
@@ -166,7 +143,7 @@
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label9.ForeColor = SystemColors.ControlLightLight;
-            label9.Location = new Point(388, 15);
+            label9.Location = new Point(394, 15);
             label9.Name = "label9";
             label9.Size = new Size(126, 21);
             label9.TabIndex = 11;
@@ -176,7 +153,7 @@
             // 
             DoctorEmailLabel.AutoSize = true;
             DoctorEmailLabel.ForeColor = SystemColors.ControlLightLight;
-            DoctorEmailLabel.Location = new Point(421, 84);
+            DoctorEmailLabel.Location = new Point(279, 84);
             DoctorEmailLabel.Name = "DoctorEmailLabel";
             DoctorEmailLabel.Size = new Size(100, 15);
             DoctorEmailLabel.TabIndex = 14;
@@ -187,7 +164,7 @@
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label6.ForeColor = SystemColors.ControlLightLight;
-            label6.Location = new Point(402, 63);
+            label6.Location = new Point(251, 63);
             label6.Name = "label6";
             label6.Size = new Size(53, 21);
             label6.TabIndex = 13;
@@ -226,8 +203,6 @@
             Controls.Add(label6);
             Controls.Add(DoctorPhoneNumberLabel);
             Controls.Add(label9);
-            Controls.Add(DoctorSpecializationLabel);
-            Controls.Add(label7);
             Controls.Add(DoctorNameLabel);
             Controls.Add(label4);
             Controls.Add(button2);
@@ -255,8 +230,6 @@
         private Button button2;
         private Label DoctorNameLabel;
         private Label label4;
-        private Label DoctorSpecializationLabel;
-        private Label label7;
         private Label DoctorPhoneNumberLabel;
         private Label label9;
         private Label DoctorEmailLabel;

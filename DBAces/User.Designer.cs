@@ -95,7 +95,6 @@
             label30 = new Label();
             IssueRBox = new RichTextBox();
             AppointmentStatusPatient = new Label();
-            PatientsIDLabel = new Label();
             UserAddBalanceBTN = new Button();
             panel3 = new Panel();
             ModifyInformation = new Button();
@@ -142,6 +141,7 @@
             FirstnameBox = new TextBox();
             SettingPanel = new Panel();
             Setting = new Panel();
+            PatientsIDLabel = new Label();
             panel1.SuspendLayout();
             HistoryPanel.SuspendLayout();
             panel5.SuspendLayout();
@@ -698,8 +698,8 @@
             // 
             // Appointment
             // 
-            Appointment.Controls.Add(Appointmented);
             Appointment.Controls.Add(AppointmentPanel);
+            Appointment.Controls.Add(Appointmented);
             Appointment.Dock = DockStyle.Fill;
             Appointment.Location = new Point(0, 64);
             Appointment.Name = "Appointment";
@@ -885,17 +885,6 @@
             AppointmentStatusPatient.Size = new Size(222, 60);
             AppointmentStatusPatient.TabIndex = 1;
             AppointmentStatusPatient.Text = "PENDING";
-            // 
-            // PatientsIDLabel
-            // 
-            PatientsIDLabel.AutoSize = true;
-            PatientsIDLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            PatientsIDLabel.Location = new Point(15, 8);
-            PatientsIDLabel.Name = "PatientsIDLabel";
-            PatientsIDLabel.Size = new Size(82, 21);
-            PatientsIDLabel.TabIndex = 22;
-            PatientsIDLabel.Text = "PatientID";
-            PatientsIDLabel.Click += PatientsIDLabel_Click;
             // 
             // UserAddBalanceBTN
             // 
@@ -1358,8 +1347,8 @@
             // 
             SettingPanel.BackColor = SystemColors.ButtonFace;
             SettingPanel.Controls.Add(Setting);
-            SettingPanel.Controls.Add(UserBackground);
             SettingPanel.Controls.Add(AddBalancePanel);
+            SettingPanel.Controls.Add(UserBackground);
             SettingPanel.Controls.Add(ModifyAccount);
             SettingPanel.Dock = DockStyle.Fill;
             SettingPanel.Location = new Point(0, 64);
@@ -1380,14 +1369,24 @@
             Setting.Size = new Size(776, 685);
             Setting.TabIndex = 38;
             // 
+            // PatientsIDLabel
+            // 
+            PatientsIDLabel.AutoSize = true;
+            PatientsIDLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            PatientsIDLabel.Location = new Point(9, 6);
+            PatientsIDLabel.Name = "PatientsIDLabel";
+            PatientsIDLabel.Size = new Size(75, 21);
+            PatientsIDLabel.TabIndex = 11;
+            PatientsIDLabel.Text = "SETTING";
+            // 
             // User
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(776, 749);
+            Controls.Add(Appointment);
             Controls.Add(SettingPanel);
             Controls.Add(HistoryPanel);
-            Controls.Add(Appointment);
             Controls.Add(UserHome);
             Controls.Add(panel1);
             MinimumSize = new Size(792, 516);
@@ -1497,7 +1496,6 @@
         private Button LogoutBTN;
         private Label label37;
         private Label label31;
-        private Label PatientsIDLabel;
         private Button UserAddBalanceBTN;
         private Panel panel3;
         private Button ModifyInformation;
@@ -1544,5 +1542,6 @@
         private TextBox PatientDepositInput;
         private Panel SettingPanel;
         private Panel Setting;
+        private Label PatientsIDLabel;
     }
 }

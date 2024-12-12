@@ -107,7 +107,7 @@ namespace DBAces
         private void button2_Click(object sender, EventArgs e)
         {
             string sql = "UPDATE Appointments SET AppointmentStatus = @AppointmentStatus WHERE AppointmentID = @AppointmentID";
-            string sql2 = "UPDATE ub\r\nSET BALANCE = ISNULL(ub.BALANCE, 0) + a.Payment\r\nFROM UserBalance ub\r\nJOIN Users u ON u.UserID = ub.UserID\r\nJOIN Appointments a ON a.PatientID = u.UserID\r\nWHERE a.DoctorID = @DoctorID AND a.AppointmentID = @AppointmentID; ";
+            string sql2 = "UPDATE ub\r\nSET BALANCE = ISNULL(ub.BALANCE, 0) + a.Payment\r\nFROM DoctorBalance ub\r\nJOIN Users u ON u.UserID = ub.UserID\r\nJOIN Appointments a ON a.PatientID = u.UserID\r\nWHERE a.DoctorID = @DoctorID AND a.AppointmentID = @AppointmentID; ";
             try
             {
                 using (SqlConnection con = new SqlConnection(sqlcon))
