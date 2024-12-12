@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -34,9 +35,9 @@ namespace DBAces
 
         CalendarDisplayCurrentMonth dateventkey = new CalendarDisplayCurrentMonth();
         String sqlcon = "Data Source=.\\SQLEXPRESS;Initial Catalog=DBAces;Integrated Security=True;Trust Server Certificate=True";
-        int UserID, DoctorID;
+        int UserID, DoctorID, CostPerDoctors;
         string usersUsername;
-        string DoctorFirstname, DoctorLastname, UserPhoneNumber;
+        string DoctorFirstname, DoctorLastname, UserPhoneNumber, DSpecialization;
         string UserEmail;
         string FullName;
         public DoctorUI()
@@ -56,7 +57,7 @@ namespace DBAces
             toLoadPatientDiagnosis();
             DisplayUserInfo();
             checkUserBalance();
-            AccountUserIDsLabel.Text = DoctorID.ToString();
+
         }
 
         private void DisplayUserInfo()
@@ -73,6 +74,8 @@ namespace DBAces
             userLastname.Text = DoctorLastname.ToString();
             userPhone.Text = UserPhoneNumber.ToString();
             UsersEmailLabel.Text = UserEmail.ToString();
+            DoctorSpecialistLabel.Text = DSpecialization;
+            AccountUserIDsLabel.Text = UserID.ToString();
         }
         private void toLoadPanel(string s)
         {
@@ -121,7 +124,7 @@ namespace DBAces
                     PatientsPanel.Show();
                     break;
                 case "OnAppointment":
-           
+
                     PatientsPanel.Hide();
                     OnAppointmentPanel.Show();
                     break;
@@ -142,57 +145,57 @@ namespace DBAces
             //LoadPatientDiagnosis
             string sql = "SELECT p.PatientID,a.AppointmentID,p.FirstName,p.LastName,p.DateOfBirth,p.Gender,a.Issue FROM Patients p JOIN Appointments a ON p.PatientID = a.PatientID WHERE a.DoctorID =  @DoctorID AND A.AppointmentStatus = @AppointmentStatus; ";
             DoctorsPatient Dpatient = new DoctorsPatient();
-           
-                using (SqlConnection con = new SqlConnection(sqlcon))
+
+            using (SqlConnection con = new SqlConnection(sqlcon))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand(sql, con))
                 {
-                    con.Open();
-                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = DoctorID;
+                    cmd.Parameters.Add("@AppointmentStatus", SqlDbType.NVarChar).Value = "DIAGNOSE";
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = DoctorID;
-                        cmd.Parameters.Add("@AppointmentStatus", SqlDbType.NVarChar).Value = "DIAGNOSE";
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {                       //UserID = DoctorID
-                            Dpatient.toGetDatas(DoctorID, int.Parse(reader["PatientID"]?.ToString() ?? "0"), int.Parse(reader["AppointmentID"]?.ToString() ?? "0"), reader["FirstName"]?.ToString() ?? string.Empty, reader["LastName"]?.ToString() ?? string.Empty, reader["DateOfBirth"]?.ToString() ?? string.Empty, reader["Gender"]?.ToString() ?? string.Empty, reader["Issue"]?.ToString() ?? string.Empty);
+                        while (reader.Read())
+                        {                       //UserID = DoctorID
+                            Dpatient.toGetDatas(DoctorID, int.Parse(reader["PatientID"]?.ToString() ?? "0"), int.Parse(reader["AppointmentID"]?.ToString() ?? "0"), reader["FirstName"]?.ToString() ?? "NOT SET", reader["LastName"]?.ToString() ?? string.Empty, reader["DateOfBirth"]?.ToString() ?? "NOT SET", reader["Gender"]?.ToString() ?? "NOT SET", reader["Issue"]?.ToString() ?? "NOT SET");
                             Dpatient.toGetValueBTN("DIAGNOSE");
-                                LoadPatientDiagnosis.Controls.Add(Dpatient);
-                                Dpatient = new DoctorsPatient();
+                            LoadPatientDiagnosis.Controls.Add(Dpatient);
+                            Dpatient = new DoctorsPatient();
 
-                            }
                         }
-
                     }
 
-                    con.Close();
                 }
-                string sql1 = "SELECT a.AppointmentID,p. p.FirstName,p.LastName,p.DateOfBirth,p.Gender,a.Issue FROM Patients p JOIN Appointments a ON p.PatientID = a.PatientID WHERE a.DoctorID =  @DoctorID AND A.AppointmentStatus = @AppointmentStatus; ";
 
-                using (SqlConnection con = new SqlConnection(sqlcon))
+                con.Close();
+            }
+            string sql1 = "SELECT a.AppointmentID,p. p.FirstName,p.LastName,p.DateOfBirth,p.Gender,a.Issue FROM Patients p JOIN Appointments a ON p.PatientID = a.PatientID WHERE a.DoctorID =  @DoctorID AND A.AppointmentStatus = @AppointmentStatus; ";
+
+            using (SqlConnection con = new SqlConnection(sqlcon))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand(sql, con))
                 {
-                    con.Open();
-                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = DoctorID;
+                    cmd.Parameters.Add("@AppointmentStatus", SqlDbType.NVarChar).Value = "PENDING";
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = DoctorID;
-                        cmd.Parameters.Add("@AppointmentStatus", SqlDbType.NVarChar).Value = "PENDING";
-                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        while (reader.Read())
                         {
-                            while (reader.Read())
-                            {
                             Dpatient.toGetDatas(DoctorID, int.Parse(reader["PatientID"]?.ToString() ?? "0"), int.Parse(reader["AppointmentID"]?.ToString() ?? "0"), reader["FirstName"]?.ToString() ?? string.Empty, reader["LastName"]?.ToString() ?? string.Empty, reader["DateOfBirth"]?.ToString() ?? string.Empty, reader["Gender"]?.ToString() ?? string.Empty, reader["Issue"]?.ToString() ?? string.Empty);
                             Dpatient.toGetValueBTN("PENDING");
-                                GetAppointmentDoctor.Controls.Add(Dpatient);
-                                Dpatient = new DoctorsPatient();
+                            GetAppointmentDoctor.Controls.Add(Dpatient);
+                            Dpatient = new DoctorsPatient();
 
-                            }
                         }
-
                     }
 
-                    con.Close();
                 }
 
-            
+                con.Close();
+            }
+
+
         }
 
 
@@ -223,6 +226,8 @@ namespace DBAces
         {
             string sql = "SELECT DoctorID,FirstName,LastName,PhoneNum,Email FROM Doctors WHERE UserID = @UserID";
             string sql1 = "SELECT UserName FROM Users WHERE UserID = @UserID";
+            string sql2 = "SELECT Specialization,CostPerDoctor FROM DoctorSpecialization WHERE DoctorID = @DoctorID";
+
             using (SqlConnection con = new SqlConnection(sqlcon))
             {
                 con.Open();
@@ -234,10 +239,10 @@ namespace DBAces
                         if (reader.Read())
                         {
                             DoctorID = reader["DoctorID"] == DBNull.Value ? 0 : Convert.ToInt32(reader["DoctorID"]);
-                            DoctorFirstname = reader["FirstName"]?.ToString() ?? string.Empty;
-                            DoctorLastname = reader["LastName"]?.ToString() ?? string.Empty;
-                            UserPhoneNumber = reader["PhoneNum"]?.ToString() ?? string.Empty;
-                            UserEmail = reader["Email"]?.ToString() ?? string.Empty;
+                            DoctorFirstname = reader["FirstName"]?.ToString() ?? "NOT SET";
+                            DoctorLastname = reader["LastName"]?.ToString() ?? "NOT SET";
+                            UserPhoneNumber = reader["PhoneNum"]?.ToString() ?? "NOT SET";
+                            UserEmail = reader["Email"]?.ToString() ?? "NOT SET";
                         }
                     }
                 }
@@ -248,7 +253,19 @@ namespace DBAces
                     {
                         if (read.Read())
                         {
-                            usersUsername = read["UserName"].ToString() ?? string.Empty;
+                            usersUsername = read["UserName"].ToString() ?? "NOT SET";
+                        }
+                    }
+                }
+                using (SqlCommand cmd = new SqlCommand(sql2, con))
+                {
+                    cmd.Parameters.Add("@DoctorID",SqlDbType.Int).Value = DoctorID;
+                    using (SqlDataReader read = cmd.ExecuteReader())
+                    {
+                        if (read.Read())
+                        {
+                            DSpecialization = read["Specialization"].ToString() ?? "NOT SET";
+                            CostPerDoctors = read["CostPerDoctor"] == DBNull.Value ? 0 : Convert.ToInt32(read["CostPerDoctor"]);
                         }
                     }
                 }
@@ -568,6 +585,34 @@ namespace DBAces
 
         }
 
+        private bool ToFindUserNamesql(string username)
+        {
+            string sql = "SELECT Username FROM Users WHERE Username = @Username";
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(sqlcon))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@Username", username.Trim());
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            return !reader.HasRows;
+
+                        }
+                    }
+                    con.Close();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message);
+            }
+            return false;
+        }
         private void AccountSettingPanel(int s)
         {
             switch (s)
@@ -601,59 +646,101 @@ namespace DBAces
         }
         private void sqlname()
         {
-            string sql = "UPDATE Doctors SET FirstName = @FirstName ,LastName = @LastName WHERE UserID = @UserID";
-            try
+            if (!String.IsNullOrEmpty(UsernameInput.Text) && !String.IsNullOrEmpty(PasswordInput.Text))
             {
-                using (SqlConnection con = new SqlConnection(sqlcon))
+                if (ToFindUserNamesql(UsernameInput.Text))
                 {
-                    con.Open();
-                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    string sql = "UPDATE Doctors SET FirstName = @FirstName ,LastName = @LastName WHERE DoctorID = @DoctorID";
+                    try
                     {
-                        cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar).Value = firstnamebox.Text;
-                        cmd.Parameters.Add("@LastName", SqlDbType.NVarChar).Value = lastnamebox.Text;
-                        cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = DoctorID;
-                        cmd.ExecuteNonQuery();
+                        using (SqlConnection con = new SqlConnection(sqlcon))
+                        {
+                            con.Open();
+                            using (SqlCommand cmd = new SqlCommand(sql, con))
+                            {
+                                cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar).Value = firstnamebox.Text;
+                                cmd.Parameters.Add("@LastName", SqlDbType.NVarChar).Value = lastnamebox.Text;
+                                cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = DoctorID;
+                                cmd.ExecuteNonQuery();
+                            }
+                            con.Close();
+                            MessageBox.Show("User's Fullname have Updated");
+                        }
                     }
-                    con.Close();
-                    MessageBox.Show("User's Fullname have Updated");
+                    catch (Exception ee)
+                    {
+                        MessageBox.Show(ee.Message);
+                    }
+                }
+                else if (!ToFindUserNamesql(UsernameInput.Text))
+                {
+                    MessageBox.Show("Please input another username. The username is already taken.");
                 }
             }
-            catch (Exception ee)
+            else
             {
-                MessageBox.Show(ee.Message);
+                MessageBox.Show("Please input another username & Password");
             }
         }
         private void sqlphone()
         {
-            string sql = "UPDATE Doctors SET PhoneNum = @PhoneNum WHERE UserID = @UserID";
-            using (SqlConnection con = new SqlConnection(sqlcon))
+            string sql = "UPDATE Doctors SET PhoneNum = @PhoneNum WHERE DoctorID = @DoctorID";
+            if (!String.IsNullOrEmpty(UsernameInput.Text) && !String.IsNullOrEmpty(PasswordInput.Text))
             {
-                con.Open();
-                using (SqlCommand cmd = new SqlCommand(sql, con))
+                if (ToFindUserNamesql(UsernameInput.Text))
                 {
-                    cmd.Parameters.Add("@PhoneNum", SqlDbType.NVarChar).Value = PhoneNumberBox.Text;
-                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = DoctorID;
-                    cmd.ExecuteNonQuery();
+                    using (SqlConnection con = new SqlConnection(sqlcon))
+                    {
+                        con.Open();
+                        using (SqlCommand cmd = new SqlCommand(sql, con))
+                        {
+                            cmd.Parameters.Add("@PhoneNum", SqlDbType.NVarChar).Value = PhoneNumberBox.Text;
+                            cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = DoctorID;
+                            cmd.ExecuteNonQuery();
+                        }
+                        con.Close();
+                        MessageBox.Show("User's Phone Number have Updated");
+                    }
                 }
-                con.Close();
-                MessageBox.Show("User's Phone Number have Updated");
+                else if (!ToFindUserNamesql(UsernameInput.Text))
+                {
+                    MessageBox.Show("Please input another username. The username is already taken.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please input another username & Password");
             }
         }
 
         private void sqlemail()
         {
-            string sql = "UPDATE Doctors SET Email = @Email WHERE UserID = @UserID";
-            using (SqlConnection con = new SqlConnection(sqlcon))
+            string sql = "UPDATE Doctors SET Email = @Email WHERE DoctorID = @DoctorID";
+            if (!String.IsNullOrEmpty(UsernameInput.Text) && !String.IsNullOrEmpty(PasswordInput.Text))
             {
-                con.Open();
-                using (SqlCommand cmd = new SqlCommand(sql, con))
+                if (ToFindUserNamesql(UsernameInput.Text))
                 {
-                    cmd.Parameters.Add("@Email", SqlDbType.NVarChar).Value = EmailBox.Text;
-                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = DoctorID;
-                    cmd.ExecuteNonQuery();
+                    using (SqlConnection con = new SqlConnection(sqlcon))
+                    {
+                        con.Open();
+                        using (SqlCommand cmd = new SqlCommand(sql, con))
+                        {
+                            cmd.Parameters.Add("@Email", SqlDbType.NVarChar).Value = EmailBox.Text;
+                            cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = DoctorID;
+                            cmd.ExecuteNonQuery();
+                        }
+                        con.Close();
+                        MessageBox.Show("User's Email have Updated");
+                    }
                 }
-                con.Close();
-                MessageBox.Show("User's Email have Updated");
+                else if (!ToFindUserNamesql(UsernameInput.Text))
+                {
+                    MessageBox.Show("Please input another username. The username is already taken.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please input another username & Password");
             }
         }
         private void ChangeNameBTN_Click(object sender, EventArgs e)
@@ -700,12 +787,12 @@ namespace DBAces
                 using (SqlCommand cmd = new SqlCommand(sql, con))
                 {
                     cmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = PasswordInput.Text;
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = UserID;
                     cmd.ExecuteNonQuery();
                 }
                 con.Close();
                 MessageBox.Show("Users Password Changed");
             }
-            this.Close();
         }
         private void ChangeUsernameSQL()
         {
@@ -716,12 +803,12 @@ namespace DBAces
                 using (SqlCommand cmd = new SqlCommand(sql, con))
                 {
                     cmd.Parameters.Add("@Username", SqlDbType.NVarChar).Value = UsernameInput.Text;
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = UserID;
                     cmd.ExecuteNonQuery();
                 }
                 con.Close();
                 MessageBox.Show("Users Username Changed");
             }
-            this.Close();
         }
 
 
@@ -735,27 +822,29 @@ namespace DBAces
                 {
                     cmd.Parameters.Add("@Username", SqlDbType.NVarChar).Value = UsernameInput.Text;
                     cmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = PasswordInput.Text;
-                    cmd.Parameters.Add("@UserID", SqlDbType.NVarChar).Value = DoctorID;
+                    cmd.Parameters.Add("@UserID", SqlDbType.NVarChar).Value = UserID;
                     cmd.ExecuteNonQuery();
                 }
                 con.Close();
                 MessageBox.Show("Users Username & Password Changed");
             }
-            this.Close();
         }
         private void ModifyingAccountBTN_Click(object sender, EventArgs e)
         {
             if (UsernameInput.Text.Length > 0 && PasswordInput.Text.Length > 0)
             {
                 changeuserpass();
+                DisplayUserInfo();
             }
             else if (UsernameInput.Text.Length > 0 && PasswordInput.Text.Length == 0)
             {
                 ChangeUsernameSQL();
+                DisplayUserInfo();
             }
             else if (UsernameInput.Text.Length == 0 && PasswordInput.Text.Length > 0)
             {
                 ChangePasswordSQL();
+                DisplayUserInfo();
             }
         }
 
@@ -923,6 +1012,43 @@ namespace DBAces
             else
             {
                 MessageBox.Show("You Must Input Desired Number in the Deposit Box");
+            }
+        }
+
+        private void ModifyFeeBTN_Click(object sender, EventArgs e)
+        {
+            string sql = "UPDATE DoctorSpecialization SET CostPerDoctor = @CostPerDoctor WHERE DoctorID = @DoctorID";
+            try {
+                if (int.Parse(UpdateFeeBox.Text) > 1)
+                {
+                    using (SqlConnection con = new SqlConnection(sqlcon))
+                    {
+                        con.Open();
+                        using (SqlCommand cmd = new SqlCommand(sql, con))
+                        {
+                            cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = DoctorID;
+                            cmd.Parameters.Add("@CostPerDoctor", SqlDbType.Int).Value = int.Parse(UpdateFeeBox.Text);
+                        }
+                        con.Close();
+                    }
+                }
+                else {
+                    MessageBox.Show("Please set a value to the box. Thank you");
+                }
+            }catch(Exception ee) {
+                MessageBox.Show(ee.Message); 
+            }
+        }
+        private void UpdateFeeBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void UpdateFeeBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)8)
+            {
+                e.Handled = true; 
             }
         }
     }

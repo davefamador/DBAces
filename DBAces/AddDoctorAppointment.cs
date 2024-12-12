@@ -49,21 +49,21 @@ namespace DBAces
 
 
         //Afternoon
-        { checkBox20, "1:00 AM" },
-        { checkBox19, "2:00 AM" },
-        { checkBox18, "3:00 AM" },
-        { checkBox17, "4:00 AM" },
-        { checkBox16, "5:00 AM" },
-        { checkBox15, "1:30 AM" },
-        { checkBox14, "2:30 AM" },
-        { checkBox13, "3:30 AM" },
-        { checkBox12, "4:30 AM" },
-        { checkBox11, "5:30 AM" },
+        { checkBox20, "1:00 PM" },
+        { checkBox19, "2:00 PM" },
+        { checkBox18, "3:00 PM" },
+        { checkBox17, "4:00 PM" },
+        { checkBox16, "5:00 PM" },
+        { checkBox15, "1:30 PM" },
+        { checkBox14, "2:30 PM" },
+        { checkBox13, "3:30 PM" },
+        { checkBox12, "4:30 PM" },
+        { checkBox11, "5:30 PM" },
 
         //Afternooon
-        { checkBox24, "6:00 AM" },
-        { checkBox23, "6:30 AM" },
-        { checkBox22, "7:00 AM" },
+        { checkBox24, "6:00 PM" },
+        { checkBox23, "6:30 PM" },
+        { checkBox22, "7:00 PM" },
         { checkBox21, "7:30 PM" },
         { checkBox25, "8:00 PM" },
         { SpecificTime, SpecificTimeTEXTBOX.Text}

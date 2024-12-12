@@ -171,20 +171,53 @@ namespace DBAces
 
 
         // [ ADD DOCTOR PANEL ] = = = = = = = = == = = [ ENTRY ] = = = = = = = = 
+        private bool ToFindUserNamesql(string username)
+        {
+            string sql = "SELECT Username FROM Users WHERE Username = @Username";
+
+            try
+            {
+
+                using (SqlConnection con = new SqlConnection(sqlcon))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@Username", username.Trim());
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            return !reader.HasRows;
+
+                        }
+                    }
+                    con.Close();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message);
+            }
+            return false;
+        }
 
 
         private void ToCreateDoctor()
         {
+            string userName = DoctorUserNameTextbox.Text.ToString();
+            string passWord = DoctorPasswordTextBox.Text.ToString();
+            if (ToFindUserNamesql(userName)) {
+                MessageBox.Show("Username has taken");
+                return;
+            }
             string sql = "INSERT INTO Users (Username, Password, Role) OUTPUT INSERTED.UserID VALUES (@Username, @Password, @Role)";
             string sql1 = "INSERT INTO Doctors (UserID, FirstName, LastName) OUTPUT INSERTED.DoctorID VALUES (@UserID, @FirstName, @LastName)";
-            string sql2 = "INSERT INTO DoctorSpecialization (DoctorID, Specialization) VALUES (@DoctorID, @Specialization)";
-            string sql3 = "INSERT INTO UserBalance (UserID, Balance) VALUES (@UserID, @Balance)";
-
+            string sql2 = "INSERT INTO DoctorSpecialization (DoctorID, Specialization,CostPerDoctor) VALUES (@DoctorID, @Specialization,@CostPerDoctor)";
+            string sql3 = "INSERT INTO DoctorBalance (DoctorID, TotalAmount) VALUES (@UserID, @TotalAmount)";
 
             int newUserID = 0;
             int newDoctorID = 0;
-            string userName = DoctorUserNameTextbox.Text.ToString();
-            string passWord = DoctorPasswordTextBox.Text.ToString();
+
             using (SqlConnection con = new SqlConnection(sqlcon))
             {
 
@@ -206,12 +239,14 @@ namespace DBAces
                         cmd.Parameters.Add("@LastName", SqlDbType.NVarChar).Value = DoctorLastNameTextBox.Text;
                         newDoctorID = (int)cmd.ExecuteScalar();
                         MessageBox.Show("New DoctorID: " + newDoctorID);
-
                     }
+
+
                     using (SqlCommand cmd = new SqlCommand(sql2, con))
                     {
                         cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = newDoctorID;
                         cmd.Parameters.Add("@Specialization", SqlDbType.NVarChar).Value = SpecializationTextBox.Text;
+                        cmd.Parameters.Add("@CostPerDoctor", SqlDbType.Int).Value = 0;
                         cmd.ExecuteNonQuery();
                     }
                     using (SqlCommand cmd = new SqlCommand(sql3, con))

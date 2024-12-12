@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Label FeeLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DoctorUI));
             Appointment = new Panel();
             NextCalendarBtn = new Button();
@@ -41,14 +42,15 @@
             HistorySalePanelBTN = new Button();
             AppointmentBTN = new Button();
             Setting = new Panel();
-            AddBalancePanel = new Panel();
-            AddBalanceWithdrawalBTN = new Button();
-            label18 = new Label();
-            PatientWithdrawalInput = new TextBox();
-            AddBalanceDepositBTN = new Button();
-            label19 = new Label();
-            PatientDepositInput = new TextBox();
             SettingPanel = new Panel();
+            panel4 = new Panel();
+            label21 = new Label();
+            UpdateFeeBox = new TextBox();
+            label23 = new Label();
+            ModifyFeeBTN = new Button();
+            label20 = new Label();
+            DoctorSpecialistLabel = new Label();
+            label22 = new Label();
             panel3 = new Panel();
             button1 = new Button();
             DoctorBalance = new Label();
@@ -70,6 +72,12 @@
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
+            ModifyAccount = new Panel();
+            ModifyingAccountBTN = new Button();
+            label16 = new Label();
+            label15 = new Label();
+            PasswordInput = new TextBox();
+            UsernameInput = new TextBox();
             ModifyBackground = new Panel();
             lastnamebox = new TextBox();
             firstnamebox = new TextBox();
@@ -82,12 +90,13 @@
             label13 = new Label();
             label12 = new Label();
             label11 = new Label();
-            ModifyAccount = new Panel();
-            ModifyingAccountBTN = new Button();
-            label16 = new Label();
-            label15 = new Label();
-            PasswordInput = new TextBox();
-            UsernameInput = new TextBox();
+            AddBalancePanel = new Panel();
+            AddBalanceWithdrawalBTN = new Button();
+            label18 = new Label();
+            PatientWithdrawalInput = new TextBox();
+            AddBalanceDepositBTN = new Button();
+            label19 = new Label();
+            PatientDepositInput = new TextBox();
             label6 = new Label();
             Dashboard = new Panel();
             DashboardPatient = new Panel();
@@ -100,16 +109,18 @@
             DiagnosPatient = new Button();
             HistorySale = new Panel();
             label5 = new Label();
+            FeeLabel = new Label();
             Appointment.SuspendLayout();
             Top_Bar.SuspendLayout();
             Setting.SuspendLayout();
-            AddBalancePanel.SuspendLayout();
             SettingPanel.SuspendLayout();
+            panel4.SuspendLayout();
             panel3.SuspendLayout();
             panel2.SuspendLayout();
             panel1.SuspendLayout();
-            ModifyBackground.SuspendLayout();
             ModifyAccount.SuspendLayout();
+            ModifyBackground.SuspendLayout();
+            AddBalancePanel.SuspendLayout();
             Dashboard.SuspendLayout();
             DashboardPatient.SuspendLayout();
             PatientsPanel.SuspendLayout();
@@ -117,6 +128,16 @@
             DashboardTopBar.SuspendLayout();
             HistorySale.SuspendLayout();
             SuspendLayout();
+            // 
+            // FeeLabel
+            // 
+            FeeLabel.AutoSize = true;
+            FeeLabel.Font = new Font("Segoe UI", 15F);
+            FeeLabel.Location = new Point(252, 40);
+            FeeLabel.Name = "FeeLabel";
+            FeeLabel.Size = new Size(88, 28);
+            FeeLabel.TabIndex = 6;
+            FeeLabel.Text = "FeeLabel";
             // 
             // Appointment
             // 
@@ -261,9 +282,10 @@
             // 
             // Setting
             // 
-            Setting.Controls.Add(SettingPanel);
-            Setting.Controls.Add(AddBalancePanel);
             Setting.Controls.Add(ModifyAccount);
+            Setting.Controls.Add(SettingPanel);
+            Setting.Controls.Add(ModifyBackground);
+            Setting.Controls.Add(AddBalancePanel);
             Setting.Controls.Add(label6);
             Setting.Dock = DockStyle.Fill;
             Setting.Location = new Point(0, 75);
@@ -271,87 +293,10 @@
             Setting.Size = new Size(778, 556);
             Setting.TabIndex = 13;
             // 
-            // AddBalancePanel
-            // 
-            AddBalancePanel.BackColor = Color.FromArgb(192, 255, 192);
-            AddBalancePanel.Controls.Add(AddBalanceWithdrawalBTN);
-            AddBalancePanel.Controls.Add(label18);
-            AddBalancePanel.Controls.Add(PatientWithdrawalInput);
-            AddBalancePanel.Controls.Add(AddBalanceDepositBTN);
-            AddBalancePanel.Controls.Add(label19);
-            AddBalancePanel.Controls.Add(PatientDepositInput);
-            AddBalancePanel.Dock = DockStyle.Fill;
-            AddBalancePanel.Location = new Point(0, 0);
-            AddBalancePanel.Name = "AddBalancePanel";
-            AddBalancePanel.Size = new Size(778, 556);
-            AddBalancePanel.TabIndex = 12;
-            // 
-            // AddBalanceWithdrawalBTN
-            // 
-            AddBalanceWithdrawalBTN.Location = new Point(574, 276);
-            AddBalanceWithdrawalBTN.Name = "AddBalanceWithdrawalBTN";
-            AddBalanceWithdrawalBTN.Size = new Size(176, 63);
-            AddBalanceWithdrawalBTN.TabIndex = 6;
-            AddBalanceWithdrawalBTN.Text = "Confirm Withdrawal";
-            AddBalanceWithdrawalBTN.UseVisualStyleBackColor = true;
-            AddBalanceWithdrawalBTN.Click += AddBalanceWithdrawalBTN_Click_1;
-            // 
-            // label18
-            // 
-            label18.AutoSize = true;
-            label18.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label18.Location = new Point(45, 241);
-            label18.Name = "label18";
-            label18.Size = new Size(186, 37);
-            label18.TabIndex = 5;
-            label18.Text = "WIDTHRWAL";
-            // 
-            // PatientWithdrawalInput
-            // 
-            PatientWithdrawalInput.BackColor = Color.White;
-            PatientWithdrawalInput.BorderStyle = BorderStyle.FixedSingle;
-            PatientWithdrawalInput.Font = new Font("Segoe UI", 14F);
-            PatientWithdrawalInput.ForeColor = Color.Black;
-            PatientWithdrawalInput.Location = new Point(73, 290);
-            PatientWithdrawalInput.Name = "PatientWithdrawalInput";
-            PatientWithdrawalInput.Size = new Size(318, 32);
-            PatientWithdrawalInput.TabIndex = 4;
-            // 
-            // AddBalanceDepositBTN
-            // 
-            AddBalanceDepositBTN.Location = new Point(575, 115);
-            AddBalanceDepositBTN.Name = "AddBalanceDepositBTN";
-            AddBalanceDepositBTN.Size = new Size(176, 63);
-            AddBalanceDepositBTN.TabIndex = 2;
-            AddBalanceDepositBTN.Text = "Confirm Deposit";
-            AddBalanceDepositBTN.UseVisualStyleBackColor = true;
-            AddBalanceDepositBTN.Click += AddBalanceDepositBTN_Click;
-            // 
-            // label19
-            // 
-            label19.AutoSize = true;
-            label19.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label19.Location = new Point(45, 95);
-            label19.Name = "label19";
-            label19.Size = new Size(128, 37);
-            label19.TabIndex = 1;
-            label19.Text = "DEPOSIT";
-            // 
-            // PatientDepositInput
-            // 
-            PatientDepositInput.BackColor = Color.White;
-            PatientDepositInput.BorderStyle = BorderStyle.FixedSingle;
-            PatientDepositInput.Font = new Font("Segoe UI", 14F);
-            PatientDepositInput.ForeColor = Color.Black;
-            PatientDepositInput.Location = new Point(73, 135);
-            PatientDepositInput.Name = "PatientDepositInput";
-            PatientDepositInput.Size = new Size(318, 32);
-            PatientDepositInput.TabIndex = 0;
-            // 
             // SettingPanel
             // 
             SettingPanel.BackColor = Color.FromArgb(192, 255, 192);
-            SettingPanel.Controls.Add(ModifyBackground);
+            SettingPanel.Controls.Add(panel4);
             SettingPanel.Controls.Add(panel3);
             SettingPanel.Controls.Add(AccountUserIDsLabel);
             SettingPanel.Controls.Add(panel2);
@@ -361,6 +306,92 @@
             SettingPanel.Name = "SettingPanel";
             SettingPanel.Size = new Size(778, 556);
             SettingPanel.TabIndex = 0;
+            // 
+            // panel4
+            // 
+            panel4.BackColor = Color.DarkSeaGreen;
+            panel4.Controls.Add(label21);
+            panel4.Controls.Add(UpdateFeeBox);
+            panel4.Controls.Add(label23);
+            panel4.Controls.Add(FeeLabel);
+            panel4.Controls.Add(ModifyFeeBTN);
+            panel4.Controls.Add(label20);
+            panel4.Controls.Add(DoctorSpecialistLabel);
+            panel4.Controls.Add(label22);
+            panel4.Location = new Point(29, 417);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(739, 99);
+            panel4.TabIndex = 9;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            label21.Location = new Point(404, 23);
+            label21.Name = "label21";
+            label21.Size = new Size(88, 17);
+            label21.TabIndex = 9;
+            label21.Text = "SET NEW FEE";
+            // 
+            // UpdateFeeBox
+            // 
+            UpdateFeeBox.Location = new Point(385, 43);
+            UpdateFeeBox.Name = "UpdateFeeBox";
+            UpdateFeeBox.Size = new Size(132, 23);
+            UpdateFeeBox.TabIndex = 8;
+            UpdateFeeBox.TextChanged += UpdateFeeBox_TextChanged;
+            UpdateFeeBox.KeyPress += UpdateFeeBox_KeyPress;
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold);
+            label23.Location = new Point(273, 10);
+            label23.Name = "label23";
+            label23.Size = new Size(46, 30);
+            label23.TabIndex = 7;
+            label23.Text = "FEE";
+            // 
+            // ModifyFeeBTN
+            // 
+            ModifyFeeBTN.BackColor = Color.FromArgb(192, 255, 192);
+            ModifyFeeBTN.Location = new Point(527, 36);
+            ModifyFeeBTN.Name = "ModifyFeeBTN";
+            ModifyFeeBTN.Size = new Size(94, 30);
+            ModifyFeeBTN.TabIndex = 5;
+            ModifyFeeBTN.Text = "UPDATE FEE";
+            ModifyFeeBTN.UseVisualStyleBackColor = false;
+            ModifyFeeBTN.Click += ModifyFeeBTN_Click;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label20.Location = new Point(14, 10);
+            label20.Name = "label20";
+            label20.Size = new Size(101, 30);
+            label20.TabIndex = 4;
+            label20.Text = "Specialist";
+            // 
+            // DoctorSpecialistLabel
+            // 
+            DoctorSpecialistLabel.AutoSize = true;
+            DoctorSpecialistLabel.Font = new Font("Segoe UI", 15F);
+            DoctorSpecialistLabel.Location = new Point(62, 40);
+            DoctorSpecialistLabel.Name = "DoctorSpecialistLabel";
+            DoctorSpecialistLabel.Size = new Size(140, 28);
+            DoctorSpecialistLabel.TabIndex = 2;
+            DoctorSpecialistLabel.Text = "SpecialistLabel";
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Font = new Font("Segoe UI", 12F);
+            label22.Location = new Point(14, 113);
+            label22.Name = "label22";
+            label22.Size = new Size(59, 21);
+            label22.TabIndex = 3;
+            label22.Text = "*******";
             // 
             // panel3
             // 
@@ -427,9 +458,9 @@
             panel2.Controls.Add(label4);
             panel2.Controls.Add(label7);
             panel2.Controls.Add(label8);
-            panel2.Location = new Point(363, 179);
+            panel2.Location = new Point(352, 159);
             panel2.Name = "panel2";
-            panel2.Size = new Size(388, 282);
+            panel2.Size = new Size(388, 252);
             panel2.TabIndex = 6;
             // 
             // UsersEmailLabel
@@ -541,7 +572,7 @@
             panel1.Controls.Add(label3);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(label1);
-            panel1.Location = new Point(51, 179);
+            panel1.Location = new Point(54, 170);
             panel1.Name = "panel1";
             panel1.Size = new Size(281, 217);
             panel1.TabIndex = 4;
@@ -586,6 +617,66 @@
             label1.Size = new Size(59, 21);
             label1.TabIndex = 3;
             label1.Text = "*******";
+            // 
+            // ModifyAccount
+            // 
+            ModifyAccount.BackColor = Color.FromArgb(192, 255, 192);
+            ModifyAccount.Controls.Add(ModifyingAccountBTN);
+            ModifyAccount.Controls.Add(label16);
+            ModifyAccount.Controls.Add(label15);
+            ModifyAccount.Controls.Add(PasswordInput);
+            ModifyAccount.Controls.Add(UsernameInput);
+            ModifyAccount.Dock = DockStyle.Fill;
+            ModifyAccount.Location = new Point(0, 0);
+            ModifyAccount.Name = "ModifyAccount";
+            ModifyAccount.Size = new Size(778, 556);
+            ModifyAccount.TabIndex = 5;
+            // 
+            // ModifyingAccountBTN
+            // 
+            ModifyingAccountBTN.Location = new Point(114, 254);
+            ModifyingAccountBTN.Name = "ModifyingAccountBTN";
+            ModifyingAccountBTN.Size = new Size(507, 97);
+            ModifyingAccountBTN.TabIndex = 32;
+            ModifyingAccountBTN.Text = "Modify";
+            ModifyingAccountBTN.UseVisualStyleBackColor = true;
+            ModifyingAccountBTN.Click += ModifyingAccountBTN_Click;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label16.Location = new Point(54, 144);
+            label16.Name = "label16";
+            label16.Size = new Size(163, 45);
+            label16.TabIndex = 31;
+            label16.Text = "Password";
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
+            label15.Location = new Point(49, 53);
+            label15.Name = "label15";
+            label15.Size = new Size(169, 45);
+            label15.TabIndex = 30;
+            label15.Text = "Username";
+            // 
+            // PasswordInput
+            // 
+            PasswordInput.Font = new Font("Segoe UI", 17F);
+            PasswordInput.Location = new Point(258, 150);
+            PasswordInput.Name = "PasswordInput";
+            PasswordInput.Size = new Size(324, 38);
+            PasswordInput.TabIndex = 29;
+            // 
+            // UsernameInput
+            // 
+            UsernameInput.Font = new Font("Segoe UI", 17F);
+            UsernameInput.Location = new Point(263, 60);
+            UsernameInput.Name = "UsernameInput";
+            UsernameInput.Size = new Size(387, 38);
+            UsernameInput.TabIndex = 28;
             // 
             // ModifyBackground
             // 
@@ -706,65 +797,82 @@
             label11.TabIndex = 12;
             label11.Text = "Email";
             // 
-            // ModifyAccount
+            // AddBalancePanel
             // 
-            ModifyAccount.BackColor = Color.FromArgb(192, 255, 192);
-            ModifyAccount.Controls.Add(ModifyingAccountBTN);
-            ModifyAccount.Controls.Add(label16);
-            ModifyAccount.Controls.Add(label15);
-            ModifyAccount.Controls.Add(PasswordInput);
-            ModifyAccount.Controls.Add(UsernameInput);
-            ModifyAccount.Dock = DockStyle.Fill;
-            ModifyAccount.Location = new Point(0, 0);
-            ModifyAccount.Name = "ModifyAccount";
-            ModifyAccount.Size = new Size(778, 556);
-            ModifyAccount.TabIndex = 5;
+            AddBalancePanel.BackColor = Color.FromArgb(192, 255, 192);
+            AddBalancePanel.Controls.Add(AddBalanceWithdrawalBTN);
+            AddBalancePanel.Controls.Add(label18);
+            AddBalancePanel.Controls.Add(PatientWithdrawalInput);
+            AddBalancePanel.Controls.Add(AddBalanceDepositBTN);
+            AddBalancePanel.Controls.Add(label19);
+            AddBalancePanel.Controls.Add(PatientDepositInput);
+            AddBalancePanel.Dock = DockStyle.Fill;
+            AddBalancePanel.Location = new Point(0, 0);
+            AddBalancePanel.Name = "AddBalancePanel";
+            AddBalancePanel.Size = new Size(778, 556);
+            AddBalancePanel.TabIndex = 12;
             // 
-            // ModifyingAccountBTN
+            // AddBalanceWithdrawalBTN
             // 
-            ModifyingAccountBTN.Location = new Point(114, 254);
-            ModifyingAccountBTN.Name = "ModifyingAccountBTN";
-            ModifyingAccountBTN.Size = new Size(507, 97);
-            ModifyingAccountBTN.TabIndex = 32;
-            ModifyingAccountBTN.Text = "Modify";
-            ModifyingAccountBTN.UseVisualStyleBackColor = true;
-            ModifyingAccountBTN.Click += ModifyingAccountBTN_Click;
+            AddBalanceWithdrawalBTN.Location = new Point(574, 276);
+            AddBalanceWithdrawalBTN.Name = "AddBalanceWithdrawalBTN";
+            AddBalanceWithdrawalBTN.Size = new Size(176, 63);
+            AddBalanceWithdrawalBTN.TabIndex = 6;
+            AddBalanceWithdrawalBTN.Text = "Confirm Withdrawal";
+            AddBalanceWithdrawalBTN.UseVisualStyleBackColor = true;
+            AddBalanceWithdrawalBTN.Click += AddBalanceWithdrawalBTN_Click_1;
             // 
-            // label16
+            // label18
             // 
-            label16.AutoSize = true;
-            label16.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label16.Location = new Point(54, 144);
-            label16.Name = "label16";
-            label16.Size = new Size(163, 45);
-            label16.TabIndex = 31;
-            label16.Text = "Password";
+            label18.AutoSize = true;
+            label18.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label18.Location = new Point(45, 241);
+            label18.Name = "label18";
+            label18.Size = new Size(186, 37);
+            label18.TabIndex = 5;
+            label18.Text = "WIDTHRWAL";
             // 
-            // label15
+            // PatientWithdrawalInput
             // 
-            label15.AutoSize = true;
-            label15.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
-            label15.Location = new Point(49, 53);
-            label15.Name = "label15";
-            label15.Size = new Size(169, 45);
-            label15.TabIndex = 30;
-            label15.Text = "Username";
+            PatientWithdrawalInput.BackColor = Color.White;
+            PatientWithdrawalInput.BorderStyle = BorderStyle.FixedSingle;
+            PatientWithdrawalInput.Font = new Font("Segoe UI", 14F);
+            PatientWithdrawalInput.ForeColor = Color.Black;
+            PatientWithdrawalInput.Location = new Point(73, 290);
+            PatientWithdrawalInput.Name = "PatientWithdrawalInput";
+            PatientWithdrawalInput.Size = new Size(318, 32);
+            PatientWithdrawalInput.TabIndex = 4;
             // 
-            // PasswordInput
+            // AddBalanceDepositBTN
             // 
-            PasswordInput.Font = new Font("Segoe UI", 17F);
-            PasswordInput.Location = new Point(258, 150);
-            PasswordInput.Name = "PasswordInput";
-            PasswordInput.Size = new Size(324, 38);
-            PasswordInput.TabIndex = 29;
+            AddBalanceDepositBTN.Location = new Point(575, 115);
+            AddBalanceDepositBTN.Name = "AddBalanceDepositBTN";
+            AddBalanceDepositBTN.Size = new Size(176, 63);
+            AddBalanceDepositBTN.TabIndex = 2;
+            AddBalanceDepositBTN.Text = "Confirm Deposit";
+            AddBalanceDepositBTN.UseVisualStyleBackColor = true;
+            AddBalanceDepositBTN.Click += AddBalanceDepositBTN_Click;
             // 
-            // UsernameInput
+            // label19
             // 
-            UsernameInput.Font = new Font("Segoe UI", 17F);
-            UsernameInput.Location = new Point(263, 60);
-            UsernameInput.Name = "UsernameInput";
-            UsernameInput.Size = new Size(387, 38);
-            UsernameInput.TabIndex = 28;
+            label19.AutoSize = true;
+            label19.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label19.Location = new Point(45, 95);
+            label19.Name = "label19";
+            label19.Size = new Size(128, 37);
+            label19.TabIndex = 1;
+            label19.Text = "DEPOSIT";
+            // 
+            // PatientDepositInput
+            // 
+            PatientDepositInput.BackColor = Color.White;
+            PatientDepositInput.BorderStyle = BorderStyle.FixedSingle;
+            PatientDepositInput.Font = new Font("Segoe UI", 14F);
+            PatientDepositInput.ForeColor = Color.Black;
+            PatientDepositInput.Location = new Point(73, 135);
+            PatientDepositInput.Name = "PatientDepositInput";
+            PatientDepositInput.Size = new Size(318, 32);
+            PatientDepositInput.TabIndex = 0;
             // 
             // label6
             // 
@@ -909,20 +1017,22 @@
             Top_Bar.ResumeLayout(false);
             Setting.ResumeLayout(false);
             Setting.PerformLayout();
-            AddBalancePanel.ResumeLayout(false);
-            AddBalancePanel.PerformLayout();
             SettingPanel.ResumeLayout(false);
             SettingPanel.PerformLayout();
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            ModifyBackground.ResumeLayout(false);
-            ModifyBackground.PerformLayout();
             ModifyAccount.ResumeLayout(false);
             ModifyAccount.PerformLayout();
+            ModifyBackground.ResumeLayout(false);
+            ModifyBackground.PerformLayout();
+            AddBalancePanel.ResumeLayout(false);
+            AddBalancePanel.PerformLayout();
             Dashboard.ResumeLayout(false);
             DashboardPatient.ResumeLayout(false);
             PatientsPanel.ResumeLayout(false);
@@ -1034,5 +1144,14 @@
         private Label label19;
         private TextBox PatientDepositInput;
         private Panel PatientsPanel;
+        private Panel panel4;
+        private Label FeeLabel;
+        private Button ModifyFeeBTN;
+        private Label label20;
+        private Label DoctorSpecialistLabel;
+        private Label label22;
+        private Label label23;
+        private Label label21;
+        private TextBox UpdateFeeBox;
     }
 }

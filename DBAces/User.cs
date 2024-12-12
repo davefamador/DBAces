@@ -65,8 +65,8 @@ namespace DBAces
             ToLoadInformation(); toLoadComboBoxes(); toLoadAppointment(); checkAppointment();
             PatientsIDLabel.Text = UsersID.ToString(); checkUserBalance(); UserInformationBarrier();
         }
-        private void UserInformationBarrier(){
-            
+        private void UserInformationBarrier() {
+
         }
         private void toLoadAppointment()
         {
@@ -193,10 +193,10 @@ namespace DBAces
                             if (reader.Read())
                             {
                                 patientID = reader["PatientID"] == DBNull.Value ? 0 : int.Parse(reader["PatientID"].ToString());
-                                Firstname = reader["FirstName"] == DBNull.Value ? "" : reader["FirstName"].ToString();
-                                Lastname = reader["LastName"] == DBNull.Value ? "" : reader["LastName"].ToString();
+                                Firstname = reader["FirstName"] == DBNull.Value ? "NOT SET" : reader["FirstName"].ToString();
+                                Lastname = reader["LastName"] == DBNull.Value ? "NOT SET" : reader["LastName"].ToString();
                                 DateOfBirth = reader["DateOfBirth"] == DBNull.Value ? DateOnly.MinValue : DateOnly.FromDateTime((DateTime)reader["DateOfBirth"]);
-                                Gender = reader["Gender"] == DBNull.Value ? "" : reader["Gender"].ToString();
+                                Gender = reader["Gender"] == DBNull.Value ? "NOT SET" : reader["Gender"].ToString();
 
                             }
 
@@ -634,6 +634,7 @@ namespace DBAces
                         cmd.ExecuteNonQuery();
                     }
                     con.Close();
+                    checkUserBalance();
                     MessageBox.Show("Your Request have been moved");
                 }
             }
@@ -692,52 +693,131 @@ namespace DBAces
         private void ChangePasswordSQL()
         {
             string sql = "UPDATE Patients SET Password = @Password WHERE UserID = @UserID";
-            using (SqlConnection con = new SqlConnection(sqlcon))
+
+            if (!String.IsNullOrEmpty(UsernameInput.Text) && !String.IsNullOrEmpty(PasswordInput.Text))
             {
-                con.Open();
-                using (SqlCommand cmd = new SqlCommand(sql, con))
+                if (ToFindUserNamesql(UsernameInput.Text))
                 {
-                    cmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = PasswordInput.Text;
-                    cmd.Parameters.Add("@UserID", SqlDbType.NVarChar).Value = UsersID;
-                    cmd.ExecuteNonQuery();
+                    using (SqlConnection con = new SqlConnection(sqlcon))
+                    {
+                        con.Open();
+                        using (SqlCommand cmd = new SqlCommand(sql, con))
+                        {
+                            cmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = PasswordInput.Text;
+                            cmd.Parameters.Add("@UserID", SqlDbType.NVarChar).Value = UsersID;
+                            cmd.ExecuteNonQuery();
+                        }
+                        con.Close();
+                        MessageBox.Show("Users Password Changed");
+                        toLoadPanels("UserSetting_Panel");
+                    }
                 }
-                con.Close();
-                MessageBox.Show("Users Password Changed");
+                else if (!ToFindUserNamesql(UsernameInput.Text))
+                {
+                    MessageBox.Show("Please input another username. The username is already taken.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please input another username & Password");
             }
         }
+
+        private bool ToFindUserNamesql(string username)
+        {
+            string sql = "SELECT Username FROM Users WHERE Username = @Username";
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(sqlcon))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@Username", username.Trim());
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            return !reader.HasRows;
+               
+                        }
+                    }
+                    con.Close();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message);
+            }
+            return false;
+        }
+
         private void ChangeUsernameSQL()
         {
-            string sql = "UPDATE Patients SET Username = @Username WHERE UserID = @UserID";
-            using (SqlConnection con = new SqlConnection(sqlcon))
+            if (!String.IsNullOrEmpty(UsernameInput.Text) && !String.IsNullOrEmpty(PasswordInput.Text))
             {
-                con.Open();
-                using (SqlCommand cmd = new SqlCommand(sql, con))
+                if (ToFindUserNamesql(UsernameInput.Text))
                 {
-                    cmd.Parameters.Add("@Username", SqlDbType.NVarChar).Value = UsernameInput.Text;
-                    cmd.Parameters.Add("@UserID", SqlDbType.NVarChar).Value = UsersID;
-                    cmd.ExecuteNonQuery();
+                    string sql = "UPDATE Patients SET Username = @Username WHERE UserID = @UserID";
+                    using (SqlConnection con = new SqlConnection(sqlcon))
+                    {
+                        con.Open();
+                        using (SqlCommand cmd = new SqlCommand(sql, con))
+                        {
+                            cmd.Parameters.Add("@Username", SqlDbType.NVarChar).Value = UsernameInput.Text;
+                            cmd.Parameters.Add("@UserID", SqlDbType.NVarChar).Value = UsersID;
+                            cmd.ExecuteNonQuery();
+                        }
+                        con.Close();
+                        MessageBox.Show("Users Username Changed");
+                        toLoadPanels("UserSetting_Panel");
+                    }
                 }
-                con.Close();
-                MessageBox.Show("Users Username Changed");
+                else if (!ToFindUserNamesql(UsernameInput.Text))
+                {
+                    MessageBox.Show("Please input another username. The username is already taken.");
+                }
             }
+            else
+            {
+                MessageBox.Show("Please input another username & Password");
+            }
+
         }
+    
+
 
 
         private void changeuserpass()
         {
-            string sql = "UPDATE Patients SET Username = @Username, Password = @Password WHERE UserID = @UserID";
-            using (SqlConnection con = new SqlConnection(sqlcon))
+            string sql = "UPDATE Users SET Username = @Username, Password = @Password WHERE UserID = @UserID";
+            if (!String.IsNullOrEmpty(UsernameInput.Text) && !String.IsNullOrEmpty(PasswordInput.Text))
             {
-                con.Open();
-                using (SqlCommand cmd = new SqlCommand(sql, con))
+                if (ToFindUserNamesql(UsernameInput.Text))
                 {
-                    cmd.Parameters.Add("@Username", SqlDbType.NVarChar).Value = UsernameInput.Text;
-                    cmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = PasswordInput.Text;
-                    cmd.Parameters.Add("@UserID", SqlDbType.NVarChar).Value = UsersID;
-                    cmd.ExecuteNonQuery();
+                    using (SqlConnection con = new SqlConnection(sqlcon))
+                    {
+                        con.Open();
+                        using (SqlCommand cmd = new SqlCommand(sql, con))
+                        {
+                            cmd.Parameters.Add("@Username", SqlDbType.NVarChar).Value = UsernameInput.Text;
+                            cmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = PasswordInput.Text;
+                            cmd.Parameters.Add("@UserID", SqlDbType.NVarChar).Value = UsersID;
+                            cmd.ExecuteNonQuery();
+                        }
+                        con.Close();
+                        MessageBox.Show("Users Username & Password Changed");
+                        toLoadPanels("UserSetting_Panel");
+                    }
                 }
-                con.Close();
-                MessageBox.Show("Users Username & Password Changed");
+                else if (!ToFindUserNamesql(UsernameInput.Text))
+                {
+                    MessageBox.Show("Please input another username. The username is already taken.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please input another username & Password");
             }
         }
 
@@ -818,10 +898,12 @@ namespace DBAces
             {
                 case 1:
                     UserBackground.Hide();
+                    SettingPanel.Hide();
                     ModifyAccount.Show();
                     break;
                 case 2:
                     ModifyAccount.Hide();
+                    SettingPanel.Hide();
                     UserBackground.Show();
 
                     break;
@@ -840,14 +922,17 @@ namespace DBAces
             if (UsernameInput.Text.Length > 0 && PasswordInput.Text.Length > 0)
             {
                 changeuserpass();
+                toLoadUserDatas();
             }
             else if (UsernameInput.Text.Length > 0 && PasswordInput.Text.Length == 0)
             {
                 ChangeUsernameSQL();
+                toLoadUserDatas();
             }
             else if (UsernameInput.Text.Length == 0 && PasswordInput.Text.Length > 0)
             {
                 ChangePasswordSQL();
+                toLoadUserDatas();
             }
         }
 
@@ -931,7 +1016,6 @@ namespace DBAces
                 MessageBox.Show("Please input your name. Thank you");
             }
         }
-
         private void ChangeEmailBTN_Click(object sender, EventArgs e)
         {
             comboBox1.SelectedItem.ToString();
