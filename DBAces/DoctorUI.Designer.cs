@@ -43,6 +43,7 @@
             AppointmentBTN = new Button();
             Setting = new Panel();
             SettingPanel = new Panel();
+            label24 = new Label();
             panel4 = new Panel();
             label21 = new Label();
             UpdateFeeBox = new TextBox();
@@ -108,6 +109,7 @@
             OnAppointmentDashboard = new Button();
             DiagnosPatient = new Button();
             HistorySale = new Panel();
+            DoctorHistoryFlowPanel = new FlowLayoutPanel();
             label5 = new Label();
             FeeLabel = new Label();
             Appointment.SuspendLayout();
@@ -133,11 +135,11 @@
             // 
             FeeLabel.AutoSize = true;
             FeeLabel.Font = new Font("Segoe UI", 15F);
-            FeeLabel.Location = new Point(252, 40);
+            FeeLabel.Location = new Point(273, 10);
             FeeLabel.Name = "FeeLabel";
-            FeeLabel.Size = new Size(88, 28);
+            FeeLabel.Size = new Size(42, 28);
             FeeLabel.TabIndex = 6;
-            FeeLabel.Text = "FeeLabel";
+            FeeLabel.Text = "FEE";
             // 
             // Appointment
             // 
@@ -213,7 +215,7 @@
             LogoutBTN.FlatAppearance.BorderSize = 0;
             LogoutBTN.Font = new Font("Segoe UI", 6F, FontStyle.Bold);
             LogoutBTN.ForeColor = Color.Black;
-            LogoutBTN.Location = new Point(739, 3);
+            LogoutBTN.Location = new Point(0, 0);
             LogoutBTN.Name = "LogoutBTN";
             LogoutBTN.Size = new Size(36, 30);
             LogoutBTN.TabIndex = 14;
@@ -282,10 +284,10 @@
             // 
             // Setting
             // 
-            Setting.Controls.Add(ModifyAccount);
-            Setting.Controls.Add(SettingPanel);
-            Setting.Controls.Add(ModifyBackground);
             Setting.Controls.Add(AddBalancePanel);
+            Setting.Controls.Add(SettingPanel);
+            Setting.Controls.Add(ModifyAccount);
+            Setting.Controls.Add(ModifyBackground);
             Setting.Controls.Add(label6);
             Setting.Dock = DockStyle.Fill;
             Setting.Location = new Point(0, 75);
@@ -296,6 +298,7 @@
             // SettingPanel
             // 
             SettingPanel.BackColor = Color.FromArgb(192, 255, 192);
+            SettingPanel.Controls.Add(label24);
             SettingPanel.Controls.Add(panel4);
             SettingPanel.Controls.Add(panel3);
             SettingPanel.Controls.Add(AccountUserIDsLabel);
@@ -306,6 +309,17 @@
             SettingPanel.Name = "SettingPanel";
             SettingPanel.Size = new Size(778, 556);
             SettingPanel.TabIndex = 0;
+            SettingPanel.Paint += SettingPanel_Paint;
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label24.Location = new Point(665, 3);
+            label24.Name = "label24";
+            label24.Size = new Size(86, 30);
+            label24.TabIndex = 10;
+            label24.Text = "UserIDs";
             // 
             // panel4
             // 
@@ -345,10 +359,10 @@
             // label23
             // 
             label23.AutoSize = true;
-            label23.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold);
-            label23.Location = new Point(273, 10);
+            label23.Font = new Font("Segoe UI", 15F);
+            label23.Location = new Point(273, 40);
             label23.Name = "label23";
-            label23.Size = new Size(46, 30);
+            label23.Size = new Size(42, 28);
             label23.TabIndex = 7;
             label23.Text = "FEE";
             // 
@@ -981,6 +995,8 @@
             // 
             // HistorySale
             // 
+            HistorySale.BackColor = Color.FromArgb(192, 255, 192);
+            HistorySale.Controls.Add(DoctorHistoryFlowPanel);
             HistorySale.Controls.Add(label5);
             HistorySale.Dock = DockStyle.Fill;
             HistorySale.Location = new Point(0, 75);
@@ -988,15 +1004,23 @@
             HistorySale.Size = new Size(778, 556);
             HistorySale.TabIndex = 11;
             // 
+            // DoctorHistoryFlowPanel
+            // 
+            DoctorHistoryFlowPanel.AutoScroll = true;
+            DoctorHistoryFlowPanel.Location = new Point(21, 78);
+            DoctorHistoryFlowPanel.Name = "DoctorHistoryFlowPanel";
+            DoctorHistoryFlowPanel.Size = new Size(730, 420);
+            DoctorHistoryFlowPanel.TabIndex = 1;
+            // 
             // label5
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(258, 128);
+            label5.Location = new Point(104, 14);
             label5.Name = "label5";
-            label5.Size = new Size(301, 65);
+            label5.Size = new Size(555, 65);
             label5.TabIndex = 0;
-            label5.Text = "History Sale";
+            label5.Text = "History APPOINTMENT";
             // 
             // DoctorUI
             // 
@@ -1005,8 +1029,8 @@
             ClientSize = new Size(778, 631);
             Controls.Add(Setting);
             Controls.Add(Dashboard);
-            Controls.Add(Appointment);
             Controls.Add(HistorySale);
+            Controls.Add(Appointment);
             Controls.Add(Top_Bar);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "DoctorUI";
@@ -1153,5 +1177,7 @@
         private Label label23;
         private Label label21;
         private TextBox UpdateFeeBox;
+        private FlowLayoutPanel DoctorHistoryFlowPanel;
+        private Label label24;
     }
 }

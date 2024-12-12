@@ -57,7 +57,36 @@ namespace DBAces
             toLoadPatientDiagnosis();
             DisplayUserInfo();
             checkUserBalance();
+            toLoadPatientHistory();
+            checkCostPerDoctorFee();
+        }
 
+        private void toLoadPatientHistory()
+        {
+            DoctorHistory doctorHistory = new DoctorHistory();
+
+            string sql3 = "SELECT CONCAT(p.FirstName, ' ', p.LastName) AS FULLNAME, p.Gender, p.DateOfBirth, a.Issue, a.AppointmentStatus,a.AppointmentID FROM Appointments a JOIN Patients p ON p.PatientID = a.PatientID JOIN Doctors d ON d.DoctorID = a.DoctorID WHERE d.DoctorID = @DoctorID;\r\n";
+            using (SqlConnection con = new SqlConnection(sqlcon))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand(sql3, con))
+                {
+                    cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = DoctorID;
+                    using (SqlDataReader read = cmd.ExecuteReader())
+                    {
+
+                        while (read.Read())
+                        {
+                            doctorHistory.getAttributes(read["FULLNAME"].ToString(), read["Gender"].ToString(), read["DateOfBirth"].ToString(), read["Issue"].ToString(), read["AppointmentStatus"].ToString(), int.Parse(read["AppointmentID"].ToString()));
+                            doctorHistory.checkButton(read["AppointmentStatus"].ToString() ?? "PENDING");
+                            DoctorHistoryFlowPanel.Controls.Add(doctorHistory);
+                            doctorHistory = new DoctorHistory();
+                        }
+                    }
+
+                }
+                con.Close();
+            }
         }
 
         private void DisplayUserInfo()
@@ -76,6 +105,7 @@ namespace DBAces
             UsersEmailLabel.Text = UserEmail.ToString();
             DoctorSpecialistLabel.Text = DSpecialization;
             AccountUserIDsLabel.Text = UserID.ToString();
+            label24.Text = DoctorID.ToString();
         }
         private void toLoadPanel(string s)
         {
@@ -143,7 +173,7 @@ namespace DBAces
         {
 
             //LoadPatientDiagnosis
-            string sql = "SELECT p.PatientID,a.AppointmentID,p.FirstName,p.LastName,p.DateOfBirth,p.Gender,a.Issue FROM Patients p JOIN Appointments a ON p.PatientID = a.PatientID WHERE a.DoctorID =  @DoctorID AND A.AppointmentStatus = @AppointmentStatus; ";
+            string sql = "SELECT p.PatientID, a.AppointmentID, p.FirstName, p.LastName, p.DateOfBirth, p.Gender, a.Issue FROM Appointments a JOIN Patients p ON p.PatientID = a.PatientID JOIN Doctors d ON d.DoctorID = a.DoctorID WHERE a.DoctorID = @DoctorID AND a.AppointmentStatus = 'PENDING';";
             DoctorsPatient Dpatient = new DoctorsPatient();
 
             using (SqlConnection con = new SqlConnection(sqlcon))
@@ -169,7 +199,7 @@ namespace DBAces
 
                 con.Close();
             }
-            string sql1 = "SELECT a.AppointmentID,p. p.FirstName,p.LastName,p.DateOfBirth,p.Gender,a.Issue FROM Patients p JOIN Appointments a ON p.PatientID = a.PatientID WHERE a.DoctorID =  @DoctorID AND A.AppointmentStatus = @AppointmentStatus; ";
+            string sql1 = "SELECT p.PatientID, a.AppointmentID, p.FirstName, p.LastName, p.DateOfBirth, p.Gender, a.Issue FROM Appointments a JOIN Patients p ON p.PatientID = a.PatientID JOIN Doctors d ON d.DoctorID = a.DoctorID WHERE a.DoctorID = @DoctorID AND a.AppointmentStatus = @AppointmentStatus";
 
             using (SqlConnection con = new SqlConnection(sqlcon))
             {
@@ -259,7 +289,7 @@ namespace DBAces
                 }
                 using (SqlCommand cmd = new SqlCommand(sql2, con))
                 {
-                    cmd.Parameters.Add("@DoctorID",SqlDbType.Int).Value = DoctorID;
+                    cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = DoctorID;
                     using (SqlDataReader read = cmd.ExecuteReader())
                     {
                         if (read.Read())
@@ -271,6 +301,29 @@ namespace DBAces
                 }
             }
             FullName = DoctorLastname + ", " + DoctorFirstname;
+        }
+
+        private void checkCostPerDoctorFee()
+        {
+            string sql = "SELECT CostPerDoctor FROM DoctorSpecialization WHERE DoctorID = @DoctorID";
+            using (SqlConnection con = new SqlConnection(sqlcon))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand(sql, con))
+                {
+                    cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = DoctorID;
+                    using (SqlDataReader read = cmd.ExecuteReader())
+                    {
+                        if (read.Read())
+                        {
+                            CostPerDoctors = int.Parse(read["CostPerDoctor"].ToString());
+                        }
+
+                    }
+                }
+                con.Close();
+            }
+            label23.Text = CostPerDoctors.ToString();
         }
         private void DoctorID_Click(object sender, EventArgs e)
         {
@@ -904,7 +957,7 @@ namespace DBAces
 
                 using (SqlCommand cmd = new SqlCommand(sql, con))
                 {
-                    cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = DoctorID;
+                    cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = UserID;
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
@@ -933,19 +986,20 @@ namespace DBAces
                             con.Open();
                             using (SqlCommand cmd = new SqlCommand(sql, con))
                             {
-                                cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = DoctorID;
+                                cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = UserID;
                                 cmd.Parameters.Add("@Balance", SqlDbType.Int).Value = userBalance + int.Parse(PatientDepositInput.Text);
                                 cmd.ExecuteNonQuery();
                             }
 
                             using (SqlCommand cmd = new SqlCommand(sql1, con))
                             {
-                                cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = DoctorID;
+                                cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = UserID;
                                 cmd.Parameters.Add("@DATE", SqlDbType.Date).Value = DateTime.Now;
                                 cmd.Parameters.Add("@PaymentType", SqlDbType.NVarChar).Value = "DEPOSIT";
                                 cmd.Parameters.Add("@AMOUNT", SqlDbType.Int).Value = int.Parse(PatientDepositInput.Text);
                                 cmd.ExecuteNonQuery();
                             }
+                          
                             con.Close();
                             checkUserBalance();
                             MessageBox.Show("The Balance is added");
@@ -1018,7 +1072,8 @@ namespace DBAces
         private void ModifyFeeBTN_Click(object sender, EventArgs e)
         {
             string sql = "UPDATE DoctorSpecialization SET CostPerDoctor = @CostPerDoctor WHERE DoctorID = @DoctorID";
-            try {
+            try
+            {
                 if (int.Parse(UpdateFeeBox.Text) > 1)
                 {
                     using (SqlConnection con = new SqlConnection(sqlcon))
@@ -1028,15 +1083,21 @@ namespace DBAces
                         {
                             cmd.Parameters.Add("@DoctorID", SqlDbType.Int).Value = DoctorID;
                             cmd.Parameters.Add("@CostPerDoctor", SqlDbType.Int).Value = int.Parse(UpdateFeeBox.Text);
+                            cmd.ExecuteNonQuery();
                         }
                         con.Close();
                     }
+                    checkCostPerDoctorFee();
+                    MessageBox.Show("The Fee is Updated");
                 }
-                else {
+                else
+                {
                     MessageBox.Show("Please set a value to the box. Thank you");
                 }
-            }catch(Exception ee) {
-                MessageBox.Show(ee.Message); 
+            }
+            catch (Exception ee)
+            {
+                MessageBox.Show(ee.Message);
             }
         }
         private void UpdateFeeBox_TextChanged(object sender, EventArgs e)
@@ -1048,8 +1109,13 @@ namespace DBAces
         {
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)8)
             {
-                e.Handled = true; 
+                e.Handled = true;
             }
+        }
+
+        private void SettingPanel_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

@@ -31,7 +31,6 @@
             TopbarPanel = new Panel();
             AppointmentBTN = new Button();
             TopBar_DashboardBTN = new Button();
-            TopBar_PaymentHistoryBTN = new Button();
             TopBar_UserBTN = new Button();
             UserPanel = new Panel();
             panel1 = new Panel();
@@ -74,7 +73,6 @@
             TopbarPanel.BackColor = Color.FromArgb(0, 0, 64);
             TopbarPanel.Controls.Add(AppointmentBTN);
             TopbarPanel.Controls.Add(TopBar_DashboardBTN);
-            TopbarPanel.Controls.Add(TopBar_PaymentHistoryBTN);
             TopbarPanel.Controls.Add(TopBar_UserBTN);
             TopbarPanel.Dock = DockStyle.Top;
             TopbarPanel.Location = new Point(0, 0);
@@ -112,21 +110,6 @@
             TopBar_DashboardBTN.Text = "Setting";
             TopBar_DashboardBTN.UseVisualStyleBackColor = false;
             TopBar_DashboardBTN.Click += TopBar_DashboardBTN_Click;
-            // 
-            // TopBar_PaymentHistoryBTN
-            // 
-            TopBar_PaymentHistoryBTN.BackColor = Color.Transparent;
-            TopBar_PaymentHistoryBTN.FlatAppearance.BorderSize = 0;
-            TopBar_PaymentHistoryBTN.FlatStyle = FlatStyle.Flat;
-            TopBar_PaymentHistoryBTN.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            TopBar_PaymentHistoryBTN.ForeColor = SystemColors.Control;
-            TopBar_PaymentHistoryBTN.Location = new Point(306, 12);
-            TopBar_PaymentHistoryBTN.Name = "TopBar_PaymentHistoryBTN";
-            TopBar_PaymentHistoryBTN.Size = new Size(203, 37);
-            TopBar_PaymentHistoryBTN.TabIndex = 7;
-            TopBar_PaymentHistoryBTN.Text = "Dashboard";
-            TopBar_PaymentHistoryBTN.UseVisualStyleBackColor = false;
-            TopBar_PaymentHistoryBTN.Click += TopBar_PaymentHistoryBTN_Click;
             // 
             // TopBar_UserBTN
             // 
@@ -412,10 +395,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(838, 482);
             Controls.Add(AddUserPanel);
-            Controls.Add(DashboardPanel);
             Controls.Add(UserPanel);
-            Controls.Add(AppointmentPanel);
             Controls.Add(PaymentHistoryPanel);
+            Controls.Add(DashboardPanel);
+            Controls.Add(AppointmentPanel);
             Controls.Add(TopbarPanel);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "AdminUI";
@@ -439,7 +422,6 @@
         private Panel TopbarPanel;
         private Button TopBar_UserBTN;
         private Panel UserPanel;
-        private Button TopBar_PaymentHistoryBTN;
         private Panel AppointmentPanel;
         private Panel PaymentHistoryPanel;
         private FlowLayoutPanel DoctorDisplayFlowLayout;

@@ -174,7 +174,6 @@ namespace DBAces
         private bool ToFindUserNamesql(string username)
         {
             string sql = "SELECT Username FROM Users WHERE Username = @Username";
-
             try
             {
 
@@ -186,7 +185,7 @@ namespace DBAces
                         cmd.Parameters.AddWithValue("@Username", username.Trim());
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            return !reader.HasRows;
+                            return reader.HasRows;
 
                         }
                     }
@@ -206,7 +205,7 @@ namespace DBAces
         {
             string userName = DoctorUserNameTextbox.Text.ToString();
             string passWord = DoctorPasswordTextBox.Text.ToString();
-            if (ToFindUserNamesql(userName)) {
+            if (ToFindUserNamesql(DoctorUserNameTextbox.Text)) {
                 MessageBox.Show("Username has taken");
                 return;
             }
@@ -252,7 +251,7 @@ namespace DBAces
                     using (SqlCommand cmd = new SqlCommand(sql3, con))
                     {
                         cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = newUserID;
-                        cmd.Parameters.Add("@BALANCE", SqlDbType.Int).Value = 0;
+                        cmd.Parameters.Add("@TotalAmount", SqlDbType.Int).Value = 0;
                         cmd.ExecuteNonQuery();
                     }
                     MessageBox.Show("Doctor Account is Created");

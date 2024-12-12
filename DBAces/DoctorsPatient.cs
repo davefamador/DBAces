@@ -39,16 +39,14 @@ namespace DBAces
                 AppointmentIDLabel1.Text = ApppointmentID.ToString();
                 doctorID = doctorid;
                 patientid = patientID;
-                string[] parts = dateofbirth.Split(new[] { ' ' }, 4);
-                string dateStr = string.Join(" ", parts, 0, 3);
 
                 patientName = lastname + ", " + firstname;
-                Birthday = dateStr;
+                Birthday = dateofbirth;
                 Gender = gender;
                 Issue = issue;
 
                 PatientName.Text = lastname + ", " + firstname;
-                PatientBirthday.Text = dateStr;
+                PatientBirthday.Text = dateofbirth;
                 PatientGender.Text = gender;
                 IssueBox.Text = issue;
             }

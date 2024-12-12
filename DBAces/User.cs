@@ -47,6 +47,10 @@ namespace DBAces
         // DOCTOR VARIABLE
         string DFirstName, DLastName;
         string dLastFirstName;
+        int dTempDoctorID;
+
+        //Appointment
+        int AppointmentID;
 
         int tempDoctorID;
 
@@ -64,14 +68,74 @@ namespace DBAces
             toLoadUserDatas();
             ToLoadInformation(); toLoadComboBoxes(); toLoadAppointment(); checkAppointment();
             PatientsIDLabel.Text = UsersID.ToString(); checkUserBalance(); UserInformationBarrier();
+            toLoadPatientHistory();
         }
-        private void UserInformationBarrier() {
+        private void UserInformationBarrier()
+        {
 
         }
         private void toLoadAppointment()
         {
 
         }
+
+        private void toLoadPatientHistory()
+        {
+            PatientAppointmentHistory PAppointmentHistory = new PatientAppointmentHistory();
+            string sql = "SELECT COUNT(DoctorID) AS a FROM Appointments WHERE PatientID = @PatientID";
+            string sql1 = "SELECT COUNT(AppointmentStatus) AS b  FROM Appointments WHERE AppointmentStatus IN ('FINISHED') AND PatientID = @PatientID";
+            string sql3 = "SELECT a.AppointmentID,a.AppointmentDate, a.AppointmentStatus, a.Issue, a.Payment, CONCAT(d.FirstName, ' ', d.LastName) AS FULLNAME, d.PhoneNum, d.Email FROM Appointments a JOIN Patients p ON p.PatientID = a.PatientID JOIN Doctors d ON d.DoctorID = a.DoctorID WHERE p.PatientID = @PatientID;\r\n ";
+            using (SqlConnection con = new SqlConnection(sqlcon))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand(sql, con))
+                {
+                    cmd.Parameters.Add("@PatientID", SqlDbType.Int).Value = patientID;
+                    using (SqlDataReader read = cmd.ExecuteReader())
+                    {
+                        if (read.Read())
+                        {
+                            label35.Text = read["a"].ToString();
+                        }
+                    }
+                }
+                using (SqlCommand cmd = new SqlCommand(sql1, con))
+                {
+                    cmd.Parameters.Add("@PatientID", SqlDbType.Int).Value = patientID.ToString();
+                    using (SqlDataReader read = cmd.ExecuteReader())
+                    {
+                        if (read.Read())
+                        {
+                            label36.Text = read["b"].ToString();
+                        }
+                    }
+
+                }
+
+                //SELECT a.AppointmentDate, a.AppointmentStatus, a.Issue, a.Payment, CONCAT(d.FirstName, ' ', d.LastName) AS FULLNAME, d.PhoneNum, d.Email FROM Appointments a JOIN Patients p ON p.PatientID = a.PatientID JOIN Doctors d ON d.DoctorID = a.DoctorID WHERE p.PatientID = '18';\r\n ";
+                using (SqlCommand cmd = new SqlCommand(sql3, con))
+                {
+                    cmd.Parameters.Add("@PatientID", SqlDbType.Int).Value = patientID;
+                    using (SqlDataReader read = cmd.ExecuteReader())
+                    {
+
+                        while (read.Read())
+                        {
+                            PAppointmentHistory.toGetAttributes(read["AppointmentDate"].ToString() ?? "NOT SET", read["AppointmentStatus"].ToString() ?? "NOT SET", read["Issue"].ToString() ?? "NOT SET", read["Payment"].ToString() ?? "NOT SET",
+                                read["FULLNAME"].ToString() ?? "NOT SET", read["PhoneNum"].ToString() ?? "NOT SET", read["Email"].ToString() ?? "NOT SET", read["AppointmentID"].ToString() ?? "NOT SET");
+                            PatientHistory.Controls.Add(PAppointmentHistory);
+                            PAppointmentHistory = new PatientAppointmentHistory();
+                        }
+                    }
+
+                }
+                con.Close();
+            }
+
+
+        }
+
+
         private void toLoadPanels(String s)
         {
             switch (s)
@@ -126,7 +190,7 @@ namespace DBAces
         private bool toCheckAppointmentSQL()
         {
 
-            string sql = "SELECT a.AppointmentDate,a.AppointmentStatus,a.Issue FROM Appointments a WHERE a.AppointmentStatus IN ('PENDING', 'RESCHEDULE', 'DIAGNOSE') AND PatientID = @PatientID;";
+            string sql = "SELECT CONCAT(d.FirstName, ' ', d.LastName) AS DoctorName, d.PhoneNum AS DoctorPhoneNumber,d.DoctorID, d.Email AS DoctorEmail, a.AppointmentID,a.AppointmentDate, a.AppointmentStatus, a.Issue, a.Payment FROM Appointments a JOIN Doctors d ON a.DoctorID = d.DoctorID JOIN Users uDoc ON d.UserID = uDoc.UserID WHERE a.AppointmentStatus IN ('PENDING', 'RESCHEDULE', 'DIAGNOSE') AND a.PatientID = @PatientID;";
 
             try
             {
@@ -140,9 +204,20 @@ namespace DBAces
                         {
                             if (reader.Read())
                             {
+                                //DoctorDoctr
+
+                                AppointmentDoctorNameLabel.Text = reader["DoctorName"].ToString();
+                                AppointmentDoctorPhoneNumberLabel.Text = reader["DoctorPhoneNumber"].ToString();
+                                AppointmentDoctorEmailLabel.Text = reader["DoctorEmail"].ToString();
+                                dTempDoctorID = int.Parse(reader["DoctorID"].ToString() ?? "0");
+
+                                //Appointment
                                 AppointmentStatusPatient.Text = reader["AppointmentStatus"].ToString();
+                                AppointmentID = int.Parse(reader["AppointmentID"].ToString() ?? "0");
                                 DateAppointment.Text = reader["AppointmentDate"].ToString();
                                 IssueRBox.Text = reader["Issue"].ToString();
+                                AppointmentPayment.Text = reader["Payment"].ToString();
+                                label37.Text = AppointmentID.ToString();
                                 return true;
                             }
                         }
@@ -738,7 +813,7 @@ namespace DBAces
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             return !reader.HasRows;
-               
+
                         }
                     }
                     con.Close();
@@ -784,7 +859,7 @@ namespace DBAces
             }
 
         }
-    
+
 
 
 
@@ -884,6 +959,26 @@ namespace DBAces
 
         private void cancelAppointmentBTN_Click(object sender, EventArgs e)
         {
+            string sql = "UPDATE Appointments SET AppointmentStatus = @AppointmentStatus WHERE AppointmentID = @AppointmentID";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(sqlcon))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        cmd.Parameters.Add("@AppointmentID", SqlDbType.Int).Value = AppointmentID;
+                        cmd.Parameters.Add("@AppointmentStatus", SqlDbType.NVarChar).Value = "CANCELLED";
+                        cmd.ExecuteNonQuery();
+                    }
+                    con.Close();
+                }
+                checkAppointment();
+            }
+            catch (Exception ee)
+            {
+                MessageBox.Show(ee.Message);
+            }
 
         }
 
@@ -988,7 +1083,7 @@ namespace DBAces
                 con.Open();
                 using (SqlCommand cmd = new SqlCommand(sql, con))
                 {
-                    cmd.Parameters.Add("@Gender", SqlDbType.NVarChar).Value = comboBox1.SelectedValue.ToString();
+                    cmd.Parameters.Add("@Gender", SqlDbType.NVarChar).Value = comboBox1.Text;
                     cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = UsersID;
                     cmd.ExecuteNonQuery();
                 }
@@ -1018,7 +1113,7 @@ namespace DBAces
         }
         private void ChangeEmailBTN_Click(object sender, EventArgs e)
         {
-            comboBox1.SelectedItem.ToString();
+            string ss = comboBox1.SelectedItem.ToString();
             if (comboBox1.SelectedIndex != -1)  // Check if an item is selected
             {
                 sqlemail();
@@ -1053,6 +1148,24 @@ namespace DBAces
         private void PhoneNumberBox_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void ModifyDateBTN_Click(object sender, EventArgs e)
+        {
+            UpdateAppointmentDate appointmentDate = new UpdateAppointmentDate();
+            appointmentDate.getAppointmentID(AppointmentID, dTempDoctorID);
+            appointmentDate.Show();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void LogoutBTN_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            LoginConsole login = new LoginConsole();
+            login.Show();
         }
     }
 }
